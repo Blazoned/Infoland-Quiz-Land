@@ -35,7 +35,7 @@ namespace QuizGames.AspNetCore
 
                 // Add developer path to mvc route map
                 routeMapBases.Add(
-                    new RouteMapBase("Developer", "dev/{controller=Home}/{action=Index}/{id?}")
+                    new RouteMapBase("Developer", "dev/{controller=DevHome}/{action=Index}/{id?}")
                 );
             }
 
