@@ -40,13 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AccountBLL.cs" />
+    <Compile Include="StatisticsBLL.cs" />
+    <Compile Include="ProgressionBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QuizGames.Entities\QuizGames [Entities].csproj">
-      <Project>{deb621b6-0e02-42f6-8c10-c62785a66965}</Project>
-      <Name>QuizGames [Entities]</Name>
+    <Folder Include="Default\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuizGames.DAL\QuizGames [DAL].csproj">
+      <Project>{577b9a77-b00c-4814-a0e7-80c8eadfd938}</Project>
+      <Name>QuizGames [DAL]</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuizGames.Globals\QuizGames [Globals].csproj">
+      <Project>{40c190ec-e20d-482d-a894-3088ff236593}</Project>
+      <Name>QuizGames [Globals]</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
