@@ -48,6 +48,10 @@
       <Project>{dcc19b4f-18a8-4717-973d-c632532abc09}</Project>
       <Name>QuizGames [Models]</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QuizGames.Globals\QuizGames [Globals].csproj">
+      <Project>{40c190ec-e20d-482d-a894-3088ff236593}</Project>
+      <Name>QuizGames [Globals]</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
