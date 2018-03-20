@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuizGames.DAL
+namespace QuizGames.DAL.iQualify
 {
-    public class Class1
+    internal enum HttpVerb
     {
+        GET,
+        POST,
+        PUT,
+        DELETE
     }
 }
