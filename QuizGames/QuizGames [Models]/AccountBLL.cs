@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuizGames.DAL;
 
 namespace QuizGames.Models
 {
@@ -10,12 +11,15 @@ namespace QuizGames.Models
     {
         #region Fields
         #region Variables
+        private int _id;
         private string _avatar;
         private string _username;
         private string _email;
 
         private ProgressionBLL _progress;
         private StatisticsBLL _statistics;
+
+        private AccountDAL _databaseObj;
         #endregion
 
         #region Properties
@@ -55,47 +59,37 @@ namespace QuizGames.Models
         #region Constructor
         public AccountBLL()
         {
-
+            _databaseObj = new AccountMySQL();
         }
         public AccountBLL(string login)
+            : this()
         {
             SetLogin(login);
         }
         #endregion
 
-        #region
+        #region Methods
         /// <summary>
         /// Logs in using user credentials and returns the session token.
         /// </summary>
         /// <param name="password">The password used to login to the user.</param>
         /// <param name="login">The username or email address of the user (replaces the current login details)</param>
         /// <returns>Returns the session token.</returns>
-        public string AuthenticateLogin(string password, string login)
+        public string AuthenticateLogin(string login, string password)
         {
+            // Log into the user account.
             SetLogin(login);
-            return AuthenticateLogin(password);
+            return _databaseObj.Login(login, password);
         }
         /// <summary>
-        /// Logs in using user credentials and returns the session token.
+        /// Logs in using user token id.
         /// </summary>
-        /// <param name="password">The password used to login to the user.</param>
-        /// <returns>Returns the session token.</returns>
-        public string AuthenticateLogin(string password)
+        /// <param name="token">The session's token id.</param>
+        /// <returns>Returns the user token id on succession.</returns>
+        public string AuthenticateSession(string token)
         {
-            string key = AuthenticateLogin(password);
-            /// TODO: Login & Load Account
-            throw new NotImplementedException();
-
-            return key;
-        }
-        /// <summary>
-        /// Logs in using user
-        /// </summary>
-        /// <param name="token"></param>
-        public void AuthenticateSession(string token)
-        {
-            /// TODO: Login & Load Account
-            throw new NotImplementedException();
+            // Log into the user account.
+            return _databaseObj.Login(token);
         }
 
         public bool UpdatePassword()
@@ -140,8 +134,19 @@ namespace QuizGames.Models
 
         private void SetLogin(string login)
         {
-            /// TODO: Determine if login is email or user (email pattern else user) and parse into fields
-            throw new NotImplementedException();
+            // Determine if the login is email or user (email pattern else user) and parse into fields.
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(login);
+                if (addr.Address == login)
+                    _email = login;
+                else
+                    throw new Exception();
+            }
+            catch
+            {
+                _username = login;
+            }
         }
         /// <summary>
         /// Releases the data containted within the Progress and Statistics properties.
