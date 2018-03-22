@@ -18,7 +18,10 @@ namespace QuizGames__Asp.Net_Core_.Controllers
         [HttpPost]
         public IActionResult Index(LoginViewModel model)
         {
-
+            if (ModelState.IsValid)
+            {
+                model.Authorise();
+            }
 
             return View(model);
         }

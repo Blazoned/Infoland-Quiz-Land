@@ -73,7 +73,22 @@ namespace QuizGames.Models
         /// Logs in using user credentials and returns the session token.
         /// </summary>
         /// <param name="password">The password used to login to the user.</param>
+        /// <returns>Returns the session token.</returns>
+        public string AuthenticateLogin(string password)
+        {
+            // Fill in the account reference (email, else username).
+            string login = null;
+            login = !String.IsNullOrEmpty(_username) ? _username : login;
+            login = !String.IsNullOrEmpty(_email) ? _email : login;
+
+            // Log into the user account.
+            return _databaseObj.Login(login, password);
+        }
+        /// <summary>
+        /// Logs in using user credentials and returns the session token.
+        /// </summary>
         /// <param name="login">The username or email address of the user (replaces the current login details)</param>
+        /// <param name="password">The password used to login to the user.</param>
         /// <returns>Returns the session token.</returns>
         public string AuthenticateLogin(string login, string password)
         {
