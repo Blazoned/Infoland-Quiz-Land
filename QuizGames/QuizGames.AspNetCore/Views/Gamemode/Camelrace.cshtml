@@ -1,0 +1,22 @@
+﻿
+@model QuizGames.AspNetCore.ViewModels.GameModeViewModel
+
+@{
+    ViewData["Title"] = "Camelrace";
+}
+
+<h2>Camel Race</h2>
+
+<h3>
+    Vraag:<br />
+    @Model.Question
+</h3>
+
+<ol>
+    <li><button customparameter="@Model.Anwser1" onclick="SetChosenAnwser">@Model.Anwser1</button></li>
+    <li><button customparameter="@Model.Anwser2" onclick="SetChosenAnwser">@Model.Anwser2</button></li>
+    <li><button customparameter="@Model.Anwser3" onclick="SetChosenAnwser">@Model.Anwser3</button></li>
+    <li><button customparameter="@Model.Anwser4" onclick="SetChosenAnwser">@Model.Anwser4</button></li>
+</ol>
+
+<label></label>
