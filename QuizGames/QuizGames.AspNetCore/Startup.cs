@@ -39,6 +39,9 @@ namespace QuizGames.AspNetCore
                 );
             }
 
+            // Configure static file usage
+            app.UseStaticFiles();
+
             // make a call for the MVC service
             app.UseMvc(
                 (routeMap) =>
