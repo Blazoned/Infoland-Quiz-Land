@@ -25,7 +25,7 @@ namespace QuizGames.AspNetCore
             // Initiate a route map template base for MVC
             List<RouteMapBase> routeMapBases = new List<RouteMapBase>
             {
-                new RouteMapBase("Default", "{controller=Gamemode}/{action=Camelrace}/{id?}")
+                new RouteMapBase("Default", "{controller=Meunb}/{action=Menu}/{id?}")
             };
 
             // Display the developer exception page if the deployed environment is of a private developing nature.

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using QuizGames.ViewModels;
 
 namespace QuizGames__Asp.Net_Core_.Controllers
@@ -25,5 +21,9 @@ namespace QuizGames__Asp.Net_Core_.Controllers
 
             return View(model);
         }
+
+        
     }
+
+
 }
