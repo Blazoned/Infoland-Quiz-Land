@@ -15,7 +15,7 @@ namespace QuizGames.AspNetCore.ViewModels
         public string Anwser2 = "nee";
         public string Anwser3 = "weet ik veel";
         public string Anwser4 = "ik ben bart en stem VVD dus ik laat me niet uit over deze stelling aangezien ik altijd PC ben";
-        public string ChosenAnwser { get; private set; }
+        public string ChosenAnwser { get; set; }
 
         #endregion
 

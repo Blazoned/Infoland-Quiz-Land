@@ -9,7 +9,14 @@ namespace QuizGames__Asp.Net_Core_.Controllers
 {
     public class GamemodeController : Controller
     {
+        [HttpGet]
         public IActionResult Camelrace(GameModeViewModel model)
+        {
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Camelrace(object model)
         {
             return View(model);
         }

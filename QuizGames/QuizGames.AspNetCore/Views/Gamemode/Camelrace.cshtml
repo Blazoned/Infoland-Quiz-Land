@@ -3,27 +3,36 @@
 @{
     ViewData["Title"] = "Camelrace";
 }
-<head>
-<h2>Camel Race</h2>
-</head>
-
 <body>
     <div>
-        <h3>
-             Vraag:<br />
-             @Model.Question
-        </h3>
-     </div>
-    
+        <h2>Camel Race</h2>
+    </div>
     <div>
-        <form action="">
-            <input type="radio" id="A1" name="answer" value=@Model.Anwser1 checked> @Model.Anwser1<br>
-            <input type="radio" id="A2" name="answer" value=@Model.Anwser2> @Model.Anwser2<br>
-            <input type="radio" id="A3" name="answer" value=@Model.Anwser3> @Model.Anwser3<br>
-            <input type="radio" id="A4" name="answer" value=@Model.Anwser4> @Model.Anwser4
-            <br><br>
-            <input type="submit" value="Submit">
-        </form>
+        <h3>
+            Vraag:<br />
+            @Model.Question
+        </h3>
     </div>
 
-</body>
+    <div>
+        <form action="@Url.Action("Camelrace", "Gamemode", FormMethod.Post)">
+            <input type="radio" name="answer" value=@Model.Anwser1 checked> @Model.Anwser1<br>
+            <input type="radio" name="answer" value=@Model.Anwser2> @Model.Anwser2<br>
+            <input type="radio" name="answer" value=@Model.Anwser3> @Model.Anwser3<br>
+            <input type="radio" name="answer" value=@Model.Anwser4> @Model.Anwser4<br><br>
+            <input type="submit" value="Antwoorden">
+        </form>
+
+        <!--<button id="A1" value=@Model.Anwser1 onclick="SubmitA1('A1')">@Model.Anwser1</button><br />
+            <button id="A2" value=@Model.Anwser2 onclick="SubmitA1('A2')">@Model.Anwser2</button><br />
+            <button id="A3" value=@Model.Anwser3 onclick="SubmitA1('A3')">@Model.Anwser3</button><br />
+            <button id="A4" value=@Model.Anwser4 onclick="SubmitA1('A4')">@Model.Anwser4</button>-->
+        </div>
+
+        <script>
+            //function SubmitA1(ID) {
+               // var x = document.getElementById(ID).innerHTML;
+               // document.getElementById("LBL").innerHTML = x;
+            //}
+        </script>
+    </body>
