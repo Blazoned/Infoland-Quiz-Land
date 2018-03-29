@@ -7,35 +7,45 @@
 
 </head>
 <body>
-    <h1>Welcome to the quiz!</h1>
-    <hr />
-
-    <h2>Log in</h2>
+    
+    
     <br />
-    <div>
+   
+
+    <div class=" = container">
         @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-        {
-            <div class="formInput textField">
-                <label>Login:</label>
-                @Html.TextBoxFor(m => m.Login)
-            </div>
+    {
 
-            <div class="formInput passField">
-                <label>Password:</label>
-                @Html.PasswordFor(m => m.Pass)
-            </div>
-            <br />
 
-            <div class="formInput submitButton">
-                <label>&nbsp;</label>
-                <input type="submit" value="Login" />
+        
+
+        <div class="login-page">
+            <div class="form">
+                
+               
+                <form class="login-form">
+                    <div class="formInput textField">
+                        <label for="uname"><b>Username</b></label>
+                        @Html.TextBoxFor(m => m.Login)
+                    </div>
+
+                    <div class="formInput passField">
+                        <label for="psw"><b>Password</b></label>
+                        @Html.PasswordFor(m => m.Pass)
+                        <button>login</button>
+                    </div>
+
+                </form>
             </div>
-        }
+        </div>
+}
+
+
     </div>
-    @if (Model != null && !String.IsNullOrEmpty(Model.TokenId))
+        @if (Model != null && !String.IsNullOrEmpty(Model.TokenId))
     {
         <br />
         <br />
         <h3>@Model.TokenId</h3>
-    }
+}
 </body>
