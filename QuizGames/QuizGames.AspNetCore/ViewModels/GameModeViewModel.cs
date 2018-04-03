@@ -20,11 +20,8 @@ namespace QuizGames.AspNetCore.ViewModels
         #endregion
 
         #region Methods
+        
 
-        public void SetChosenAnwser(string anwser)
-        {
-            ChosenAnwser = anwser;
-        }
 
         #endregion
 
