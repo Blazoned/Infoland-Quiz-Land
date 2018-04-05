@@ -35,6 +35,18 @@
         <input type="submit" value="Antwoorden" />
 
 }
+        @if (Model.ChosenAnwser != null)
+    {
+             @if (Model.ChosenAnwser == Model.Rightanswer)
+        {
+                    <h2>Dat is: <b>Goed</b></h2>
+        }
+             @if (Model.ChosenAnwser != Model.Rightanswer)
+        {
+                    <h2>Dat is: <b>Fout</b></h2>
+        }
+
+}
 
     </div>
 
