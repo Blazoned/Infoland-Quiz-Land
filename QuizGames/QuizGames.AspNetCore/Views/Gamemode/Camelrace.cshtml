@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Camelrace";
 }
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+</head>
 <body>
     <div>
         <h2>Camel Race</h2>
@@ -15,9 +18,18 @@
     </div>
 
     <div>
+        <div id="Answer_Form">
+            <form action="#" onsubmit="yourJsFunction();return false">
+                <input type="radio" id="RB1" name="Answer" value=@Model.RandomAnswers[0] checked />@Model.RandomAnswers[0]<br />
+                <input type="radio" id="RB2" name="Answer" value=@Model.RandomAnswers[1] />@Model.RandomAnswers[1]<br />
+                <input type="radio" id="RB3" name="Answer" value=@Model.RandomAnswers[2] />@Model.RandomAnswers[2]<br />
+                <input type="radio" id="RB4" name="Answer" value=@Model.RandomAnswers[3] />@Model.RandomAnswers[3]<br /><br />
+                <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
+            </form>
+        </div>
 
-        @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
-    {
+       @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
+        {
 
         @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[0])
         @Html.LabelFor(m => m.RandomAnswers[0], Model.RandomAnswers[0])<br />
@@ -33,10 +45,10 @@
         <br />
 
         <input type="submit" value="Antwoorden" />
-
-}
+        
+        }
         @if (Model.ChosenAnwser != null)
-    {
+        {
              @if (Model.ChosenAnwser == Model.Rightanswer)
         {
                     <h2>Dat is: <b>Goed</b></h2>
@@ -45,9 +57,17 @@
         {
                     <h2>Dat is: <b>Fout</b></h2>
         }
-
-}
-
+        }
     </div>
+
+    <script>
+
+        $(function () {
+            $(".button").click(function () {
+                // validate and process form here
+            });
+        });
+
+    </script>
 
 </body>
