@@ -15,24 +15,27 @@
     </div>
 
     <div>
-        <form action="@Url.Action("Camelrace", "Gamemode", FormMethod.Post)">
-            <input type="radio" name="answer" value=@Model.Anwser1 checked> @Model.Anwser1<br>
-            <input type="radio" name="answer" value=@Model.Anwser2> @Model.Anwser2<br>
-            <input type="radio" name="answer" value=@Model.Anwser3> @Model.Anwser3<br>
-            <input type="radio" name="answer" value=@Model.Anwser4> @Model.Anwser4<br><br>
-            <input type="submit" value="Antwoorden">
-        </form>
 
-        <!--<button id="A1" value=@Model.Anwser1 onclick="SubmitA1('A1')">@Model.Anwser1</button><br />
-            <button id="A2" value=@Model.Anwser2 onclick="SubmitA1('A2')">@Model.Anwser2</button><br />
-            <button id="A3" value=@Model.Anwser3 onclick="SubmitA1('A3')">@Model.Anwser3</button><br />
-            <button id="A4" value=@Model.Anwser4 onclick="SubmitA1('A4')">@Model.Anwser4</button>-->
-        </div>
+        @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
+    {
 
-        <script>
-            //function SubmitA1(ID) {
-               // var x = document.getElementById(ID).innerHTML;
-               // document.getElementById("LBL").innerHTML = x;
-            //}
-        </script>
-    </body>
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[0])
+        @Html.LabelFor(m => m.RandomAnswers[0], Model.RandomAnswers[0])<br />
+
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[1])
+        @Html.LabelFor(m => m.RandomAnswers[1], Model.RandomAnswers[1])<br />
+
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[2])
+        @Html.LabelFor(m => m.RandomAnswers[2], Model.RandomAnswers[2])<br />
+
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[3])
+        @Html.LabelFor(m => m.RandomAnswers[3], Model.RandomAnswers[3])<br />
+        <br />
+
+        <input type="submit" value="Antwoorden" />
+
+}
+
+    </div>
+
+</body>
