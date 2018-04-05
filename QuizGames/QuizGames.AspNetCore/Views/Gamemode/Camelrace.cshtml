@@ -19,17 +19,17 @@
         @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
     {
 
-        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.Anwser1)
-        @Html.LabelFor(m => m.Anwser1, Model.Anwser1)<br />
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[0])
+        @Html.LabelFor(m => m.RandomAnswers[0], Model.RandomAnswers[0])<br />
 
-        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.Anwser2)
-        @Html.LabelFor(m => m.Anwser2, Model.Anwser2)<br />
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[1])
+        @Html.LabelFor(m => m.RandomAnswers[1], Model.RandomAnswers[1])<br />
 
-        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.Anwser3)
-        @Html.LabelFor(m => m.Anwser3, Model.Anwser3)<br />
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[2])
+        @Html.LabelFor(m => m.RandomAnswers[2], Model.RandomAnswers[2])<br />
 
-        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.Anwser4)
-        @Html.LabelFor(m => m.Anwser4, Model.Anwser4)<br />
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[3])
+        @Html.LabelFor(m => m.RandomAnswers[3], Model.RandomAnswers[3])<br />
         <br />
 
         <input type="submit" value="Antwoorden" />

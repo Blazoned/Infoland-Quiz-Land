@@ -12,6 +12,8 @@ namespace QuizGames__Asp.Net_Core_.Controllers
         [HttpGet]
         public IActionResult Camelrace(GameModeViewModel model)
         {
+            model.filllist();
+            model.RandomList();
             return View(model);
         }
 
