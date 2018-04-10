@@ -38,7 +38,7 @@
     height: 70px;
     margin: 0px;
     padding: 0px;
-    background-color: white;
+    background-color: royalblue;
     /*background-color: white;*/
 }
 
@@ -51,8 +51,11 @@
 #homeButton {
     float: left;
     border-radius: 50px;
-    margin: 5px;
+    width: 70px;
+    border-radius: 50%;
+    border: 3px solid blue;
     margin-left: 5%;
+    height: 100%;
 }
 
 #accountButton {
@@ -60,10 +63,10 @@
     height: 100%;
     width: 70px;
     display: block;
-    paddin-top: 100%;
     border-radius: 50%;
     margin-right: 5%;
     border: 3px solid blue;
+    align-content: stretch;
 }
 
 #Camelbar1 {
