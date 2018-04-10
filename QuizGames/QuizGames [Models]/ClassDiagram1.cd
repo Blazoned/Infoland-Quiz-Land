@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QuizGames.Models.AccountBLL" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAEAAAAABAAIAABACACAAMAAgJiAEM=</HashCode>
+      <FileName>AccountBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuizGames.Models.ProgressionBLL" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProgressionBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuizGames.Models.StatisticsBLL" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StatisticsBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuizGames.Models.User" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAEAAACBAAAAgAQAEAAEABAAAECAAAAAAABAiAgA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuizGames.Models.Game" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAggAAAIsAAAAAACQABAAsAAAAAA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuizGames.Models.Question" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAACAAAAAAAAAAABAAAAIQAAECgAABgA=</HashCode>
+      <FileName>Question.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuizGames.Models.Category" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAAAEQAAAAAAAAAAAQAAAAMCAAACAAAAgA=</HashCode>
+      <FileName>Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuizGames.Models.Quiz" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAAAMAAAAAAAAAAAAQAAAAEAAAAAAAAAgA=</HashCode>
+      <FileName>Quiz.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="QuizGames.Models.EGamemode" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>EGamemode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QuizGames.Models.EGameStatus" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>EGamestatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QuizGames.Models.EGameSessionStatus" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACEAAAAAAggAAAAg=</HashCode>
+      <FileName>EGameSessionStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
