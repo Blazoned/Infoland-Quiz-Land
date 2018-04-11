@@ -87,11 +87,11 @@
             *@
             @if (Model.ChosenAnwser != null)
         {
-            @if (Model.ChosenAnwser == Model.Rightanswer)
+            @if (Model.ChosenAnwser.correct == true)
         {
             <h2>Dat is: <b>Goed</b></h2>
     }
-            @if (Model.ChosenAnwser != Model.Rightanswer)
+            @if (Model.ChosenAnwser.correct == false)
         {
             <h2>Dat is: <b>Fout</b></h2>
     }
