@@ -16,12 +16,9 @@
             <img src="~/images/img_avatar.png" alt="headshot gebruiker" class="userhs">
         </div>
 
-
         <div class="camelrace">
 
-
-
-            <div id="Camelbar1"></div>
+            <div id="Camelbar1" style="width:5%">0</div>
             <img id="img1" src=https://www.w3schools.com/howto/img_avatar.png alt="Avatar">
 
 
@@ -36,26 +33,25 @@
             <div id="Camelbar4"></div>
             <img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar">
 
-
         </div>
 
         <div class="questioncontainer">
             <div>
                 <h3>
                     Vraag:<br />
-                    @Model.Question
+                    @Model.questions[0].question;
                 </h3>
             </div>
 
             <div>
                 <div id="Answer_Form">
                     <form action="#" onsubmit="yourJsFunction();return false">
-                        <input type="radio" id="RB1" name="Answer" value=@Model.RandomAnswers[0] checked />@Model.RandomAnswers[0]<br />
-                        <input type="radio" id="RB2" name="Answer" value=@Model.RandomAnswers[1] />@Model.RandomAnswers[1]<br />
-                        <input type="radio" id="RB3" name="Answer" value=@Model.RandomAnswers[2] />@Model.RandomAnswers[2]<br />
-                        <input type="radio" id="RB4" name="Answer" value=@Model.RandomAnswers[3] />@Model.RandomAnswers[3]<br /><br />
+                        <input type="radio" id="RB1" name="Answer" value=@Model.questions[0].awnsers[0] checked />@Model.questions[0].awnsers[0].text<br />
+                        <input type="radio" id="RB2" name="Answer" value=@Model.questions[0].awnsers[1] />@Model.questions[0].awnsers[1].text<br />
+                        <input type="radio" id="RB3" name="Answer" value=@Model.questions[0].awnsers[2] />@Model.questions[0].awnsers[2].text<br />
+                        <input type="radio" id="RB4" name="Answer" value=@Model.questions[0].awnsers[3] />@Model.questions[0].awnsers[3].text<br /><br />
                         <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
-                        <button onclick="move(Camelbar1)">Click Me</button>
+
                     </form>
                 </div>
             </div>
@@ -112,7 +108,7 @@
 
         </script>
 
-        @*<script>
+        <script>
             function move() {
                 var elem = document.getElementById("Camelbar1");
                 var width = 5;
@@ -127,6 +123,6 @@
                     }
                 }
             }
-        </script>*@
+        </script>
 
 </body>
