@@ -1,211 +1,220 @@
-﻿#img1 {
-    position: relative;
-    border-radius: 50%;
-    height: 35px;
-    left: 5%;
-    top: -35px;
+﻿body {
+    margin: 0
 }
 
-#img2 {
-    position: relative;
-    border-radius: 50%;
-    height: 35px;
-    left: 5%;
-    top: -35px;
+div {
+    border-radius: 20px
 }
 
-#img3 {
-    position: relative;
-    border-radius: 50%;
-    height: 35px;
-    left: 5%;
-    top: -35px;
+.homewrapper {
+    display: grid;
+    grid-template-columns: 15% 1fr 1fr 15%;
+    grid-template-rows: 70px repeat(2, minmax(400px, 1fr));
+    grid-template-areas: "navbar navbar navbar navbar" ". play play ." ". progress leaderboard .";
+    grid-gap: 20px;
+    word-break: break-all;
+    text-shadow: 1px 1px 2px #000000
 }
 
-#img4 {
-    position: relative;
-    border-radius: 50%;
-    height: 35px;
-    left: 5%;
-    top: -35px;
+.loginwrapper {
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: 500px;
+    grid-template-areas: ". lc .";
+   
+
 }
 
-.NavBar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    margin: 0px;
-    padding: 0px;
-    background-color: royalblue;
-    /*background-color: white;*/
+.logincontainer {
+    grid-area: lc;
+    border: solid 5px #0168b3;
+    display: grid;
+    grid-template-columns: 20% 1fr 20%;
+    grid-template-rows: repeat(3, 100px);
+    grid-template-areas: ". textfield ." ". password ." "button . .";
+    justify-content: center;
+    align-content: center;
+    background-image: url(https://i.gyazo.com/7b9058a544f0c7c541939bbba7844acd.png);
+    background-position: center;
+    background-size: cover;
+    grid-gap: 20px;
 }
 
-    .NavBar img {
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
+.logincontainer label{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    color: white;
+   
+}
+
+.logincontainer input{
+    height: 50px;
+    font-size: 40px;
+
+}
+
+    .logincontainer a {
+        text-decoration: none;
+        grid-area: button;
+        font-size: 45px;
+        background-color: #0168b3;
+        border: none;
+        color: white;
+        border-radius: 20px;
     }
 
-#homeButton {
-    float: left;
-    border-radius: 50px;
-    width: 70px;
-    border-radius: 50%;
-    border: 3px solid blue;
-    margin-left: 5%;
-    height: 100%;
+.logincontainer a:hover {
+    background-color: #purple;
 }
 
-#accountButton {
-    float: right;
-    height: 100%;
-    width: 70px;
-    display: block;
-    border-radius: 50%;
-    margin-right: 5%;
-    border: 3px solid blue;
-    align-content: stretch;
+.logincontainer a:active {
+    background-color: #purple;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px)
+
 }
 
-#Camelbar1 {
-    width: 5%;
-    height: 30px;
-    background-color: purple;
-    padding-bottom: 5px;
-    border-radius: 20px;
+.fitextfield{
+    grid-area:textfield;
+   
 }
 
-#Camelbar2 {
-    width: 5%;
-    height: 30px;
-    background-color: red;
-    padding-bottom: 5px;
-    border-radius: 20px;
+.fipassfield{
+    grid-area:password;
 }
 
-#Camelbar3 {
-    width: 5%;
-    height: 30px;
-    background-color: green;
-    padding-bottom: 5px;
-    border-radius: 20px;
+.lobbywrapper {
+    display: grid;
+    grid-template-columns: 15% 1fr 1fr 15%;
+    grid-template-rows: 70px repeat(2, minmax(400px, 1fr));
+    grid-template-areas: "navbar navbar navbar navbar" ". pc sc ." ". pc rb .";
+    grid-gap: 20px
 }
 
-#Camelbar4 {
-    width: 5%;
-    height: 30px;
-    background-color: blue;
-    padding-bottom: 5px;
-    border-radius: 20px;
+.gamewrapper {
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: 70px repeat(2, minmax(400px, 1fr));
+    grid-template-areas: "navbar navbar navbar" ". cr ." ". qc .";
+    grid-gap: 20px
 }
 
-
-
-.login-page {
-    width: 360px;
-    padding: 8% 0 0;
-    margin: auto;
+.camelrace {
+    grid-area: cr;
+    border: solid 5px #0168b3
 }
 
-.form {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 360px;
-    margin: 0 auto 100px;
-    padding: 45px;
+.questioncontainer {
+    grid-area: qc;
+    border: solid 5px #0168b3
+}
+
+.playerscontainter {
+    grid-area: pc;
+    border: solid 5px #0168b3;
+    overflow-y: scroll
+}
+
+.searchcontainer {
+    grid-area: sc;
+    border: solid 5px #0168b3
+}
+
+.readybutton {
+    grid-area: rb;
+    background-color: red
+}
+
+    .readybutton:hover {
+        background-color: green
+    }
+
+
+.Navbar {
+    background-color: #0168b3;
+    grid-area: navbar;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 70px;
+    grid-template-areas: "home . logo . user";
     text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 0px
 }
 
-    .form input {
-        font-family: "Roboto", sans-serif;
-        outline: 0;
-        background: #f2f2f2;
-        width: 100%;
-        border: 0;
-        margin: 0 0 15px;
-        padding: 15px;
-        font-size: 14px;
-    }
+.infologo {
+    grid-area: logo;
+    height: 70px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px
+}
 
-    .form button {
-        font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
-        outline: 0;
-        background: #0066ff;
-        width: 100%;
-        border: 0;
-        padding: 15px;
-        color: #FFFFFF;
-        font-size: 14px;
-        cursor: pointer;
-    }
+.userhs {
+    grid-area: user;
+    height: 70px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px
+}
 
-        .form button:hover, .form button:active, .form button:focus {
-            background: #0099ff;
-        }
+.homebutton {
+    grid-area: home;
+    height: 70px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0px
+}
 
-    .form .message {
-        margin: 15px 0 0;
-        color: #b3b3b3;
-        font-size: 12px;
-    }
-
-        .form .message a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-
-    .form .register-form {
-        display: none;
-    }
-
-.container {
+.Playbutton {
     position: relative;
-    z-index: 1;
-    max-width: 300px;
-    margin: 0 auto;
+    background-color: green;
+    grid-area: play;
+    background-image: url(./play.png);
+    background-position: center;
+    background-size: cover
 }
 
-    .container:before, .container:after {
-        content: "";
-        display: block;
-        clear: both;
+.Progressbutton {
+    position: relative;
+    background-color: pink;
+    grid-area: progress;
+    background-image: url(./score.png);
+    background-position: center;
+    background-size: cover
+}
+
+.Leaderboardbutton {
+    position: relative;
+    background-color: aqua;
+    grid-area: leaderboard;
+    background-image: url(./leaderboard.png);
+    background-position: center;
+    background-size: cover
+}
+
+.buttontext {
+    margin: 20px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    color: white;
+    font-size: 40pt;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700
+}
+
+@media screen and (max-width: 700px) {
+    .homewrapper {
+        grid-template-columns: 5% 1fr 1fr 5%;
+        grid-template-rows: 70px repeat(3, minmax(400px, 1fr));
+        grid-template-areas: "navbar navbar navbar navbar" ". play play ." ". progress progress ." ". leaderboard leaderboard .";
+        grid-gap: 10px
     }
 
-    .container .info {
-        margin: 50px auto;
-        text-align: center;
+    .lobbywrapper {
     }
-
-        .container .info h1 {
-            margin: 0 0 15px;
-            padding: 0;
-            font-size: 36px;
-            font-weight: 300;
-            color: #1a1a1a;
-        }
-
-        .container .info span {
-            color: #4d4d4d;
-            font-size: 12px;
-        }
-
-            .container .info span a {
-                color: #000000;
-                text-decoration: none;
-            }
-
-            .container .info span .fa {
-                color: #EF3B3A;
-            }
-
-body {
-    background-image: url("https://www.rehabilitationspecialists.com.au/wp-content/uploads/2015/07/simple-light-background-qkdebi3b.jpg?x13821"); /* fallback for old browsers */
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }

@@ -7,46 +7,58 @@
 
 </head>
 <body>
-    
-    
-    <br />
-   
-
-    <div class=" = container">
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-    {
-
-
-        
-
-        <div class="login-page">
-            <div class="form">
-                
-               
-                <form class="login-form">
-                    <div class="formInput textField">
+    <div class="loginwrapper">
+            <div class="logincontainer">
+            <form class="login-form">
+                <div class="fitextfield">
                         <label for="uname"><b>Username</b></label>
                         @Html.TextBoxFor(m => m.Login)
                     </div>
 
-                    <div class="formInput passField">
+                    <div class="fipassfield">
                         <label for="psw"><b>Password</b></label>
                         @Html.PasswordFor(m => m.Pass)
-
-                        <a href="../Gamemode/Camelrace.cshtml"><button>Log in</button></a>
+<!--                        <button id="loginbutton"  onclick="window.location.href='../Menu/Menu.cshtml'" >Log in</button>-->
+                    <a href="../Menu/Menu.cshtml" >Log in</a>
                     </div>
-
                 </form>
             </div>
+        
         </div>
-}
 
 
-    </div>
-        @if (Model != null && !String.IsNullOrEmpty(Model.TokenId))
+    
+    <!--<br />
+   
+   @using (Html.BeginForm("Index", "Home", FormMethod.Post)){
+        <div class="loginwrapper">
+            <div class="logincontainer">
+            <form class="login-form">
+                <div class="fitextfield">
+                        <label for="uname"><b>Username</b></label>
+                        @Html.TextBoxFor(m => m.Login)
+                    </div>
+
+                    <div class="fipassfield">
+                        <label for="psw"><b>Password</b></label>
+                        @Html.PasswordFor(m => m.Pass)
+                        <a href="../Gamemode/Camelrace.cshtml"><button id="loginbutton">Log in</button></a>
+                    </div>
+                </form>
+            </div>
+        
+        </div>
+    }-->
+       <!-- @if (Model != null && !String.IsNullOrEmpty(Model.TokenId))
     {
         <br />
         <br />
         <h3>@Model.TokenId</h3>
-}
+}-->
 </body>
+
+<script type="text/javascript">
+    document.getElementById("loginbutton").onclick = function () {
+        location.href = "www.youtube.com";
+    };
+</script>

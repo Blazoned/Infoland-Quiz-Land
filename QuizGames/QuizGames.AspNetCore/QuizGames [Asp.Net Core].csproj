@@ -24,4 +24,11 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Lobby\" />
+    <Folder Include="images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="images\play.psd" />
+  </ItemGroup>
 </Project>
