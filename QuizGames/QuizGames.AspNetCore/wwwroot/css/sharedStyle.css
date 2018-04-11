@@ -85,9 +85,9 @@ div {
 
 .lobbywrapper {
     display: grid;
-    grid-template-columns: 15% 1fr 1fr 15%;
+    grid-template-columns: 15% 1fr 1fr 1fr 1fr 15%;
     grid-template-rows: 70px repeat(2, minmax(400px, 1fr));
-    grid-template-areas: "navbar navbar navbar navbar" ". pc sc ." ". pc rb .";
+    grid-template-areas: "navbar navbar navbar navbar navbar navbar " ". pc pc sc sc ." ". pc pc . rb .";
     grid-gap: 20px
 }
 
@@ -122,11 +122,12 @@ div {
 
 .readybutton {
     grid-area: rb;
-    background-color: red
+    background-color: red;
+    text-shadow: 1px 1px 2px #000000;
 }
 
     .readybutton:hover {
-        background-color: green
+        background-color: green;
     }
 
 
@@ -138,7 +139,7 @@ div {
     grid-template-rows: 70px;
     grid-template-areas: "home . logo . user";
     text-align: center;
-    border-radius: 0px
+    border-radius: 0px;
 }
 
 .infologo {
@@ -156,7 +157,7 @@ div {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 50px
+    border-radius: 50px;
 }
 
 .homebutton {
@@ -172,39 +173,39 @@ div {
     position: relative;
     background-color: green;
     grid-area: play;
-    background-image: url(./play.png);
+    background-image: url(../images/play.png);
     background-position: center;
-    background-size: cover
+    background-size: cover;
 }
 
 .Progressbutton {
     position: relative;
     background-color: pink;
     grid-area: progress;
-    background-image: url(./score.png);
+    background-image: url(../images/score.png);
     background-position: center;
-    background-size: cover
+    background-size: cover;
 }
 
 .Leaderboardbutton {
     position: relative;
     background-color: aqua;
     grid-area: leaderboard;
-    background-image: url(./leaderboard.png);
+    background-image: url(../images/leaderboard.png);
     background-position: center;
-    background-size: cover
+    background-size: cover;
 }
 
 .buttontext {
     margin: 20px;
-    position: absolute;
+    position: relative;
     right: 0px;
     bottom: 0px;
     color: white;
     font-size: 40pt;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
-    font-weight: 700
+    font-weight: 700;
 }
 
 @media screen and (max-width: 700px) {
@@ -212,7 +213,7 @@ div {
         grid-template-columns: 5% 1fr 1fr 5%;
         grid-template-rows: 70px repeat(3, minmax(400px, 1fr));
         grid-template-areas: "navbar navbar navbar navbar" ". play play ." ". progress progress ." ". leaderboard leaderboard .";
-        grid-gap: 10px
+        grid-gap: 10px;
     }
 
     .lobbywrapper {

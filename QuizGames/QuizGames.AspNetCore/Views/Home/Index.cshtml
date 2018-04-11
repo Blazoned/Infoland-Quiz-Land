@@ -25,9 +25,7 @@
                 <div class="fipassfield">
                     <label for="psw"><b>Password</b></label>
                     @Html.PasswordFor(m => m.Pass)
-                    <% using(Html.LoginForm("Menu", "MenuController")) { %>
-                    <input type="submit" value="Log IN" />
-                    <% } %>
+                    <a href="@Url.Action("Menu", "Menu")">Log In</a>
                 </div>
                 </form>
             </div>
