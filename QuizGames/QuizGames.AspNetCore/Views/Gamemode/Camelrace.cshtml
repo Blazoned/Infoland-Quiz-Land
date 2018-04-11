@@ -16,11 +16,12 @@
             <img src="~/images/img_avatar.png" alt="headshot gebruiker" class="userhs">
         </div>
 
+
         <div class="camelrace">
 
 
 
-            <div id="Camelbar1" style="width:5%">0</div>
+            <div id="Camelbar1"></div>
             <img id="img1" src=https://www.w3schools.com/howto/img_avatar.png alt="Avatar">
 
 
@@ -54,7 +55,7 @@
                         <input type="radio" id="RB3" name="Answer" value=@Model.RandomAnswers[2] />@Model.RandomAnswers[2]<br />
                         <input type="radio" id="RB4" name="Answer" value=@Model.RandomAnswers[3] />@Model.RandomAnswers[3]<br /><br />
                         <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
-                        <button onclick="move()">Click Me</button>
+                        <button onclick="move(Camelbar1)">Click Me</button>
                     </form>
                 </div>
             </div>
@@ -111,7 +112,7 @@
 
         </script>
 
-        <script>
+        @*<script>
             function move() {
                 var elem = document.getElementById("Camelbar1");
                 var width = 5;
@@ -126,6 +127,6 @@
                     }
                 }
             }
-        </script>
+        </script>*@
 
 </body>
