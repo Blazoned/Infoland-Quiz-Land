@@ -7,28 +7,11 @@
 
 </head>
 <body>
-    <div class="loginwrapper">
-            <div class="logincontainer">
-            <form class="login-form">
-                <div class="fitextfield">
-                        <label for="uname"><b>Username</b></label>
-                        @Html.TextBoxFor(m => m.Login)
-                    </div>
-
-                    <div class="fipassfield">
-                        <label for="psw"><b>Password</b></label>
-                        @Html.PasswordFor(m => m.Pass)
-<!--                        <button id="loginbutton"  onclick="window.location.href='../Menu/Menu.cshtml'" >Log in</button>-->
-                    <a href="../Menu/Menu.cshtml" >Log in</a>
-                    </div>
-                </form>
-            </div>
-        
-        </div>
+  
 
 
     
-    <!--<br />
+    <br />
    
    @using (Html.BeginForm("Index", "Home", FormMethod.Post)){
         <div class="loginwrapper">
@@ -39,26 +22,22 @@
                         @Html.TextBoxFor(m => m.Login)
                     </div>
 
-                    <div class="fipassfield">
-                        <label for="psw"><b>Password</b></label>
-                        @Html.PasswordFor(m => m.Pass)
-                        <a href="../Gamemode/Camelrace.cshtml"><button id="loginbutton">Log in</button></a>
-                    </div>
+                <div class="fipassfield">
+                    <label for="psw"><b>Password</b></label>
+                    @Html.PasswordFor(m => m.Pass)
+                    <% using(Html.LoginForm("Menu", "MenuController")) { %>
+                    <input type="submit" value="Log IN" />
+                    <% } %>
+                </div>
                 </form>
             </div>
         
         </div>
-    }-->
-       <!-- @if (Model != null && !String.IsNullOrEmpty(Model.TokenId))
+    }
+       @if (Model != null && !String.IsNullOrEmpty(Model.TokenId))
     {
         <br />
         <br />
         <h3>@Model.TokenId</h3>
-}-->
+}
 </body>
-
-<script type="text/javascript">
-    document.getElementById("loginbutton").onclick = function () {
-        location.href = "www.youtube.com";
-    };
-</script>
