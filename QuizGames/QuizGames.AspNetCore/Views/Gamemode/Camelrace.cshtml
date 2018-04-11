@@ -17,38 +17,28 @@
         </div>
 
         <div class="camelrace">
-            <h2>Camel Race</h2>
-        </div>
-        <div class="progresscontainer">
-            <div id="myProgress1">
+           
+        
+            
                 <div id="Camelbar1"></div>
                 <img id="img1" src=https://www.w3schools.com/howto/img_avatar.png alt="Avatar">
-            </div>
-            <div id="myProgress2">
+           
+            
                 <div id="Camelbar2"></div>
                 <img id="img2" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar">
-            </div>
-            <div id="myProgress3">
+            
+            
                 <div id="Camelbar3"></div>
                 <img id="img3" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar">
-            </div>
-            <div id="myProgress4">
+            
+            
                 <div id="Camelbar4"></div>
                 <img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar">
-            </div>
+            
+        
         </div>
 
         <div class="questioncontainer">
-
-        </div>
-    </div>
-
-        
-        <br>
-        <br>
-        <br>
-        <div>
-            
             <div>
                 <h3>
                     Vraag:<br />
@@ -66,6 +56,16 @@
                         <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
                     </form>
                 </div>
+            </div>
+        </div>
+
+        
+        <br>
+        <br>
+        <br>
+        <div>
+            
+           
 
                 @*@using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
                 {
@@ -85,7 +85,8 @@
 
                 <input type="submit" value="Antwoorden" />
 
-                }*@
+                }
+                    *@
                 @if (Model.ChosenAnwser != null)
             {
                 @if (Model.ChosenAnwser == Model.Rightanswer)
