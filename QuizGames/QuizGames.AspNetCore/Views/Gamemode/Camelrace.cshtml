@@ -7,16 +7,16 @@
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 </head>
 <body>
-    <div class="gamewrapper"></div>
+    <div class="gamewrapper">
         <div class="Navbar">
-            <img src="~/images/homebutton.png" alt="homebutton" class="homebutton">
+            <a href="@Url.Action("Menu", "Menu")" class="homebutton">
+                <img src="~/images/homebutton.png" alt="homebutton" class="homebutton">
+            </a>
             <img src="~/images/infolandLoGo.png" alt="infoland logo" class="infologo">
             <img src="~/images/img_avatar.png" alt="headshot gebruiker" class="userhs">
         </div>
-        <br>
-        <br>
-        <br>
-        <div>
+
+        <div class="camelrace">
             <h2>Camel Race</h2>
         </div>
         <div class="progresscontainer">
@@ -36,6 +36,19 @@
                 <div id="Camelbar4"></div>
                 <img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar">
             </div>
+        </div>
+
+        <div class="questioncontainer">
+
+        </div>
+    </div>
+
+        
+        <br>
+        <br>
+        <br>
+        <div>
+            
             <div>
                 <h3>
                     Vraag:<br />

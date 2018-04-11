@@ -5,7 +5,9 @@
   <div class="lobbywrapper">
       
           <div class="Navbar">
-              <img src="~/images/homebutton.png" alt="homebutton" class="homebutton">
+              <a href="@Url.Action("Menu", "Menu")" class="homebutton">
+                  <img src="~/images/homebutton.png" alt="homebutton" class="homebutton">
+              </a>
               <img src="~/images/infolandLoGo.png" alt="infoland logo" class="infologo">
               <img src="~/images/img_avatar.png" alt="headshot gebruiker" class="userhs">
           </div>
@@ -16,7 +18,9 @@
           <div class="searchcontainer">
           </div>
           <div class="readybutton">
+              <a href="@Url.Action("camelrace", "gamemode")"
             <p class="buttontext">Ready!</p>
+              </a>
           </div>
 
       </div>
