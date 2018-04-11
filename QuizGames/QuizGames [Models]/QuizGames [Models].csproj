@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBLL.cs" />
+    <Compile Include="Awnser.cs" />
+    <Compile Include="Question.cs" />
     <Compile Include="StatisticsBLL.cs" />
     <Compile Include="ProgressionBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

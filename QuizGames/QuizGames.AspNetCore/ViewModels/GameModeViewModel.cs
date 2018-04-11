@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using QuizGames.Models;
 
 namespace QuizGames.AspNetCore.ViewModels
 {
     public class GameModeViewModel
     {
+        public List<Question> questions = new List<Question>();
         #region Properties
 
         //all properties that are needed for the view and model to comunicate
@@ -26,6 +28,7 @@ namespace QuizGames.AspNetCore.ViewModels
 
         public void filllist()
         {
+            genDummieData();
             Answers.Add(Anwser1);
             Answers.Add(Anwser2);
             Answers.Add(Anwser3);
@@ -43,8 +46,39 @@ namespace QuizGames.AspNetCore.ViewModels
                 Answers.RemoveAt(fIndex);
             }
         }
+        
+        public List<Question> genDummieData()
+        {
+            Awnser a1 = new Awnser("Duitsland", true);
+            Awnser a2 = new Awnser("Nederland", false);
+            Awnser a3 = new Awnser("China", false);
+            Awnser a4 = new Awnser("Brazilë", false);
+            List<Awnser> aa = new List<Awnser>();
+            aa.Add(a1);
+            aa.Add(a2);
+            aa.Add(a3);
+            aa.Add(a4);
+            Question q1 = new Question("welk land is heeft het vorige WK gewonnen?", aa);
+            questions.Add(q1);
 
+
+            Awnser b1 = new Awnser("De Verenigde Staten van Amerika", true);
+            Awnser b2 = new Awnser("Nederland", false);
+            Awnser b3 = new Awnser("China", false);
+            Awnser b4 = new Awnser("Brazilë", false);
+            List<Awnser> b = new List<Awnser>();
+            b.Add(b1);
+            b.Add(b2);
+            b.Add(b3);
+            b.Add(b4);
+            Question q2 = new Question("Van Welk Land is Trump President?", aa);
+            questions.Add(q2);
+
+            return questions;
+        }
         #endregion
+
+
 
     }
 }
