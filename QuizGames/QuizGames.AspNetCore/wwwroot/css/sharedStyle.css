@@ -87,7 +87,7 @@ div {
     display: grid;
     grid-template-columns: 15% 1fr 1fr 1fr 1fr 15%;
     grid-template-rows: 70px repeat(2, minmax(400px, 1fr));
-    grid-template-areas: "navbar navbar navbar navbar navbar navbar " ". pc pc sc sc ." ". pc pc . rb .";
+    grid-template-areas: "navbar navbar navbar navbar navbar navbar " ". pc pc sc sc ." ". pc pc rb rb .";
     grid-gap: 20px
 }
 
