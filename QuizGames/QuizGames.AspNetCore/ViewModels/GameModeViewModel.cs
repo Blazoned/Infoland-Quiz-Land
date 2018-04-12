@@ -17,7 +17,7 @@ namespace QuizGames.AspNetCore.ViewModels
         public string Anwser2 = "nee";
         public string Anwser3 = "weet ik veel";
         public string Rightanswer = "ik ben bart en stem VVD dus ik laat me niet uit over deze stelling aangezien ik altijd PC ben";
-        public Awnser ChosenAnwser { get; set; }
+        public string ChosenAnwser { get; set; }
 
         public List<string> Answers = new List<string>();
         public List<string> RandomAnswers = new List<string>();
@@ -53,12 +53,14 @@ namespace QuizGames.AspNetCore.ViewModels
             Awnser a2 = new Awnser("Nederland", false);
             Awnser a3 = new Awnser("China", false);
             Awnser a4 = new Awnser("Brazilë", false);
-            List<Awnser> aa = new List<Awnser>();
-            aa.Add(a1);
-            aa.Add(a2);
-            aa.Add(a3);
-            aa.Add(a4);
-            Question q1 = new Question("welk land is heeft het vorige WK gewonnen?", aa);
+            List<Awnser> aa = new List<Awnser>
+            {
+                a1,
+                a2,
+                a3,
+                a4
+            };
+            Question q1 = new Question("welk land is heeft het vorige WK gewonnen?", aa, "Duitsland");
             questions.Add(q1);
 
 
@@ -66,12 +68,14 @@ namespace QuizGames.AspNetCore.ViewModels
             Awnser b2 = new Awnser("Nederland", false);
             Awnser b3 = new Awnser("China", false);
             Awnser b4 = new Awnser("Brazilë", false);
-            List<Awnser> b = new List<Awnser>();
-            b.Add(b1);
-            b.Add(b2);
-            b.Add(b3);
-            b.Add(b4);
-            Question q2 = new Question("Van Welk Land is Trump President?", aa);
+            List<Awnser> b = new List<Awnser>
+            {
+                b1,
+                b2,
+                b3,
+                b4
+            };
+            Question q2 = new Question("Van Welk Land is Trump President?", aa, "De Verenigde Staten van Amerika");
             questions.Add(q2);
 
             return questions;

@@ -35,6 +35,34 @@
 
         </div>
 
+        <!--
+            <div class="questioncontainer">
+                <div>
+                    <h3>
+                        Vraag:<br />
+                        @Model.questions[0].question;
+                    </h3>
+                </div>
+
+                <div>
+                    <div id="Answer_Form">
+                        <form action="#" onsubmit="yourJsFunction();return false">
+                            <input type="radio" id="RB1" name="Answer" value=@Model.questions[0].awnsers[0] checked />@Model.questions[0].awnsers[0].text<br />
+                            <input type="radio" id="RB2" name="Answer" value=@Model.questions[0].awnsers[1] />@Model.questions[0].awnsers[1].text<br />
+                            <input type="radio" id="RB3" name="Answer" value=@Model.questions[0].awnsers[2] />@Model.questions[0].awnsers[2].text<br />
+                            <input type="radio" id="RB4" name="Answer" value=@Model.questions[0].awnsers[3] />@Model.questions[0].awnsers[3].text<br /><br />
+                            <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <br>
+            <br>
+            <br>
+        -->
         <div class="questioncontainer">
             <div>
                 <h3>
@@ -42,71 +70,39 @@
                     @Model.questions[0].question;
                 </h3>
             </div>
-
             <div>
-                <div id="Answer_Form">
-                    <form action="#" onsubmit="yourJsFunction();return false">
-                        <input type="radio" id="RB1" name="Answer" value=@Model.questions[0].awnsers[0] checked />@Model.questions[0].awnsers[0].text<br />
-                        <input type="radio" id="RB2" name="Answer" value=@Model.questions[0].awnsers[1] />@Model.questions[0].awnsers[1].text<br />
-                        <input type="radio" id="RB3" name="Answer" value=@Model.questions[0].awnsers[2] />@Model.questions[0].awnsers[2].text<br />
-                        <input type="radio" id="RB4" name="Answer" value=@Model.questions[0].awnsers[3] />@Model.questions[0].awnsers[3].text<br /><br />
-                        <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
+                @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
+                {
 
-                    </form>
-                </div>
+                    @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[0].text, new { id = "RB1" })
+                    @Html.LabelFor(m => m.questions[0].awnsers[0], Model.questions[0].awnsers[0].text, new { name = "Answer" })<br />
+
+                    @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[1].text, new { id = "RB2" })
+                    @Html.LabelFor(m => m.questions[0].awnsers[1], Model.questions[0].awnsers[1].text, new { name = "Answer" })<br />
+
+                    @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[2].text, new { id = "RB3" })
+                    @Html.LabelFor(m => m.questions[0].awnsers[2], Model.questions[0].awnsers[2].text, new { name = "Answer" })<br />
+
+                    @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[3].text, new { id = "RB4" })
+                    @Html.LabelFor(m => m.questions[0].awnsers[3], Model.questions[0].awnsers[3].text, new { name = "Answer" })<br />
+                    <br />
+
+                    <input type="submit" value="Antwoorden" />
+
+                }
+                @if (Model.ChosenAnwser != null)
+                {
+                    if (Model.ChosenAnwser == Model.questions[0].correctAnswer)
+                    {
+                        <h2>Dat is: <b>Goed</b></h2>
+                    }
+                    if (Model.ChosenAnwser != Model.questions[0].correctAnswer)
+                    {
+                        <h2>Dat is: <b>Fout</b></h2>
+                    }
+                }
             </div>
         </div>
-
-
-        <br>
-        <br>
-        <br>
-        <div>
-
-
-
-            @*@using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
-            {
-
-            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[0])
-            @Html.LabelFor(m => m.RandomAnswers[0], Model.RandomAnswers[0])<br />
-
-            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[1])
-            @Html.LabelFor(m => m.RandomAnswers[1], Model.RandomAnswers[1])<br />
-
-            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[2])
-            @Html.LabelFor(m => m.RandomAnswers[2], Model.RandomAnswers[2])<br />
-
-            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[3])
-            @Html.LabelFor(m => m.RandomAnswers[3], Model.RandomAnswers[3])<br />
-            <br />
-
-            <input type="submit" value="Antwoorden" />
-
-            }
-            *@
-            @if (Model.ChosenAnwser != null)
-        {
-            @if (Model.ChosenAnwser.correct == true)
-        {
-            <h2>Dat is: <b>Goed</b></h2>
-    }
-            @if (Model.ChosenAnwser.correct == false)
-        {
-            <h2>Dat is: <b>Fout</b></h2>
-    }
-    }
-        </div>
-
-        <script>
-
-            $(function () {
-                $(".button").click(function () {
-                    // validate and process form here
-                });
-            });
-
-        </script>
 
         <script>
             function move() {
@@ -124,5 +120,5 @@
                 }
             }
         </script>
-
+    </div>
 </body>

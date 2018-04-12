@@ -9,12 +9,14 @@ namespace QuizGames.Models
    public class Question
     {
         public string question;
+        public string correctAnswer;
         public List<Awnser> awnsers;
 
-        public Question(string question, List<Awnser> awnsers)
+        public Question(string question, List<Awnser> awnsers, string correctAnswer)
         {
             this.question = question;
             this.awnsers = awnsers;
+            this.correctAnswer = correctAnswer;
         }
 
         public Question(string question, string awnser1, Boolean correct1, string awnser2, Boolean correct2, string awnser3, Boolean correct3, string awnser4, Boolean correct4)
