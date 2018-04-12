@@ -106,7 +106,7 @@ div {
     border: solid 5px #0168b3;
     grid-template-columns: 80% 1fr;
     grid-template-rows: repeat(4, 25%);
-    grid-template-areas: "bar1 img1" "bar2 img2" "bar3 img3" "bar3 img3";
+    grid-template-areas: "bar1 img1" "bar2 img2" "bar3 img3" "bar3 img3" "bar4 img4";
 }
 
 .camelrace img{

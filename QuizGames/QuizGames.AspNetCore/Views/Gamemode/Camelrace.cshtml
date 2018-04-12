@@ -72,35 +72,49 @@
             </div>
             <div>
                 @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
-                {
+    {
 
-                    @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[0].text, new { id = "RB1" })
-                    @Html.LabelFor(m => m.questions[0].awnsers[0], Model.questions[0].awnsers[0].text, new { name = "Answer" })<br />
+            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[0].text, new { id = "RB1" })
+            @Html.LabelFor(m => m.questions[0].awnsers[0], Model.questions[0].awnsers[0].text, new { name = "Answer" })<br />
 
-                    @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[1].text, new { id = "RB2" })
-                    @Html.LabelFor(m => m.questions[0].awnsers[1], Model.questions[0].awnsers[1].text, new { name = "Answer" })<br />
+            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[1].text, new { id = "RB2" })
+            @Html.LabelFor(m => m.questions[0].awnsers[1], Model.questions[0].awnsers[1].text, new { name = "Answer" })<br />
 
-                    @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[2].text, new { id = "RB3" })
-                    @Html.LabelFor(m => m.questions[0].awnsers[2], Model.questions[0].awnsers[2].text, new { name = "Answer" })<br />
+            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[2].text, new { id = "RB3" })
+            @Html.LabelFor(m => m.questions[0].awnsers[2], Model.questions[0].awnsers[2].text, new { name = "Answer" })<br />
 
-                    @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[3].text, new { id = "RB4" })
-                    @Html.LabelFor(m => m.questions[0].awnsers[3], Model.questions[0].awnsers[3].text, new { name = "Answer" })<br />
-                    <br />
+            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[3].text, new { id = "RB4" })
+            @Html.LabelFor(m => m.questions[0].awnsers[3], Model.questions[0].awnsers[3].text, new { name = "Answer" })<br />
+            <br />
 
-                    <input type="submit" value="Antwoorden" />
+            <input type="submit" value="Antwoorden" />
 
-                }
+}
                 @if (Model.ChosenAnwser != null)
-                {
-                    if (Model.ChosenAnwser == Model.questions[0].correctAnswer)
-                    {
-                        <h2>Dat is: <b>Goed</b></h2>
-                    }
-                    if (Model.ChosenAnwser != Model.questions[0].correctAnswer)
-                    {
-                        <h2>Dat is: <b>Fout</b></h2>
-                    }
-                }
+    {
+        if (Model.ChosenAnwser == Model.questions[0].correctAnswer)
+        {
+            <h2>Dat is: <b>Goed</b></h2>
+            <script type="text/javascript">
+                move(Camelbar1, img1);
+            </script>
+}
+if (Model.ChosenAnwser != Model.questions[0].correctAnswer)
+{
+            <h2>Dat is: <b>Fout</b></h2>
+Random rand = new Random();
+int rnd = rand.Next(1, 4);
+if (rnd == 1)
+{
+            <script type="text/javascript">move(Camelbar2, img2);</script>}
+if (rnd == 2)
+{
+            <script type="text/javascript">move(Camelbar3, img3);</script>}
+if (rnd == 3)
+{
+            <script type="text/javascript">move(Camelbar4, img4);</script>}
+}
+}
             </div>
         </div>
 
