@@ -17,25 +17,18 @@
         </div>
 
         <div class="camelrace">
-
-            <div id="Camelbar1" style="width:5%">0</div>
-            <img id="img1" src=https://www.w3schools.com/howto/img_avatar.png alt="Avatar">
-
-
-            <div id="Camelbar2"></div>
-            <img id="img2" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar">
-
-
-            <div id="Camelbar3"></div>
-            <img id="img3" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar">
-
-
-            <div id="Camelbar4"></div>
-            <img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar">
-
+            <div class="camelracepoints" id="crp1">0</div>
+            <div class="camelracebar" id="Camelbar1"><img id="img1" src=https://www.w3schools.com/howto/img_avatar.png alt="Avatar"></div>
+            <div class="camelracepoints" id="crp2">0</div>
+            <div class="camelracebar" id="Camelbar2"><img id="img2" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
+            <div class="camelracepoints" id="crp3">0</div>
+            <div class="camelracebar" id="Camelbar3"><img id="img3" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
+            <div class="camelracepoints" id="crp4">0</div>
+            <div class="camelracebar" id="Camelbar4"><img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
         </div>
 
-        <!--
+
+         <!--
             <div class="questioncontainer">
                 <div>
                     <h3>
@@ -63,10 +56,12 @@
             <br>
             <br>
         -->
+        
+
         <div class="questioncontainer">
             <div>
                 <h3>
-                    Vraag:<br />
+                    Vraag:<br/>
                     @Model.questions[0].question;
                 </h3>
             </div>
@@ -87,8 +82,12 @@
             @Html.LabelFor(m => m.questions[0].awnsers[3], Model.questions[0].awnsers[3].text, new { name = "Answer" })<br />
             <br />
 
-            <input type="submit" value="Antwoorden" />
 
+            <input type="submit" value="Antwoorden" />
+            <input type="button" value=@Model.questions[0].awnsers[0].text />
+            <input type="button" value=@Model.questions[0].awnsers[1].text />
+            <input type="button" value=@Model.questions[0].awnsers[2].text />
+            <input type="button" value=@Model.questions[0].awnsers[3].text />
 }
                 @if (Model.ChosenAnwser != null)
     {
@@ -118,7 +117,7 @@ if (rnd == 3)
             </div>
         </div>
 
-        <script>
+        @*<script>
             function move() {
                 var elem = document.getElementById("Camelbar1");
                 var width = 5;
@@ -133,6 +132,6 @@ if (rnd == 3)
                     }
                 }
             }
-        </script>
+        </script>*@
     </div>
 </body>

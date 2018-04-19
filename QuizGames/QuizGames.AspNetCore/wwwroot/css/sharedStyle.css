@@ -94,7 +94,7 @@ div {
 .gamewrapper {
     display: grid;
     grid-template-columns: 15% 1fr 15%;
-    grid-template-rows: 70px repeat(2, minmax(400px, 600px));
+    grid-template-rows: 70px repeat(2, minmax(auto, 300px));
     grid-template-areas: "navbar navbar navbar" ". cr ." ". qc .";
     grid-gap: 20px
 }
@@ -104,21 +104,28 @@ div {
     display: grid;
     grid-area: cr;
     border: solid 5px #0168b3;
-    grid-template-columns: 80% 1fr;
+    grid-template-columns: 1% 5% 1fr 5%;
     grid-template-rows: repeat(4, 25%);
-    grid-template-areas: "bar1 img1" "bar2 img2" "bar3 img3" "bar3 img3" "bar4 img4";
+    grid-template-areas: ". crp1 bar1 ." ". crp2 bar2 ." ". crp3 bar3 ." ". crp4 bar4 .";
+    grid-column-gap: 10px;
 }
 
 .camelrace img{
-    border-radius:20px;
-    max-height: 100px;
-    margin: auto 0px;
+    border-radius:50px;
+    max-height: 100%;
+    
+
 }
 
 .questioncontainer {
-    position:relative;
+    position: relative;
     grid-area: qc;
-    border: solid 5px #0168b3
+    border: solid 5px #0168b3;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: "cquestion cquestion cquestion cquestion timer" 
+                           "awnser1 awnser1 awnser2 awnser2 timer"
+                          "awnser3 awnser3 awnser4 awnser4 timer"
 }
 
 .playerscontainter {
@@ -220,67 +227,79 @@ div {
     text-transform: uppercase;
     font-weight: 700;
 }
+.camelracebar {
+    display: block;
+    width: 7%;
+    height: 50px;
+    background-color: purple;
+    border-radius: 50px;
+    margin: auto 0px;
+}
+
 
 #Camelbar1 {
     grid-area: bar1;
-    display: block;
-    width: 5%;
-    height: 60px;
-    background-color: purple;
-    padding-bottom: 5px;
-    border-radius: 20px;
 }
 
 #Camelbar2 {
     grid-area: bar2;
-    width: 5%;
-    height: 60px;
-    background-color: red;
-    padding-bottom: 5px;
-    border-radius: 20px;
+
 }
 
 #Camelbar3 {
     grid-area: bar3;
-    width: 5%;
-    height: 60px;
-    background-color: green;
-    padding-bottom: 5px;
-    border-radius: 20px;
+
 }
 
 #Camelbar4 {
     grid-area: bar4;
-    width: 5%;
-    height: 60px;
-    background-color: blue;
-    padding-bottom: 5px;
-    border-radius: 20px;
+
 }
 
 #img1 {
-    position: relative;
-    grid-area: img1;
-    height: 150px;
-    border-radius: 20px;
+    float:right;
+    border-radius: 50px;
 }
 
 #img2 {
-    position: relative;
-    grid-area: img2;
+    float:right;
     height: 150px;
 }
 
 #img3 {
-    position: relative;
-    grid-area: img3;
+    float:right;    
     height: 150px;
 }
 
 #img4 {
-    position: relative;
-    grid-area: img4;
+    float:right;
     height: 150px;
+}
+
+.camelracepoints {
+    background-color: #0168b3;
+    border-radius: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    max-height: 50px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 50px;
+    color: white;
+    margin: auto 0px;
+    font-weight:700;
+}
+
+#crp1{
+    grid-area: crp1;
+}
+#crp2 {
+    grid-area: crp2;
+}
+#crp3 {
+    grid-area: crp3;
+}
+#crp4 {
+    grid-area: crp4;
 }
 
 @media screen and (max-width: 700px) {
