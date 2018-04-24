@@ -119,24 +119,24 @@ div {
 
 .questioncontainer {
     position: relative;
+    display: grid;
     grid-area: qc;
     border: solid 5px #0168b3;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    grid-template-areas: "cquestion cquestion cquestion cquestion timer" 
-                           "awnser1 awnser1 awnser2 awnser2 timer"
-                          "awnser3 awnser3 awnser4 awnser4 timer"
+    grid-template-areas: "cquestion cquestion cquestion cquestion" "canswer1 canswer1 canswer2 canswer2" "canswer3 canswer3 canswer4 canswer4";
+    grid-gap:5px;
 }
 
 .playerscontainter {
     grid-area: pc;
     border: solid 5px #0168b3;
-    overflow-y: scroll
+    overflow-y: scroll;
 }
 
 .searchcontainer {
     grid-area: sc;
-    border: solid 5px #0168b3
+    border: solid 5px #0168b3;
 }
 
 .readybutton {
@@ -168,7 +168,7 @@ div {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 50px
+    border-radius: 50px;
 }
 
 .userhs {
@@ -186,7 +186,7 @@ div {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 0px
+    border-radius: 0px;
 }
 
 .Playbutton {
@@ -301,6 +301,44 @@ div {
 #crp4 {
     grid-area: crp4;
 }
+.answer {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-size:30px;
+    font-weight:700;
+    border-radius:20px;
+    background-color:purple;
+    color: white;
+
+}
+#canswer1 {
+    grid-area: canswer1;
+}
+#canswer2 {
+    grid-area: canswer2;
+}
+#canswer3 {
+    grid-area: canswer3;
+}
+#canswer4 {
+    grid-area: canswer4;
+}
+.cquestion {
+    grid-area: cquestion;
+    background-color: #0168b3;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:30px;
+    
+}
+#questionlbl{
+    margin:0px;
+    padding:0px;
+}
 
 @media screen and (max-width: 700px) {
     .homewrapper {
@@ -308,6 +346,6 @@ div {
         grid-template-rows: 70px repeat(3, minmax(400px, 1fr));
         grid-template-areas: "navbar navbar navbar navbar" ". play play ." ". progress progress ." ". leaderboard leaderboard .";
         grid-gap: 10px;
-    }
+    
     
 }

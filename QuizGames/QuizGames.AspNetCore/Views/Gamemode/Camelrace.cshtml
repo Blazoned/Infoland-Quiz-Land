@@ -59,14 +59,14 @@
         
 
         <div class="questioncontainer">
-            <div>
-                <h3>
-                    Vraag:<br/>
-                    @Model.questions[0].question;
-                </h3>
+            <div class="cquestion">
+                
+                    <h2 id="questionlbl">Vraag:</h2>
+                     @Model.questions[0].question;
+                
             </div>
-            <div>
-                @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
+            
+                @*@using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
     {
 
             @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[0].text, new { id = "RB1" })
@@ -80,15 +80,15 @@
 
             @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[3].text, new { id = "RB4" })
             @Html.LabelFor(m => m.questions[0].awnsers[3], Model.questions[0].awnsers[3].text, new { name = "Answer" })<br />
-            <br />
+            <br />*@
 
 
-            <input type="submit" value="Antwoorden" />
-            <input type="button" value=@Model.questions[0].awnsers[0].text />
-            <input type="button" value=@Model.questions[0].awnsers[1].text />
-            <input type="button" value=@Model.questions[0].awnsers[2].text />
-            <input type="button" value=@Model.questions[0].awnsers[3].text />
-}
+            
+            <input type="button" class="answer" id="canswer1" value=@Model.questions[0].awnsers[0].text  />
+            <input type="button" class="answer" id="canswer2" value=@Model.questions[0].awnsers[1].text />
+            <input type="button" class="answer" id="canswer3" value=@Model.questions[0].awnsers[2].text />
+            <input type="button" class="answer" id="canswer4" value=@Model.questions[0].awnsers[3].text />
+@*}*@
                 @if (Model.ChosenAnwser != null)
     {
         if (Model.ChosenAnwser == Model.questions[0].correctAnswer)
@@ -114,7 +114,7 @@ if (rnd == 3)
             <script type="text/javascript">move(Camelbar4, img4);</script>}
 }
 }
-            </div>
+            
         </div>
 
         @*<script>
