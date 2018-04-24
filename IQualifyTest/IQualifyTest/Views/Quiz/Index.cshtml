@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Quiz Page";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#stunButton").click(function () {
+            $.ajax({
+                method: "GET",
+                url: "https://quiz.iqualify.nl/api/userdata/mycoursesdata",
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", "Bearer " + "eksde");
+                    request.setRequestHeader("Accept", "application/json");
+                    request.setRequestHeader("x-api-version", "1");
+                },
+                success: function (result) {
+                    alert(text(result));
+                }
+            });
+        });
+    });
+</script>
+<br />
+<br />
+
+<div id="loginButton" style="margin-top: 15px; width: auto;">
+<input id="stunButton" type="button" value="Log in!" />
+    </div>
+<br />
+<br />
