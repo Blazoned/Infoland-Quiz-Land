@@ -28,93 +28,83 @@
         </div>
 
 
-         <!--
-            <div class="questioncontainer">
-                <div>
-                    <h3>
-                        Vraag:<br />
-                        @Model.questions[0].question;
-                    </h3>
-                </div>
-
-                <div>
-                    <div id="Answer_Form">
-                        <form action="#" onsubmit="yourJsFunction();return false">
-                            <input type="radio" id="RB1" name="Answer" value=@Model.questions[0].awnsers[0] checked />@Model.questions[0].awnsers[0].text<br />
-                            <input type="radio" id="RB2" name="Answer" value=@Model.questions[0].awnsers[1] />@Model.questions[0].awnsers[1].text<br />
-                            <input type="radio" id="RB3" name="Answer" value=@Model.questions[0].awnsers[2] />@Model.questions[0].awnsers[2].text<br />
-                            <input type="radio" id="RB4" name="Answer" value=@Model.questions[0].awnsers[3] />@Model.questions[0].awnsers[3].text<br /><br />
-                            <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
-
-                        </form>
-                    </div>
-                </div>
+        <!--
+        <div class="questioncontainer">
+            <div>
+                <h3>
+                    Vraag:<br />
+                    @Model.questions[0].question;
+                </h3>
             </div>
 
+            <div>
+                <div id="Answer_Form">
+                    <form action="#" onsubmit="yourJsFunction();return false">
+                        <input type="radio" id="RB1" name="Answer" value=@Model.questions[0].awnsers[0] checked />@Model.questions[0].awnsers[0].text<br />
+                        <input type="radio" id="RB2" name="Answer" value=@Model.questions[0].awnsers[1] />@Model.questions[0].awnsers[1].text<br />
+                        <input type="radio" id="RB3" name="Answer" value=@Model.questions[0].awnsers[2] />@Model.questions[0].awnsers[2].text<br />
+                        <input type="radio" id="RB4" name="Answer" value=@Model.questions[0].awnsers[3] />@Model.questions[0].awnsers[3].text<br /><br />
+                        <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
 
-            <br>
-            <br>
-            <br>
-        -->
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <br>
+        <br>
+    -->
+
         
+        
+            
+
 
         <div class="questioncontainer">
             <div class="cquestion">
-                
-                    <h2 id="questionlbl">Vraag:</h2>
-                     @Model.questions[0].question;
-                
+                <h2 id="questionlbl">Vraag:</h2>
+                @Model.questions[0].question;
             </div>
-            
-                @*@using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
-    {
 
-            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[0].text, new { id = "RB1" })
-            @Html.LabelFor(m => m.questions[0].awnsers[0], Model.questions[0].awnsers[0].text, new { name = "Answer" })<br />
-
-            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[1].text, new { id = "RB2" })
-            @Html.LabelFor(m => m.questions[0].awnsers[1], Model.questions[0].awnsers[1].text, new { name = "Answer" })<br />
-
-            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[2].text, new { id = "RB3" })
-            @Html.LabelFor(m => m.questions[0].awnsers[2], Model.questions[0].awnsers[2].text, new { name = "Answer" })<br />
-
-            @Html.RadioButtonFor(m => m.ChosenAnwser, Model.questions[0].awnsers[3].text, new { id = "RB4" })
-            @Html.LabelFor(m => m.questions[0].awnsers[3], Model.questions[0].awnsers[3].text, new { name = "Answer" })<br />
-            <br />*@
+            @using (Html.BeginForm("answerquestion"))
+            {
+                <input type="submit" class="answer" id="canswer1" value=@Model.questions[0].awnsers[0].text name="action:answer1"/>
+                <input type="submit" class="answer" id="canswer2" value=@Model.questions[0].awnsers[1].text name="action:answer2"/>
+                <input type="submit" class="answer" id="canswer3" value=@Model.questions[0].awnsers[2].text name="action:answer3"/>
+                <input type="submit" class="answer" id="canswer4" value=@Model.questions[0].awnsers[3].text name="action:answer4"/>
+            }
 
 
-            
-            <input type="button" class="answer" id="canswer1" value=@Model.questions[0].awnsers[0].text  />
-            <input type="button" class="answer" id="canswer2" value=@Model.questions[0].awnsers[1].text />
-            <input type="button" class="answer" id="canswer3" value=@Model.questions[0].awnsers[2].text />
-            <input type="button" class="answer" id="canswer4" value=@Model.questions[0].awnsers[3].text />
-@*}*@
-                @if (Model.ChosenAnwser != null)
-    {
-        if (Model.ChosenAnwser == Model.questions[0].correctAnswer)
+
+            @*}*@
+            @*@if (Model.ChosenAnwser != null)
         {
-            <h2>Dat is: <b>Goed</b></h2>
-            <script type="text/javascript">
-                move(Camelbar1, img1);
-            </script>
-}
-if (Model.ChosenAnwser != Model.questions[0].correctAnswer)
-{
-            <h2>Dat is: <b>Fout</b></h2>
-Random rand = new Random();
-int rnd = rand.Next(1, 4);
-if (rnd == 1)
-{
-            <script type="text/javascript">move(Camelbar2, img2);</script>}
-if (rnd == 2)
-{
-            <script type="text/javascript">move(Camelbar3, img3);</script>}
-if (rnd == 3)
-{
-            <script type="text/javascript">move(Camelbar4, img4);</script>}
-}
-}
-            
+            if (Model.ChosenAnwser == Model.questions[0].correctAnswer)
+            {
+                <h2>Dat is: <b>Goed</b></h2>
+                <script type="text/javascript">
+                    move(Camelbar1, img1);
+                </script>*@
+            @*}*@
+            @*if (Model.ChosenAnwser != Model.questions[0].correctAnswer)
+        {
+                    <h2>Dat is: <b>Fout</b></h2>
+        Random rand = new Random();
+        int rnd = rand.Next(1, 4);
+        if (rnd == 1)
+        {
+                    <script type="text/javascript">move(Camelbar2, img2);</script>}
+        if (rnd == 2)
+        {
+                    <script type="text/javascript">move(Camelbar3, img3);</script>}
+        if (rnd == 3)
+        {
+                    <script type="text/javascript">move(Camelbar4, img4);</script>}
+        }
+        }*@
+
         </div>
 
         @*<script>
@@ -133,5 +123,5 @@ if (rnd == 3)
                 }
             }
         </script>*@
-    </div>
+    
 </body>

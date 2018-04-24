@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace QuizGames.Models
 {
-    public class Awnser
+    public class answer
     {
         public string text;
         public Boolean correct;
 
-        public Awnser(string text, Boolean correct)
+        public answer(string text, Boolean correct)
         {
             this.text = text;
             this.correct = correct;
