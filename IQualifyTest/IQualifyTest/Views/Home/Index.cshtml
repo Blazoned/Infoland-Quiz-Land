@@ -9,7 +9,7 @@
             $.ajax(
                 {
                     method: "POST",
-                    url: "https://quiz.iqualify.nl/api/authenticate",
+                    url: "https://quiz.iqualify.nl/api/authenticate",   
                     beforeSend: function (request) {
                         request.setRequestHeader("x-api-version", "1");
                         request.setRequestHeader("Accept", "application/json");
