@@ -28,6 +28,21 @@
                 }
             );
         });
+
+        $("#testButton").click(function () {
+            $.ajax(
+                {
+                    method: "GET",
+                    url: "/api/authenticate",
+                    contentType: "application/json",
+                    dataType: "application/json"
+                    ,
+                    success: function (result) {
+                        alert(text(result));
+                    }
+                }
+            );
+        });
     });
 </script>
 <br />
@@ -45,6 +60,11 @@
     <div id="loginButton" style="margin-top: 15px; width: auto;">
         <input id="stunButton" type="button" value="Log in!" />
     </div>
+</div>
+<br />
+
+<div id="testButtonDiv" style="margin-top: 15px; width: auto;">
+    <input id="testButton" type="button" value="Test!" />
 </div>
 <br />
 
