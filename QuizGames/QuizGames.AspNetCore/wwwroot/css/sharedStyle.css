@@ -21,8 +21,6 @@ div {
     grid-template-columns: 15% 1fr 15%;
     grid-template-rows: 500px;
     grid-template-areas: ". lc .";
-   
-
 }
 
 .logincontainer {
@@ -64,11 +62,11 @@ div {
     }
 
 .logincontainer a:hover {
-    background-color: #purple;
+    background-color: purple;
 }
 
 .logincontainer a:active {
-    background-color: #purple;
+    background-color: purple;
     box-shadow: 0 5px #666;
     transform: translateY(4px)
 
@@ -88,7 +86,7 @@ div {
     grid-template-columns: 15% 1fr 1fr 1fr 1fr 15%;
     grid-template-rows: 70px repeat(2, minmax(400px, 1fr));
     grid-template-areas: "navbar navbar navbar navbar navbar navbar " ". pc pc sc sc ." ". pc pc rb rb .";
-    grid-gap: 20px
+    grid-gap: 20px;
 }
 
 .gamewrapper {
@@ -96,7 +94,7 @@ div {
     grid-template-columns: 15% 1fr 15%;
     grid-template-rows: 70px repeat(2, minmax(auto, 300px));
     grid-template-areas: "navbar navbar navbar" ". cr ." ". qc .";
-    grid-gap: 20px
+    grid-gap: 20px;
 }
 
 .camelrace {
@@ -346,6 +344,5 @@ div {
         grid-template-rows: 70px repeat(3, minmax(400px, 1fr));
         grid-template-areas: "navbar navbar navbar navbar" ". play play ." ". progress progress ." ". leaderboard leaderboard .";
         grid-gap: 10px;
-    
-    
+    }
 }

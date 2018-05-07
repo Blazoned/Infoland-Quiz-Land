@@ -5,8 +5,16 @@
 }
 <head>
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+
 </head>
 <body>
+
+    <script>
+        var projectJson = '@(Html.Raw(new JavaScriptSerializer().Serialize(Model)))';
+    
+    </script>
+    
+
     <div class="gamewrapper">
         <div class="Navbar">
             <a href="@Url.Action("Menu", "Menu")" class="homebutton">
@@ -66,15 +74,18 @@
             <div class="cquestion">
                 <h2 id="questionlbl">Vraag:</h2>
                 @Model.questions[0].question;
-            </div>
 
-            @using (Html.BeginForm("answerquestion"))
-            {
-                <input type="submit" class="answer" id="canswer1" value=@Model.questions[0].awnsers[0].text name="action:answer1"/>
-                <input type="submit" class="answer" id="canswer2" value=@Model.questions[0].awnsers[1].text name="action:answer2"/>
-                <input type="submit" class="answer" id="canswer3" value=@Model.questions[0].awnsers[2].text name="action:answer3"/>
-                <input type="submit" class="answer" id="canswer4" value=@Model.questions[0].awnsers[3].text name="action:answer4"/>
-            }
+
+            </div>
+            
+
+
+
+            <input type="button" class="answer" id="canswer1" value=@Model.questions[0].awnsers[0].text name="action:answer1" onclick="Answer_Question(@Model.questions[0].awnsers[0].correct, Camelbar1, img1))" />
+            <input type="button" class="answer" id="canswer2" value=@Model.questions[0].awnsers[1].text name="action:answer2" onclick="Answer_Question(@Model.questions[0].awnsers[1].correct, Camelbar1, img1))" />
+            <input type="button" class="answer" id="canswer3" value=@Model.questions[0].awnsers[2].text name="action:answer3" onclick="Answer_Question(@Model.questions[0].awnsers[2].correct, Camelbar1, img1))" />
+            <input type="button" class="answer" id="canswer4" value=@Model.questions[0].awnsers[3].text name="action:answer4" onclick="Answer_Question(@Model.questions[0].awnsers[3].correct, Camelbar1, img1))" />
+
 
 
 
@@ -123,5 +134,6 @@
                 }
             }
         </script>*@
+        </div>
     
 </body>
