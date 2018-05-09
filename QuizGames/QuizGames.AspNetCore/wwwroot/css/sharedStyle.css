@@ -120,11 +120,13 @@ div {
     display: grid;
     grid-area: qc;
     border: solid 5px #0168b3;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    grid-template-areas: "cquestion cquestion cquestion cquestion" "canswer1 canswer1 canswer2 canswer2" "canswer3 canswer3 canswer4 canswer4";
-    grid-gap:5px;
+    grid-template-areas: "cquestion cquestion" "canswer1 canswer2" "canswer3 canswer4";
+    grid-gap: 5px;
 }
+
+
 
 .playerscontainter {
     grid-area: pc;

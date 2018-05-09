@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace QuizGames.Models
 {
+   [DataContract]
    public class Question
     {
-        
-        public string question;
-        public string correctAnswer;
-        public List<answer> awnsers;
+        [DataMember(Name = "question")]
+        public string QuestionString { get; set; }
+        [DataMember(Name = "correctAnwser")]
+        public string CorrectAnswer { get; set; }
+        [DataMember(Name = "awnsers")]
+        public List<answer> Awnsers { get; set; }
 
         public Question(string question, List<answer> awnsers, string correctAnswer)
         {
-            this.question = question;
-            this.awnsers = awnsers;
-            this.correctAnswer = correctAnswer;
+            QuestionString = question;
+            Awnsers = awnsers;
+            CorrectAnswer = correctAnswer;
         }
 
         public Question(string question, string awnser1, Boolean correct1, string awnser2, Boolean correct2, string awnser3, Boolean correct3, string awnser4, Boolean correct4)
@@ -34,8 +37,8 @@ namespace QuizGames.Models
             answer a4 = new answer(awnser4, correct4);
             aa.Add(a4);
 
-            this.awnsers = aa;
-            this.question = question;
+            Awnsers = aa;
+            QuestionString = question;
         }
     }
 }

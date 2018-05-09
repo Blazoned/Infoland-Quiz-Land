@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,13 +9,15 @@ namespace QuizGames.Models
 {
     public class answer
     {
-        public string text;
-        public Boolean correct;
+        [DataMember(Name = "question")]
+        public string Text { get; set; }
+        [DataMember(Name = "correct")]
+        public Boolean Correct { get; set; }
 
         public answer(string text, Boolean correct)
         {
-            this.text = text;
-            this.correct = correct;
+            Text = text;
+            Correct = correct;
         }
     }
 }
