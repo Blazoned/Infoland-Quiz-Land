@@ -6,7 +6,7 @@
     var player2points = 0;
     var player3points = 0;
     var player4points = 0;
-    var currentquestion
+    var currentquestion;
 
 
 
@@ -21,18 +21,38 @@ function questionAsnsered(awnser) {
         player1points++;
         move(Camelbar1, img1);
         qAnswerd++;
-        nextQuestion(currentquestion);
         document.getElementById('crp1').innerHTML = player1points;
-
+        var x = document.getElementsByClassName('cquestion');
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.backgroundColor = "green";
+        }
+        setTimeout(function () {
+            nextQuestion(currentquestion);
+        }, 500);
     }
     else {
         qAnswerd++;
-        nextQuestion(currentquestion);
+        var x = document.getElementsByClassName('cquestion');
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.backgroundColor = "red";
+        }
+        setTimeout(function () {
+            nextQuestion(currentquestion);
+        }, 500);
+        
     }
 }
 
 function nextQuestion(lastquestion) {
     currentquestion = Math.floor((Math.random() * 5) + 0);
+    
+    var x = document.getElementsByClassName('cquestion');
+    var i;
+    for (i = 0; i < x.length; i++) {
+        x[i].style.backgroundColor = "#0168b3";
+    }
 
     while (currentquestion == lastquestion) {
         currentquestion = Math.floor((Math.random() * 5) + 0);
@@ -57,7 +77,7 @@ function move(id1, id2) {
   img.style.left = width  + '%';
   }
   else {
-  alert("Game over!");
+      alert("Game over!");
   Camelbar1.style.width = 5 + '%';
   Camelbar2.style.width = 5 + '%';
   Camelbar3.style.width = 5 + '%';
