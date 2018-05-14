@@ -1,27 +1,29 @@
 
-
     var questions;
     var qAnswerd = 0;
     var player1points = 0;
     var player2points = 0;
     var player3points = 0;
     var player4points = 0;
-    var currentquestion;
+var currentquestion;
+
+var loop;
 
 
 
 function start() {
     questions = DummyQuestions();
     nextQuestion();
-    
+   
 }
 
 function questionAsnsered(awnser) {
     if (awnser == questions[currentquestion].correctAnswer) {
+        loop = setInterval(random_points, 2000);
         player1points++;
-        move(Camelbar1, img1);
+        move("Camelbar1", "img1");
         qAnswerd++;
-        document.getElementById('crp1').innerHTML = player1points;
+        update();
         var x = document.getElementsByClassName('cquestion');
         var i;
         for (i = 0; i < x.length; i++) {
@@ -30,6 +32,7 @@ function questionAsnsered(awnser) {
         setTimeout(function () {
             nextQuestion(currentquestion);
         }, 500);
+        
     }
     else {
         qAnswerd++;
@@ -42,6 +45,36 @@ function questionAsnsered(awnser) {
             nextQuestion(currentquestion);
         }, 500);
         
+    }
+}
+
+function move(id1, id2) {
+    var elem = document.getElementById(id1);
+    var img = document.getElementById(id2);
+    var width = Number(elem.style.width.replace(/[^\d\.\-]/g, ''));
+    //var width = elem.offsetWidth;
+    //var totalwidth = width / 7 * 100;
+    
+    if (width < 90) {
+        width += 10;
+        elem.style.width = width + '%';
+        img.style.left = width + '%';
+    }
+    else {
+        clearInterval(loop); 
+        Camelbar1.style.width = 5 + '%';
+        Camelbar2.style.width = 5 + '%';
+        Camelbar3.style.width = 5 + '%';
+        Camelbar4.style.width = 5 + '%';
+        img1.style.left = 5 + '%';
+        img2.style.left = 5 + '%';
+        img3.style.left = 5 + '%';
+        img4.style.left = 5 + '%';
+        player1points = 0;
+        player3points = 0;
+        player2points = 0;
+        player4points = 0;
+        alert("Game over!");
     }
 }
 
@@ -65,34 +98,7 @@ function nextQuestion(lastquestion) {
     document.getElementById('canswer4').innerHTML = questions[currentquestion].answers[3]; 
 }
 
-function move(id1, id2) {
-  var elem = id1;
-  var img = id2;
-    var width= 1;
-  var width = Number(elem.style.width.replace(/[^\d\.\-]/g, ''));
-  var name = elem.name;
-  if (width < 90){
-  width+= 10; 
-  elem.style.width = width + '%'; 
-  img.style.left = width  + '%';
-  }
-  else {
-      alert("Game over!");
-  Camelbar1.style.width = 5 + '%';
-  Camelbar2.style.width = 5 + '%';
-  Camelbar3.style.width = 5 + '%';
-  Camelbar4.style.width = 5 + '%';
-  img1.style.left = 5 + '%';
-  img2.style.left = 5 + '%';
-  img3.style.left = 5 + '%';
-      img4.style.left = 5 + '%';
-      player1points = 0;
-      player2points = 0;
-      player3points = 0;
-      player4points = 0;
-      document.getElementById('crp1').innerHTML = player1points;
-  }
-}
+
 
 function DummyQuestions(){
     var q =
@@ -129,3 +135,36 @@ function DummyQuestions(){
         ]
     return q;
 }
+
+function update() {
+    document.getElementById('crp1').innerHTML = player1points;
+    document.getElementById('crp2').innerHTML = player2points;
+    document.getElementById('crp3').innerHTML = player3points;
+    document.getElementById('crp4').innerHTML = player4points;
+}
+
+function random_points() {
+    var i;
+    for (i = 0; i < 3; i++) {
+        var random = Math.floor((Math.random() * 2) + 0);
+        if (random == 0) {
+            if (i == 0) {
+                player2points++;
+                move("Camelbar2", "img2");
+                update();
+            }
+            else if (i == 1) {
+                player3points++;
+                move("Camelbar3", "img3");
+                update();
+            }
+            else if (i == 2) {
+                player4points++;
+                move("Camelbar4", "img4");
+                update();
+            }
+        }
+    }  
+}
+
+
