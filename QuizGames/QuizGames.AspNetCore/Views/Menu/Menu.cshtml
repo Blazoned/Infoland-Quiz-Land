@@ -12,18 +12,18 @@
             <img src="~/images/img_avatar.png" alt="headshot gebruiker" class="userhs">
         </div>
 
-        
-            <div class="Playbutton">
-                <a href="@Url.Action("Lobby", "Lobby")">
-                    <p class="buttontext">Play</p>
-                </a>
-            </div>
-           
-            <div class="Progressbutton">
-                <p class="buttontext">Progress</p>
-            </div>
-            <div class="Leaderboardbutton">
-                <p class="buttontext">leaderboard</p>
-            </div>
+
+        <div class="Playdiv">
+            <input type="button" class="Playbutton" value="play" onclick="@("window.location.href='" +@Url.Action("camelrace", "gamemode") + "'");"/>
+                <p class="buttontext">Play</p>
+        </div>
+
+
+        <div class="Progressbutton">
+            <p class="buttontext">Progress</p>
+        </div>
+        <div class="Leaderboardbutton">
+            <p class="buttontext">leaderboard</p>
+        </div>
     </div>
 </body>

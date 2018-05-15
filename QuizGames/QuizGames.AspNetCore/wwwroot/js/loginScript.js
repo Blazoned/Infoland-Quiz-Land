@@ -18,6 +18,7 @@
                 $('<form action="' + window.location.origin + "/authorise" + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
             },
             error: function () {
+                alert("Wrong credentials, please try again.")
                 $("#tbUname,#tbPsw").animate(
                     {
                         "border-style": "solid",
