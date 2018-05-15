@@ -5,9 +5,9 @@
     var player2points = 0;
     var player3points = 0;
     var player4points = 0;
-var currentquestion;
-
-var loop;
+    var currentquestion;
+    var loop;
+    var loopstarted = false;
 
 
 
@@ -19,11 +19,11 @@ function start() {
 
 function questionAsnsered(awnser) {
     if (awnser == questions[currentquestion].correctAnswer) {
-        loop = setInterval(random_points, 2000);
+        
         player1points++;
+        update();
         move("Camelbar1", "img1");
         qAnswerd++;
-        update();
         var x = document.getElementsByClassName('cquestion');
         var i;
         for (i = 0; i < x.length; i++) {
@@ -61,20 +61,23 @@ function move(id1, id2) {
         img.style.left = width + '%';
     }
     else {
-        clearInterval(loop); 
-        Camelbar1.style.width = 5 + '%';
-        Camelbar2.style.width = 5 + '%';
-        Camelbar3.style.width = 5 + '%';
-        Camelbar4.style.width = 5 + '%';
-        img1.style.left = 5 + '%';
-        img2.style.left = 5 + '%';
-        img3.style.left = 5 + '%';
-        img4.style.left = 5 + '%';
+        loopstarted = true;
+        toggleGameplay();
+        Camelbar1.style.width = 6 + '%';
+        Camelbar2.style.width = 6 + '%';
+        Camelbar3.style.width = 6 + '%';
+        Camelbar4.style.width = 6 + '%';
+        img1.style.left = 6 + '%';
+        img2.style.left = 6 + '%';
+        img3.style.left = 6 + '%';
+        img4.style.left = 6 + '%';
         player1points = 0;
         player3points = 0;
         player2points = 0;
         player4points = 0;
         alert("Game over!");
+        loopstarted = false;
+        update();
     }
 }
 
@@ -99,6 +102,19 @@ function nextQuestion(lastquestion) {
 }
 
 
+function toggleGameplay() {
+    if (loopstarted == false) {
+        loop = setInterval(random_points, 2000);
+        loopstarted = true;
+        document.getElementById('gameplaybtn').innerHTML = "Stop Gameplay";
+    }
+    else {
+        loop = clearInterval(loop);
+        loopstarted = false;
+        document.getElementById('gameplaybtn').innerHTML = "Start Gameplay";
+    }
+}
+
 
 function DummyQuestions(){
     var q =
@@ -118,7 +134,7 @@ function DummyQuestions(){
             {
                 question: "Wat is de hoofdstad van Noord-Holland",
                 answers: ["Den Haag", "Amsterdam", "Haarlem", "Alkmaar"],
-                correctAwnser: "Haarlem"
+                correctAnswer: "Haarlem"
             },
 
             {
@@ -150,18 +166,21 @@ function random_points() {
         if (random == 0) {
             if (i == 0) {
                 player2points++;
-                move("Camelbar2", "img2");
                 update();
+                move("Camelbar2", "img2");
+                
             }
             else if (i == 1) {
                 player3points++;
-                move("Camelbar3", "img3");
                 update();
+                move("Camelbar3", "img3");
+                
             }
             else if (i == 2) {
                 player4points++;
-                move("Camelbar4", "img4");
                 update();
+                move("Camelbar4", "img4");
+                
             }
         }
     }  

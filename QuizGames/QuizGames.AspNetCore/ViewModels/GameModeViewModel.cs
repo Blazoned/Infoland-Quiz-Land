@@ -16,12 +16,8 @@ namespace QuizGames.AspNetCore.ViewModels
 
         public void filllist()
         {
-            genDummieData();
-            
+            genDummieData();   
         }
-
-        
-        
         public List<Question> genDummieData()
         {
             answer a1 = new answer("Duitsland", true);
