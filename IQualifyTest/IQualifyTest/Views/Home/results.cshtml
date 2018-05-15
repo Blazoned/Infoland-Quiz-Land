@@ -1,0 +1,36 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "Results";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#stunButton").click(function () {
+            $.ajax(
+                {
+                    method: "GET",
+                    url: "https://quiz.iqualify.nl/api/userdata/results",
+                    beforeSend: function (request) {
+                        request.setRequestHeader("Authorization", "Bearer " + result);
+                    },
+                    success: function (result) {
+                        $("#resultSection").html(result.results.results[0].name);
+                    }
+                }
+            );
+        });
+    });
+</script>
+<br />
+<div id="loginSection" style="margin: 10px 20px; text-align: center">
+    <div id="loginButton" style="margin-top: 15px; width: auto;">
+        <input id="stunButton" type="button" value="Log in!" />
+    </div>
+</div>
+<br />
+
+<div id="resultSection" style="margin: 10px 20px;">
+
+</div>
+<br />
+<br />
