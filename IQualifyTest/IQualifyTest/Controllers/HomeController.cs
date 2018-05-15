@@ -19,14 +19,6 @@ namespace IQualifyTest.Controllers
             if (Request.Cookies.ContainsKey("AuthKey"))
             {
                 model.Key = Request.Cookies["AuthKey"].ToString();
-
-                CookieOptions options = new CookieOptions
-                {
-                    Expires = DateTime.Now.AddDays(-1),
-                    HttpOnly = true,
-                    Secure = true
-                };
-                Response.Cookies.Append("AuthKey", "", options);
             }
 
             return View(model);
@@ -38,8 +30,7 @@ namespace IQualifyTest.Controllers
         {
             CookieOptions options = new CookieOptions
             {
-                HttpOnly = true,
-                Secure = true
+                HttpOnly = true
             };
             Response.Cookies.Append("AuthKey", id.Key, options);
 
