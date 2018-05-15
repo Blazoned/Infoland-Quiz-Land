@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountViewModelPartial.cs" />
+    <Compile Include="GameModeViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="MenuViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

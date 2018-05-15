@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using QuizGames.Models;
 
-namespace QuizGames.AspNetCore.ViewModels
+namespace QuizGames.ViewModels
 {
     public class GameModeViewModel
     {
@@ -12,7 +12,7 @@ namespace QuizGames.AspNetCore.ViewModels
         #region Properties
 
         //all properties that are needed for the view and model to comunicate
-        
+        public string AuthKey { get; set; }
 
         public void filllist()
         {

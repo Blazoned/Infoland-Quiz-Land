@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using QuizGames.ViewModels;
+using System;
 
 namespace QuizGames__Asp.Net_Core_.Controllers
 {
@@ -12,21 +14,24 @@ namespace QuizGames__Asp.Net_Core_.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(LoginViewModel model)
+        [Route("Authorise")]
+        public IActionResult VerifyLogin(LoginViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    model.Authorise();
-            //}
+            if (String.IsNullOrEmpty(model.Key))
+                return RedirectToAction("Index");
+
+            CookieOptions options = new CookieOptions
+            {
+                SameSite = SameSiteMode.Strict,
+                HttpOnly = true,
+                Secure = true,
+                Domain = "",
+                Expires = null
+            };
+
+            Response.Cookies.Append("AuthKey", model.Key);
 
             return RedirectToAction("Menu", "Menu");
-
-
-
-
-
-            }
-
-
         }
+    }
 }
