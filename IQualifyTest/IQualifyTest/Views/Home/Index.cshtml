@@ -9,12 +9,8 @@
             $.ajax(
                 {
                     method: "POST",
-                    url: "https://quiz.iqualify.nl/api/authenticate",   
-                    beforeSend: function (request) {
-                        request.setRequestHeader("Accept", "application/json");
-                    },
+                    url: "https://quiz.iqualify.nl/api/authenticate",
                     contentType: "application/json",
-                    dataType: "application/json",
                     data: JSON.stringify(
                         {
                             "username": $("#tbUsername").val(),
@@ -22,29 +18,42 @@
                             "email": $("#tbEmail").val()
                         }
                     ),
-                    success: function (result) {
-                        alert(text(result));
-                    }
-                }
-            );
-        });
+                    success: function (result, xhr) {
+                        $("#authenticationSection").html(result);
 
-        $("#testButton").click(function () {
-            $.ajax(
-                {
-                    method: "GET",
-                    url: "/api/authenticate",
-                    contentType: "application/json",
-                    dataType: "application/json"
-                    ,
-                    success: function (result) {
-                        alert(text(result));
+                        var form = '';
+
+                        form += '<input type="hidden" name="p" value="' + window.location.pathname + '">';
+                        form += '<input type="hidden" name="key" value="' + result + '">';
+
+                        $('<form action="' + window.location.origin + "/results" + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
                     }
                 }
             );
         });
     });
 </script>
+
+@if (!String.IsNullOrEmpty(Model.Key))
+{
+    <script>
+        $(document).ready(function () {
+            $.ajax(
+                {
+                    method: "GET",
+                    url: "https://quiz.iqualify.nl/api/userdata/results",
+                    beforeSend: function (request) {
+                        request.setRequestHeader("Authorization", "Bearer @Model.Key");
+                    },
+                    success: function (result) {
+                        $("#authenticationSection").html(result.results.results[0].name);
+                    }
+                }
+            );
+        });
+    </script>
+}
+
 <br />
 <div id="loginSection" style="margin: 10px 20px; text-align: center">
     <div id="inputLabels" style="display: inline-block; margin-right: 15px; text-align: left;">
@@ -52,7 +61,7 @@
         @Html.Label("Email: ")<br />
         @Html.Label("Password: ")<br />
     </div>
-    <div  id="inputFields" style="display: inline-block; margin-left: 15px; text-align: left;">
+    <div id="inputFields" style="display: inline-block; margin-left: 15px; text-align: left;">
         @Html.TextBoxFor(m => m.Username, new { id = "tbUsername" })<br />
         @Html.TextBoxFor(m => m.Email, new { id = "tbEmail" })<br />
         @Html.PasswordFor(m => m.Password, new { id = "tbPassword" })<br />
@@ -62,14 +71,14 @@
     </div>
 </div>
 <br />
-
-<div id="testButtonDiv" style="margin-top: 15px; width: auto;">
-    <input id="testButton" type="button" value="Test!" />
-</div>
 <br />
 
+<div id="authenticationSection" style="margin: 10px 20px;">
+
+</div>
+<br />
 <div id="resultSection" style="margin: 10px 20px;">
-    
+
 </div>
 <br />
 <br />
