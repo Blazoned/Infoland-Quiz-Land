@@ -24,4 +24,7 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Lobby\" />
+  </ItemGroup>
 </Project>

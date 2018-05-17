@@ -7,42 +7,32 @@
 
 </head>
 <body>
-    
+  
+
+
     
     <br />
    
-
-    <div class=" = container">
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-    {
-
-
-        
-
-        <div class="login-page">
-            <div class="form">
-                
-               
-                <form class="login-form">
-                    <div class="formInput textField">
+   @using (Html.BeginForm("Index", "Home", FormMethod.Post)){
+        <div class="loginwrapper">
+            <div class="logincontainer">
+            <form class="login-form">
+                <div class="fitextfield">
                         <label for="uname"><b>Username</b></label>
                         @Html.TextBoxFor(m => m.Login)
                     </div>
 
-                    <div class="formInput passField">
-                        <label for="psw"><b>Password</b></label>
-                        @Html.PasswordFor(m => m.Pass)
-                        <button>login</button>
-                    </div>
-
+                <div class="fipassfield">
+                    <label for="psw"><b>Password</b></label>
+                    @Html.PasswordFor(m => m.Pass)
+                    <a href="@Url.Action("Menu", "Menu")">Log In</a>
+                </div>
                 </form>
             </div>
+        
         </div>
-}
-
-
-    </div>
-        @if (Model != null && !String.IsNullOrEmpty(Model.TokenId))
+    }
+       @if (Model != null && !String.IsNullOrEmpty(Model.TokenId))
     {
         <br />
         <br />

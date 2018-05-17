@@ -1,4 +1,3 @@
-var elem = id1;
 
 function move(id1, id2) {
   var elem = id1;

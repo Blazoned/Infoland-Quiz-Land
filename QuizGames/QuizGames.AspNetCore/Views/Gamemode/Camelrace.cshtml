@@ -7,67 +7,121 @@
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 </head>
 <body>
-    <div>
-        <h2>Camel Race</h2>
-    </div>
-    <div>
-        <h3>
-            Vraag:<br />
-            @Model.Question
-        </h3>
-    </div>
-
-    <div>
-        <div id="Answer_Form">
-            <form action="#" onsubmit="yourJsFunction();return false">
-                <input type="radio" id="RB1" name="Answer" value=@Model.RandomAnswers[0] checked />@Model.RandomAnswers[0]<br />
-                <input type="radio" id="RB2" name="Answer" value=@Model.RandomAnswers[1] />@Model.RandomAnswers[1]<br />
-                <input type="radio" id="RB3" name="Answer" value=@Model.RandomAnswers[2] />@Model.RandomAnswers[2]<br />
-                <input type="radio" id="RB4" name="Answer" value=@Model.RandomAnswers[3] />@Model.RandomAnswers[3]<br /><br />
-                <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
-            </form>
+    <div class="gamewrapper">
+        <div class="Navbar">
+            <a href="@Url.Action("Menu", "Menu")" class="homebutton">
+                <img src="~/images/homebutton.png" alt="homebutton" class="homebutton">
+            </a>
+            <img src="~/images/infolandLoGo.png" alt="infoland logo" class="infologo">
+            <img src="~/images/img_avatar.png" alt="headshot gebruiker" class="userhs">
         </div>
 
-       @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
-        {
+        <div class="camelrace">
+            <div class="camelracepoints" id="crp1">0</div>
+            <div class="camelracebar" id="Camelbar1"><img id="img1" src=https://www.w3schools.com/howto/img_avatar.png alt="Avatar"></div>
+            <div class="camelracepoints" id="crp2">0</div>
+            <div class="camelracebar" id="Camelbar2"><img id="img2" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
+            <div class="camelracepoints" id="crp3">0</div>
+            <div class="camelracebar" id="Camelbar3"><img id="img3" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
+            <div class="camelracepoints" id="crp4">0</div>
+            <div class="camelracebar" id="Camelbar4"><img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
+        </div>
 
-        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[0])
-        @Html.LabelFor(m => m.RandomAnswers[0], Model.RandomAnswers[0])<br />
 
-        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[1])
-        @Html.LabelFor(m => m.RandomAnswers[1], Model.RandomAnswers[1])<br />
+        <!--
+        <div class="questioncontainer">
+            <div>
+                <h3>
+                    Vraag:<br />
+                    @Model.questions[0].question;
+                </h3>
+            </div>
 
-        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[2])
-        @Html.LabelFor(m => m.RandomAnswers[2], Model.RandomAnswers[2])<br />
+            <div>
+                <div id="Answer_Form">
+                    <form action="#" onsubmit="yourJsFunction();return false">
+                        <input type="radio" id="RB1" name="Answer" value=@Model.questions[0].awnsers[0] checked />@Model.questions[0].awnsers[0].text<br />
+                        <input type="radio" id="RB2" name="Answer" value=@Model.questions[0].awnsers[1] />@Model.questions[0].awnsers[1].text<br />
+                        <input type="radio" id="RB3" name="Answer" value=@Model.questions[0].awnsers[2] />@Model.questions[0].awnsers[2].text<br />
+                        <input type="radio" id="RB4" name="Answer" value=@Model.questions[0].awnsers[3] />@Model.questions[0].awnsers[3].text<br /><br />
+                        <input type="submit" name="submit" class="button" id="submit_btn" value="Send" />
 
-        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[3])
-        @Html.LabelFor(m => m.RandomAnswers[3], Model.RandomAnswers[3])<br />
-        <br />
+                    </form>
+                </div>
+            </div>
+        </div>
 
-        <input type="submit" value="Antwoorden" />
+
+        <br>
+        <br>
+        <br>
+    -->
+
         
-        }
-        @if (Model.ChosenAnwser != null)
+        
+            
+
+
+        <div class="questioncontainer">
+            <div class="cquestion">
+                <h2 id="questionlbl">Vraag:</h2>
+                @Model.questions[0].question;
+            </div>
+
+            @using (Html.BeginForm("answerquestion"))
+            {
+                <input type="submit" class="answer" id="canswer1" value=@Model.questions[0].awnsers[0].text name="action:answer1"/>
+                <input type="submit" class="answer" id="canswer2" value=@Model.questions[0].awnsers[1].text name="action:answer2"/>
+                <input type="submit" class="answer" id="canswer3" value=@Model.questions[0].awnsers[2].text name="action:answer3"/>
+                <input type="submit" class="answer" id="canswer4" value=@Model.questions[0].awnsers[3].text name="action:answer4"/>
+            }
+
+
+
+            @*}*@
+            @*@if (Model.ChosenAnwser != null)
         {
-             @if (Model.ChosenAnwser == Model.Rightanswer)
-        {
-                    <h2>Dat is: <b>Goed</b></h2>
-        }
-             @if (Model.ChosenAnwser != Model.Rightanswer)
+            if (Model.ChosenAnwser == Model.questions[0].correctAnswer)
+            {
+                <h2>Dat is: <b>Goed</b></h2>
+                <script type="text/javascript">
+                    move(Camelbar1, img1);
+                </script>*@
+            @*}*@
+            @*if (Model.ChosenAnwser != Model.questions[0].correctAnswer)
         {
                     <h2>Dat is: <b>Fout</b></h2>
+        Random rand = new Random();
+        int rnd = rand.Next(1, 4);
+        if (rnd == 1)
+        {
+                    <script type="text/javascript">move(Camelbar2, img2);</script>}
+        if (rnd == 2)
+        {
+                    <script type="text/javascript">move(Camelbar3, img3);</script>}
+        if (rnd == 3)
+        {
+                    <script type="text/javascript">move(Camelbar4, img4);</script>}
         }
-        }
-    </div>
+        }*@
 
-    <script>
+        </div>
 
-        $(function () {
-            $(".button").click(function () {
-                // validate and process form here
-            });
-        });
-
-    </script>
-
+        @*<script>
+            function move() {
+                var elem = document.getElementById("Camelbar1");
+                var width = 5;
+                var id = setInterval(frame, 10);
+                function frame() {
+                    if (width >= 100) {
+                        clearInterval(id);
+                    } else {
+                        width++;
+                        elem.style.width = width + '%';
+                        elem.innerHTML = width * 1 + '%';
+                    }
+                }
+            }
+        </script>*@
+    
 </body>
