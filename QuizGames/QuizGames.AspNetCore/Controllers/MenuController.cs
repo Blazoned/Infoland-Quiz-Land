@@ -12,11 +12,17 @@ namespace QuizGames__Asp.Net_Core_.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public IActionResult ToLobby()
+        {
+            return RedirectToAction("Lobby", "Lobby");
+        }
+    }
+}
+
         //[HttpPost]
         //public IActionResult play()
         //{
         //    return RedirectToAction();
         //}
-
-    }
-}
