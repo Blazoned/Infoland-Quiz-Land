@@ -9,6 +9,7 @@ namespace QuizGames.ViewModels
     public class GameModeViewModel
     {
         public List<Question> questions = new List<Question>();
+
         #region Properties
 
         //all properties that are needed for the view and model to comunicate
@@ -52,8 +53,5 @@ namespace QuizGames.ViewModels
             return questions;
         }
         #endregion
-
-
-
     }
 }

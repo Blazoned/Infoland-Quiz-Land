@@ -1,8 +1,32 @@
-﻿// TODO: Validate question answer & add to incorrect questions if wrong (to ask the question again later)
-var incorrectAnswers = new Array();
+﻿var timer =
+    {
+        milliSeconds: 0,
+        Start: function () {
+            window.setInterval(IncreaseTimer, 1);
+        },
+        Reset: function () {
+            window.clearInterval();
+            timer.time = 0;
+            window.setInterval(IncreaseTimer, 1);
+        },
+        Stop: function () {
+            window.clearInterval(IncreaseTimer);
+        },
+        Clear: function () {
+            timer.time = 0;
+        }
+    };
 
-function AnswerQuestion(authKey, quizId, questionId, answer, time)
+function IncreaseTimer()
 {
+    timer += 1;
+}
+
+function AnswerQuestion(authKey, quizId, questionId, answer)
+{
+    // Stop question timer
+    timer.Stop();
+
     // Make an assynchronous request to answer the question
     $.ajax(
         {
@@ -15,11 +39,14 @@ function AnswerQuestion(authKey, quizId, questionId, answer, time)
             data: JSON.stringify(
                 {
                     "confirmed": "true",
-                    "time": time,
+                    "time": timer.milliSeconds,
                     "answer": answer
                 }
             ),
             complete: function (result, xhr) {
+                // Reset and start the timer
+                timer.Reset();
+
                 // Return the response object
                 return result;
             }
@@ -38,6 +65,10 @@ function GetQuizMaterials(authKey, quizId)
                 request.setRequestHeader("Authorization", "Bearer " + authKey);
             },
             complete: function (result, xhr) {
+                // Clear the timer and start it
+                timer.Clear();
+                timer.Start();
+
                 // Return the response object
                 return result;
             }
