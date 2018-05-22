@@ -5,7 +5,6 @@
 }
 <head>
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-
 </head>
 <body onload="start()">
     <div class="gamewrapper">
@@ -29,13 +28,23 @@
             <div class="camelracebar" id="Camelbar4"><img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
         </div>
 
-        
+       @using (Html.BeginForm("Giveanswer", "Gamemode", FormMethod.Post))
+        {
+
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[0])
+        @Html.LabelFor(m => m.RandomAnswers[0], Model.RandomAnswers[0])<br />
+
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[1])
+        @Html.LabelFor(m => m.RandomAnswers[1], Model.RandomAnswers[1])<br />
 
         <div class="questioncontainer">
             <div class="cquestion">
                 <h2 id="questionlbl">Vraag:</h2>
                 <p id="qlbl"></p>
 
+        @Html.RadioButtonFor(m => m.ChosenAnwser, Model.RandomAnswers[3])
+        @Html.LabelFor(m => m.RandomAnswers[3], Model.RandomAnswers[3])<br />
+        <br />
 
             </div>
 

@@ -26,6 +26,7 @@ namespace QuizGames__Asp.Net_Core_.Controllers
         [HttpPost]
         public IActionResult Giveanswer(GameModeViewModel model)
         {
+            
             return RedirectToAction("Camelrace", "Gamemode", model);
         }
     }
