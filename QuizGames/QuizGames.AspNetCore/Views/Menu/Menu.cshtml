@@ -1,17 +1,29 @@
-﻿@page
-@using QuizGames.ViewModels
-@model LoginViewModel
-@{
+﻿@{
     ViewData["Title"] = "Menu";
 }
 
-<body>:
-    <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-    </div>
-    </body>
+<body>
+    <div class="homewrapper">
+        <div class="Navbar">
+            <a href="@Url.Action("Menu", "Menu")" class="homebutton">
+                <img src="~/images/homebutton.png" alt="homebutton" class="homebutton">
+            </a>
+            <img src="~/images/infolandLoGo.png" alt="infoland logo" class="infologo">
+            <img src="~/images/img_avatar.png" alt="headshot gebruiker" class="userhs">
+        </div>
 
+
+        <div class="Playdiv">
+            <input type="button" class="Playbutton" onclick="@("window.location.href='" +@Url.Action("camelrace", "gamemode") + "'");"/>
+                <p class="buttontext">Play</p>
+        </div>
+
+
+        <div class="Progressbutton">
+            <p class="buttontext">Progress</p>
+        </div>
+        <div class="Leaderboardbutton">
+            <p class="buttontext">leaderboard</p>
+        </div>
+    </div>
+</body>

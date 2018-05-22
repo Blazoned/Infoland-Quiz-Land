@@ -1,208 +1,374 @@
-﻿#img1 {
-    position: relative;
-    border-radius: 50%;
-    height: 35px;
-    left: 5%;
-    top: -35px;
+﻿body {
+    margin: 0
 }
 
-#img2 {
-    position: relative;
-    border-radius: 50%;
-    height: 35px;
-    left: 5%;
-    top: -35px;
+div {
+    border-radius: 20px
 }
 
-#img3 {
-    position: relative;
-    border-radius: 50%;
-    height: 35px;
-    left: 5%;
-    top: -35px;
+button{
+    cursor:pointer;
+}
+.homewrapper {
+    display: grid;
+    grid-template-columns: 15% 1fr 1fr 15%;
+    grid-template-rows: 70px repeat(2, minmax(400px, 1fr));
+    grid-template-areas: "navbar navbar navbar navbar" ". play play ." ". progress leaderboard .";
+    grid-gap: 20px;
+    word-break: break-all;
+    text-shadow: 1px 1px 2px #000000
 }
 
-#img4 {
-    position: relative;
-    border-radius: 50%;
-    height: 35px;
-    left: 5%;
-    top: -35px;
+.loginwrapper {
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: 500px;
+    grid-template-areas: ". lc .";
 }
 
-.NavBar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    margin: 0px;
-    padding: 0px;
-    background-color: white;
-    /*background-color: white;*/
+.logincontainer {
+    grid-area: lc;
+    border: solid 5px #0168b3;
+    display: grid;
+    grid-template-columns: 20% 1fr 20%;
+    grid-template-rows: repeat(3, 100px);
+    grid-template-areas: ". textfield ." ". password ." "button . .";
+    justify-content: center;
+    align-content: center;
+    background-image: url(https://i.gyazo.com/7b9058a544f0c7c541939bbba7844acd.png);
+    background-position: center;
+    background-size: cover;
+    grid-gap: 20px;
 }
 
-    .NavBar img {
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
+.logincontainer label{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    color: white;
+   
+}
+
+.logincontainer input{
+    height: 50px;
+    font-size: 40px;
+
+}
+
+    .logincontainer a {
+        text-decoration: none;
+        grid-area: button;
+        font-size: 45px;
+        background-color: #0168b3;
+        border: none;
+        color: white;
+        border-radius: 20px;
     }
 
-#homeButton {
-    float: left;
-    border-radius: 50px;
-    margin: 5px;
-    margin-left: 5%;
+.logincontainer a:hover {
+    background-color: purple;
 }
 
-#accountButton {
-    float: right;
-    height: 100%;
-    width: 70px;
-    display: block;
-    paddin-top: 100%;
-    border-radius: 50%;
-    margin-right: 5%;
-    border: 3px solid blue;
+.logincontainer a:active {
+    background-color: purple;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px)
+
 }
+
+.fitextfield{
+    grid-area:textfield;
+   
+}
+
+.fipassfield{
+    grid-area:password;
+}
+
+.lobbywrapper {
+    display: grid;
+    grid-template-columns: 15% 1fr 1fr 1fr 1fr 15%;
+    grid-template-rows: 70px repeat(2, minmax(400px, 1fr));
+    grid-template-areas: "navbar navbar navbar navbar navbar navbar " ". pc pc sc sc ." ". pc pc rb rb .";
+    grid-gap: 20px;
+}
+
+.gamewrapper {
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: 70px repeat(2, minmax(auto, 300px));
+    grid-template-areas: "navbar navbar navbar" ". cr ." ". qc .";
+    grid-gap: 20px;
+}
+
+.camelrace {
+    position: relative;
+    display: grid;
+    grid-area: cr;
+    border: solid 5px #0168b3;
+    grid-template-columns: 1% 5% 1fr 5%;
+    grid-template-rows: repeat(4, 25%);
+    grid-template-areas: ". crp1 bar1 ." ". crp2 bar2 ." ". crp3 bar3 ." ". crp4 bar4 .";
+    grid-column-gap: 10px;
+}
+
+.camelrace img{
+    border-radius:50px;
+    max-height: 100%;
+    
+
+}
+
+.questioncontainer {
+    position: relative;
+    display: grid;
+    grid-area: qc;
+    border: solid 5px #0168b3;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: "cquestion cquestion" "canswer1 canswer2" "canswer3 canswer4";
+    grid-gap: 5px;
+
+}
+
+
+
+.playerscontainter {
+    grid-area: pc;
+    border: solid 5px #0168b3;
+    overflow-y: scroll;
+}
+
+.searchcontainer {
+    grid-area: sc;
+    border: solid 5px #0168b3;
+}
+
+.readybutton {
+    position:relative;
+    grid-area: rb;
+    background-color: red;
+    text-shadow: 1px 1px 2px #000000;
+}
+
+    .readybutton:hover {
+        background-color: green;
+    }
+
+
+.Navbar {
+    background-color: #0168b3;
+    grid-area: navbar;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 70px;
+    grid-template-areas: "home . logo . user";
+    text-align: center;
+    border-radius: 0px;
+}
+
+.infologo {
+    grid-area: logo;
+    height: 70px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+}
+
+.userhs {
+    grid-area: user;
+    height: 70px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+}
+
+.homebutton {
+    grid-area: home;
+    height: 70px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0px;
+}
+.Playdiv {
+    position: relative;
+    background-color: green;
+    grid-area: play;
+    border-radius: 20px;
+}
+
+.Playbutton {
+    position:relative;
+    background-image: url(../images/play.png);
+    background-position: center;
+    width:100%;
+    height:100%;
+    background-size: cover;
+    border-radius: 20px;
+    cursor:pointer;
+   
+}
+
+.Progressbutton {
+    position: relative;
+    background-color: pink;
+    grid-area: progress;
+    background-image: url(../images/score.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.Leaderboardbutton {
+    position: relative;
+    background-color: aqua;
+    grid-area: leaderboard;
+    background-image: url(../images/leaderboard.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.buttontext {
+    margin: 20px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    color: white;
+    font-size: 40pt;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.camelracebar {
+    display: block;
+    width: 6%;
+    height: 50px;
+    background-color: purple;
+    border-radius: 50px;
+    margin: auto 0px;
+}
+
 
 #Camelbar1 {
-    width: 5%;
-    height: 30px;
-    background-color: purple;
-    padding-bottom: 5px;
-    border-radius: 20px;
+    grid-area: bar1;
+    background-color: limegreen;
 }
 
 #Camelbar2 {
-    width: 5%;
-    height: 30px;
-    background-color: red;
-    padding-bottom: 5px;
-    border-radius: 20px;
+    grid-area: bar2;
+
 }
 
 #Camelbar3 {
-    width: 5%;
-    height: 30px;
-    background-color: green;
-    padding-bottom: 5px;
-    border-radius: 20px;
+    grid-area: bar3;
+
 }
 
 #Camelbar4 {
-    width: 5%;
-    height: 30px;
-    background-color: blue;
-    padding-bottom: 5px;
-    border-radius: 20px;
+    grid-area: bar4;
+
 }
 
-
-
-.login-page {
-    width: 360px;
-    padding: 8% 0 0;
-    margin: auto;
+#img1 {
+    float:right;
+    border-radius: 50px;
 }
 
-.form {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 360px;
-    margin: 0 auto 100px;
-    padding: 45px;
+#img2 {
+    float:right;
+    height: 150px;
+}
+
+#img3 {
+    float:right;    
+    height: 150px;
+}
+
+#img4 {
+    float:right;
+    height: 150px;
+}
+
+.camelracepoints {
+    background-color: #0168b3;
+    border-radius: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    max-height: 50px;
     text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    font-size: 30px;
+    line-height: 50px;
+    color: white;
+    margin: auto 0px;
+    font-weight:700;
 }
 
-    .form input {
-        font-family: "Roboto", sans-serif;
-        outline: 0;
-        background: #f2f2f2;
-        width: 100%;
-        border: 0;
-        margin: 0 0 15px;
-        padding: 15px;
-        font-size: 14px;
-    }
+#crp1{
+    grid-area: crp1;
+}
+#crp2 {
+    grid-area: crp2;
+}
+#crp3 {
+    grid-area: crp3;
+}
+#crp4 {
+    grid-area: crp4;
+}
+.answer {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-size:30px;
+    font-weight:700;
+    border-radius:20px;
+    background-color:purple;
+    color: white;
 
-    .form button {
-        font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
-        outline: 0;
-        background: #0066ff;
-        width: 100%;
-        border: 0;
-        padding: 15px;
-        color: #FFFFFF;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-        .form button:hover, .form button:active, .form button:focus {
-            background: #0099ff;
-        }
-
-    .form .message {
-        margin: 15px 0 0;
-        color: #b3b3b3;
-        font-size: 12px;
-    }
-
-        .form .message a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-
-    .form .register-form {
-        display: none;
-    }
-
-.container {
-    position: relative;
-    z-index: 1;
-    max-width: 300px;
-    margin: 0 auto;
+}
+#canswer1 {
+    grid-area: canswer1;
+}
+#canswer2 {
+    grid-area: canswer2;
+}
+#canswer3 {
+    grid-area: canswer3;
+}
+#canswer4 {
+    grid-area: canswer4;
+}
+.cquestion {
+    grid-area: cquestion;
+    background-color: #0168b3;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:30px;
+    
+}
+#questionlbl{
+    margin:0px;
+    padding:0px;
 }
 
-    .container:before, .container:after {
-        content: "";
-        display: block;
-        clear: both;
+#loginButton {
+    background-color: #0168b3;
+    color: white;
+    text-align: center;
+    border-radius:20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    cursor:pointer;
+}
+
+@media screen and (max-width: 700px) {
+    .homewrapper {
+        grid-template-columns: 5% 1fr 1fr 5%;
+        grid-template-rows: 70px repeat(3, minmax(400px, 1fr));
+        grid-template-areas: "navbar navbar navbar navbar" ". play play ." ". progress progress ." ". leaderboard leaderboard .";
+        grid-gap: 10px;
     }
-
-    .container .info {
-        margin: 50px auto;
-        text-align: center;
-    }
-
-        .container .info h1 {
-            margin: 0 0 15px;
-            padding: 0;
-            font-size: 36px;
-            font-weight: 300;
-            color: #1a1a1a;
-        }
-
-        .container .info span {
-            color: #4d4d4d;
-            font-size: 12px;
-        }
-
-            .container .info span a {
-                color: #000000;
-                text-decoration: none;
-            }
-
-            .container .info span .fa {
-                color: #EF3B3A;
-            }
-
-body {
-    background-image: url("https://www.rehabilitationspecialists.com.au/wp-content/uploads/2015/07/simple-light-background-qkdebi3b.jpg?x13821"); /* fallback for old browsers */
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }

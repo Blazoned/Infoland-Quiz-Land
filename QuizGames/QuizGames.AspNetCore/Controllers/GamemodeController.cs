@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using QuizGames.AspNetCore.ViewModels;
+using QuizGames.ViewModels;
+using System.Runtime.Serialization;
 
 namespace QuizGames__Asp.Net_Core_.Controllers
 {
@@ -12,8 +13,13 @@ namespace QuizGames__Asp.Net_Core_.Controllers
         [HttpGet]
         public IActionResult Camelrace(GameModeViewModel model)
         {
+            // Get the authentication bearer token if the cookie contains the authentication code
+            model.AuthKey = Request.Cookies.ContainsKey("AuthKey") ? Request.Cookies["AuthKey"] : String.Empty;
+            
             model.filllist();
-            model.RandomList();
+
+            string jsonmodel = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+            Console.WriteLine(model.ToString());
             return View(model);
         }
 

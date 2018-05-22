@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Lobby (Kamelen Race)";
+}
+<body>
+  <div class="lobbywrapper">
+      
+          <div class="Navbar">
+              <a href="@Url.Action("Menu", "Menu")" class="homebutton">
+                  <img src="~/images/homebutton.png" alt="homebutton" class="homebutton">
+              </a>
+              <img src="~/images/infolandLoGo.png" alt="infoland logo" class="infologo">
+              <img src="~/images/img_avatar.png" alt="headshot gebruiker" class="userhs">
+          </div>
+          <div class="playerscontainter">
+              <h1>players</h1>
+          </div>
+
+          <div class="searchcontainer">
+              <h1>Search</h1>
+          </div>
+          <div class="readybutton">
+              <a href="@Url.Action("camelrace", "gamemode")"
+            <p class="buttontext">Ready!</p>
+              </a>
+          </div>
+
+      </div>
+</body>
