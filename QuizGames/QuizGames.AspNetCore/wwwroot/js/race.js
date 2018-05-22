@@ -19,7 +19,8 @@ function start() {
 
 function questionAsnsered(awnser) {
     if (awnser == questions[currentquestion].correctAnswer) {
-        
+
+        $(".answer").hide();
         player1points++;
         update();
         move("Camelbar1", "img1");
@@ -31,10 +32,12 @@ function questionAsnsered(awnser) {
         }
         setTimeout(function () {
             nextQuestion(currentquestion);
-        }, 500);
+            $(".answer").show();
+        }, 5000);
         
     }
     else {
+        $(".answer").hide();
         qAnswerd++;
         var x = document.getElementsByClassName('cquestion');
         var i;
@@ -43,8 +46,9 @@ function questionAsnsered(awnser) {
         }
         setTimeout(function () {
             nextQuestion(currentquestion);
-        }, 500);
-        
+            $(".answer").show();
+        }, 5000);
+
     }
 }
 
