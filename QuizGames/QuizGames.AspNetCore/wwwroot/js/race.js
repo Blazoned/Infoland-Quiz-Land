@@ -39,36 +39,55 @@ function start() {
 }
 
 // Validate answer to question
-function questionAsnsered(awnser) {
-    // Check if answer is correct
-    if (awnser == questions[curQuestion].correctAnswer) {
+function questionAnswered(answer) {
+    // Increase the amount of answered questions
+    qAnswerd++;
+
+    var dumpVar;
+
+    answer = answer.getAttribute("data-question");
+    AnswerQuestion(quiz.id, questions[curQuestion].id, answer)
+        .then(function (response) {
+            dumpVar = response;
+        });
+
+    //while (typeof(dumpVar) == "undefined") {
         
+    //}
+
+    // Check if answer is correct
+    if (answer.correct) {
+
+        // Increase points
         player1points++;
+
+        // Update visuals
         update();
         move("Camelbar1", "img1");
-        qAnswerd++;
+
+        // Notify the user they answered correctly
         var x = document.getElementsByClassName('cquestion');
         var i;
         for (i = 0; i < x.length; i++) {
             x[i].style.backgroundColor = "green";
         }
-        setTimeout(function () {
-            nextQuestion(curQuestion);
-        }, 500);
-        
+
+        // Removes the correctly answered question from the answers that still need to be answered
+        questions.splice(curQuestion, 1);
     }
     else {
-        qAnswerd++;
+        // Notify the user they answered incorrectly
         var x = document.getElementsByClassName('cquestion');
         var i;
         for (i = 0; i < x.length; i++) {
             x[i].style.backgroundColor = "red";
         }
-        setTimeout(function () {
-            nextQuestion(curQuestion);
-        }, 500);
-        
     }
+
+    // Wait a second before fetching a new question
+    setTimeout(function () {
+        nextQuestion(curQuestion);
+    }, 800);
 }
 
 // Increase a scorebar
@@ -123,12 +142,20 @@ function nextQuestion(lastquestion) {
     // Shuffle the questions (randomise the location of the answers)
     var cqAnswers = shuffleArray(questions[curQuestion].answers);
 
-    // Display the question and answers
+    // Display the question and answers and set the answer values
     document.getElementById('qlbl').innerHTML = questions[curQuestion].questionBase;
+
     document.getElementById('canswer1').innerHTML = cqAnswers[0].text;
+    $('#canswer1').attr("data-question", cqAnswers[0].id);
+
     document.getElementById('canswer2').innerHTML = cqAnswers[1].text;
+    $('#canswer2').attr("data-question", cqAnswers[1].id);
+
     document.getElementById('canswer3').innerHTML = cqAnswers[2].text;
+    $('#canswer3').attr("data-question", cqAnswers[2].id);
+
     document.getElementById('canswer4').innerHTML = cqAnswers[3].text;
+    $('#canswer4').attr("data-question", cqAnswers[3].id);
 }
 
 // Toggle gameplay simulation
@@ -145,42 +172,42 @@ function toggleGameplay() {
     }
 }
 
-// Get dummy questions
-function DummyQuestions(){
-    var q =
-        [
-            {
-                question: "Wat is de hooftstad van Duitsland?",
-                answers: ["Amsterdam", "Köln", "Wenen", "Berlijn"],
-                correctAnswer: "Berlijn"
-            },
+//// Get dummy questions
+//function DummyQuestions(){
+//    var q =
+//        [
+//            {
+//                question: "Wat is de hooftstad van Duitsland?",
+//                answers: ["Amsterdam", "Köln", "Wenen", "Berlijn"],
+//                correctAnswer: "Berlijn"
+//            },
 
-            {
-                question: "In welke provicie ligt Eindhoven?",
-                answers: ["Overijsel", "Drenthe", "Zeeland", "Noord-Brabant"],
-                correctAnswer: "Noord-Brabant"
-            },
+//            {
+//                question: "In welke provicie ligt Eindhoven?",
+//                answers: ["Overijsel", "Drenthe", "Zeeland", "Noord-Brabant"],
+//                correctAnswer: "Noord-Brabant"
+//            },
 
-            {
-                question: "Wat is de hoofdstad van Noord-Holland",
-                answers: ["Den Haag", "Amsterdam", "Haarlem", "Alkmaar"],
-                correctAnswer: "Haarlem"
-            },
+//            {
+//                question: "Wat is de hoofdstad van Noord-Holland",
+//                answers: ["Den Haag", "Amsterdam", "Haarlem", "Alkmaar"],
+//                correctAnswer: "Haarlem"
+//            },
 
-            {
-                question: "Wat is het hoogste punt in Nederland?",
-                answers: ["Tankenberg", "Vaalserberg", "Signaal Imbosch", "Groot Valkenisse"],
-                correctAnswer: "Vaalserberg"
-            },
+//            {
+//                question: "Wat is het hoogste punt in Nederland?",
+//                answers: ["Tankenberg", "Vaalserberg", "Signaal Imbosch", "Groot Valkenisse"],
+//                correctAnswer: "Vaalserberg"
+//            },
 
-            {
-                question: "Wat is de langste rivier van Europa?",
-                answers: ["Donau", "Oeral", "Wolga", "Dnjepr"],
-                correctAnswer: "Wolga"
-            }
-        ]
-    return q;
-}
+//            {
+//                question: "Wat is de langste rivier van Europa?",
+//                answers: ["Donau", "Oeral", "Wolga", "Dnjepr"],
+//                correctAnswer: "Wolga"
+//            }
+//        ]
+//    return q;
+//}
 
 // Update player score visuals
 function update() {

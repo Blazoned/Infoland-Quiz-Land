@@ -3,12 +3,12 @@ var timer =
     {
         milliSeconds: 0,
         Start: function () {
-            window.setInterval(IncreaseTimer, 1);
+            // window.setInterval(IncreaseTimer, 1);
         },
         Reset: function () {
             window.clearInterval();
             timer.time = 0;
-            window.setInterval(IncreaseTimer, 1);
+            // window.setInterval(IncreaseTimer, 1);
         },
         Stop: function () {
             window.clearInterval(IncreaseTimer);
