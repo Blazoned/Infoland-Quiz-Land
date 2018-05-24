@@ -1,24 +1,47 @@
+// When the document is loaded, loaded the first quiz in the system
+$(document).ready(function () {
+    $.getScript("/js/quizScript.js", function () {
+        GetQuizes()
+            .then(function (data) {
+                GetQuizMaterials(data.courses.courses[0].learnmaterial[0].id)
+                    .then(function (quizData) {
+                        quiz = quizData;
+                        questions = quizData.pages;
+                        console.log(quiz);
+                        console.log(questions);
+                    });
+            });
+    });    
+});
 
+    var quiz;
     var questions;
     var qAnswerd = 0;
     var player1points = 0;
     var player2points = 0;
     var player3points = 0;
     var player4points = 0;
-    var currentquestion;
+    var curQuestion;
     var loop;
     var loopstarted = false;
 
 
-
+// Start game simulation
 function start() {
-    questions = DummyQuestions();
-    nextQuestion();
-   
+    // Display the first question if the quiz has been loaded
+    if (typeof quiz !== "undefined") {
+        nextQuestion();
+    }
+    else {
+        // Try to start the game again
+        setTimeout(start, 250);
+    }
 }
 
+// Validate answer to question
 function questionAsnsered(awnser) {
-    if (awnser == questions[currentquestion].correctAnswer) {
+    // Check if answer is correct
+    if (awnser == questions[curQuestion].correctAnswer) {
         
         player1points++;
         update();
@@ -30,7 +53,7 @@ function questionAsnsered(awnser) {
             x[i].style.backgroundColor = "green";
         }
         setTimeout(function () {
-            nextQuestion(currentquestion);
+            nextQuestion(curQuestion);
         }, 500);
         
     }
@@ -42,12 +65,13 @@ function questionAsnsered(awnser) {
             x[i].style.backgroundColor = "red";
         }
         setTimeout(function () {
-            nextQuestion(currentquestion);
+            nextQuestion(curQuestion);
         }, 500);
         
     }
 }
 
+// Increase a scorebar
 function move(id1, id2) {
     var elem = document.getElementById(id1);
     var img = document.getElementById(id2);
@@ -81,8 +105,8 @@ function move(id1, id2) {
     }
 }
 
+// Get a new question and display its data
 function nextQuestion(lastquestion) {
-    currentquestion = Math.floor((Math.random() * 5) + 0);
     
     var x = document.getElementsByClassName('cquestion');
     var i;
@@ -90,18 +114,24 @@ function nextQuestion(lastquestion) {
         x[i].style.backgroundColor = "#0168b3";
     }
 
-    while (currentquestion == lastquestion) {
-        currentquestion = Math.floor((Math.random() * 5) + 0);
+    // Get a new question at random until a new question has been selected
+    do {
+        curQuestion = Math.floor((Math.random() * questions.length) + 0);
     }
+    while (curQuestion == lastquestion);
 
-    document.getElementById('qlbl').innerHTML = questions[currentquestion].question;
-    document.getElementById('canswer1').innerHTML = questions[currentquestion].answers[0];
-    document.getElementById('canswer2').innerHTML = questions[currentquestion].answers[1];
-    document.getElementById('canswer3').innerHTML = questions[currentquestion].answers[2];
-    document.getElementById('canswer4').innerHTML = questions[currentquestion].answers[3]; 
+    // Shuffle the questions (randomise the location of the answers)
+    var cqAnswers = shuffleArray(questions[curQuestion].answers);
+
+    // Display the question and answers
+    document.getElementById('qlbl').innerHTML = questions[curQuestion].questionBase;
+    document.getElementById('canswer1').innerHTML = cqAnswers[0].text;
+    document.getElementById('canswer2').innerHTML = cqAnswers[1].text;
+    document.getElementById('canswer3').innerHTML = cqAnswers[2].text;
+    document.getElementById('canswer4').innerHTML = cqAnswers[3].text;
 }
 
-
+// Toggle gameplay simulation
 function toggleGameplay() {
     if (loopstarted == false) {
         loop = setInterval(random_points, 2000);
@@ -115,7 +145,7 @@ function toggleGameplay() {
     }
 }
 
-
+// Get dummy questions
 function DummyQuestions(){
     var q =
         [
@@ -152,6 +182,7 @@ function DummyQuestions(){
     return q;
 }
 
+// Update player score visuals
 function update() {
     document.getElementById('crp1').innerHTML = player1points;
     document.getElementById('crp2').innerHTML = player2points;
@@ -159,6 +190,7 @@ function update() {
     document.getElementById('crp4').innerHTML = player4points;
 }
 
+// Increase player points at random (window interval)
 function random_points() {
     var i;
     for (i = 0; i < 3; i++) {
@@ -185,5 +217,3 @@ function random_points() {
         }
     }  
 }
-
-
