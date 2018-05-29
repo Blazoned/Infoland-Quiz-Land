@@ -20,6 +20,7 @@ function start() {
 function questionAsnsered(awnser) {
     if (awnser == questions[currentquestion].correctAnswer) {
 
+        //alert($(window).width());
         $(".answer").hide();
         player1points++;
         update();
@@ -33,7 +34,7 @@ function questionAsnsered(awnser) {
         setTimeout(function () {
             nextQuestion(currentquestion);
             $(".answer").show();
-        }, 5000);
+        }, 1000);
         
     }
     else {
@@ -47,7 +48,7 @@ function questionAsnsered(awnser) {
         setTimeout(function () {
             nextQuestion(currentquestion);
             $(".answer").show();
-        }, 5000);
+        }, 1000);
 
     }
 }
@@ -125,12 +126,12 @@ function DummyQuestions(){
         [
             {
                 question: "Wat is de hooftstad van Duitsland?",
-                answers: ["Amsterdam", "Köln", "Wenen", "Berlijn"],
+                answers: ["Amsterdam", "Köln", "Wenen even een lang antwoord maken", "Berlijn"],
                 correctAnswer: "Berlijn"
             },
 
             {
-                question: "In welke provicie ligt Eindhoven?",
+                question: "In welke provicie ligt Eindhoven en ik moet deze vraag langer maken want wil testen wat er gebeurd als ie te lang is?",
                 answers: ["Overijsel", "Drenthe", "Zeeland", "Noord-Brabant"],
                 correctAnswer: "Noord-Brabant"
             },
