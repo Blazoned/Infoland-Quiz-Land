@@ -95,7 +95,7 @@ button{
 .gamewrapper {
     display: grid;
     grid-template-columns: 15% 1fr 15%;
-    grid-template-rows: 70px repeat(2, minmax(auto, 300px));
+    grid-template-rows: 70px 350px min-content;
     grid-template-areas: "navbar navbar navbar" ". cr ." ". qc .";
     grid-gap: 20px;
 }
@@ -124,7 +124,7 @@ button{
     grid-area: qc;
     border: solid 5px #0168b3;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    /*grid-template-rows: repeat(3, 1fr);*/
     grid-template-areas: "cquestion cquestion" "canswer1 canswer2" "canswer3 canswer4";
     grid-gap: 5px;
 
@@ -316,16 +316,23 @@ button{
     grid-area: crp4;
 }
 .answer {
-    width: 100%;
-    height: 100%;
     cursor: pointer;
     font-size:30px;
     font-weight:700;
     border-radius:20px;
     background-color:purple;
     color: white;
-
 }
+.gpbutton {
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: 700;
+    border-radius: 20px;
+    background-color: purple;
+    color: white;
+}
+
+
 #canswer1 {
     grid-area: canswer1;
 }
@@ -371,4 +378,67 @@ button{
         grid-template-areas: "navbar navbar navbar navbar" ". play play ." ". progress progress ." ". leaderboard leaderboard .";
         grid-gap: 10px;
     }
+
+    .gamewrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 70px 350px min-content;
+        grid-template-areas: "navbar" "cr " "qc";
+        grid-gap: 5px;
+    }
+    .camelrace {
+        position: relative;
+        display: grid;
+        grid-area: cr;
+        border: solid 5px #0168b3;
+        grid-template-rows: 1% 5% 1fr 1%;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-areas: ". . . . " "crp1 crp2 crp3 crp4" "bar1 bar2 bar3 bar4" ". . . .";
+        grid-column-gap: 10px;
+    }
+    .camelracepoints {
+        background-color: #0168b3;
+        border-radius: 50px;
+        font-family: Arial, Helvetica, sans-serif;
+        max-height: 50px;
+        text-align: center;
+        font-size: 30px;
+        line-height: 50px;
+        color: white;
+        margin: auto 0px;
+        font-weight: 700;
+    }
+    .camelracebar {
+        display: block;
+        width: 6%;
+        height: 50px;
+        background-color: purple;
+        border-radius: 50px;
+        margin: auto 0px;
+        position:absolute;
+        bottom: 0px;
+        width:100%;
+        align-content:center;
+    }
+    #img1 {
+        float: none;
+        border-radius: 50px;
+    }
+
+    #img2 {
+        float: none;
+        height: 150px;
+    }
+
+    #img3 {
+        float: none;
+        height: 150px;
+    }
+
+    #img4 {
+        float: none;
+        height: 150px;
+    }
+
+
 }
