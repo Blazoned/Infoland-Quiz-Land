@@ -44,7 +44,7 @@ function AnswerQuestion(quizId, questionId, answer)
                     {
                         "confirmed": "true",
                         "time": timer.milliSeconds,
-                        "answer": answer
+                        "answer": [answer]
                     }
                 ),
                 success: function (result, xhr) {
@@ -91,7 +91,7 @@ function GetQuizMaterials(quizId)
 }
 
 // Get quizes
-function GetQuizes(successCommand) {
+function GetQuizes() {
     // Make an assynchronous request to get all available quizes
     return new Promise(function (resolve, reject) {
         $.ajax(
@@ -106,6 +106,57 @@ function GetQuizes(successCommand) {
                 },
                 error: function (result, xhr) {
                     reject(result);
+                }
+            }
+        );
+    });
+}
+
+// Start a quiz
+function StartQuiz(quizId) {
+    // Start the timer
+    timer.Start();
+
+    // Make an assynchronous request to get start a quiz
+    return new Promise(function (resolve, reject) {
+        $.ajax(
+            {
+                method: "POST",
+                url: "https://quiz.iqualify.nl/api/learnmaterial/" + quizId + "/retake",
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", "Bearer " + getCookie("AuthKey"));
+                },
+                success: function (result, xhr) {
+                    resolve(true);
+                },
+                error: function (result, xhr) {
+                    resolve(false);
+                }
+            }
+        );
+    });
+}
+
+// Stop a quiz
+function StopQuiz(quizId) {
+    // Stop and clear the timer
+    timer.Stop();
+    timer.Clear();
+
+    // Make an assynchronous request to get start a quiz
+    return new Promise(function (resolve, reject) {
+        $.ajax(
+            {
+                method: "POST",
+                url: "https://quiz.iqualify.nl/api/learnmaterial/" + quizId + "/close",
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", "Bearer " + getCookie("AuthKey"));
+                },
+                success: function (result, xhr) {
+                    resolve(true);
+                },
+                error: function (result, xhr) {
+                    resolve(false);
                 }
             }
         );

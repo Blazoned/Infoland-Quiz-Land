@@ -1,22 +1,11 @@
 // When the document is loaded, loaded the first quiz in the system
 $(document).ready(function () {
-    $.getScript("/js/quizScript.js", function () {
-        GetQuizes()
-            .then(function (data) {
-                GetQuizMaterials(data.courses.courses[0].learnmaterial[0].id)
-                    .then(function (quizData) {
-                        quiz = quizData;
-                        questions = quizData.pages;
-                        console.log(quiz);
-                        console.log(questions);
-                    });
-            });
-    });    
+        
 });
 
     var quiz;
     var questions;
-    var qAnswerd = 0;
+    var qAnswered = 0;
     var player1points = 0;
     var player2points = 0;
     var player3points = 0;
@@ -27,7 +16,7 @@ $(document).ready(function () {
 
 
 // Start game simulation
-function start() {
+function getFirstQuestion() {
     // Display the first question if the quiz has been loaded
     if (typeof quiz !== "undefined") {
         nextQuestion();
@@ -38,56 +27,103 @@ function start() {
     }
 }
 
+function start() {
+    // Load the first quiz in the system
+    $.getScript("/js/quizScript.js", function () {
+        GetQuizes()
+            .then(function (data) {
+                GetQuizMaterials(data.courses.courses[0].learnmaterial[0].id)
+                    .then(function (quizData) {
+                        quiz = quizData;
+                        questions = quizData.pages;
+                        console.log(quiz);
+                        console.log(questions);
+
+                        return quizData;
+                    })
+                    .then(function (quizData) {
+                        StopQuiz(quizData.id)
+                            .catch("Quiz could not be closed.");
+                        return quizData;
+                    })
+                    .then(function (quizData) {
+                        StartQuiz(quizData.id)
+                            .catch("Retake unsuccesfully executed.");
+                    })
+                    .then(function () {
+                        nextQuestion();
+                    })
+                    .catch(function (data) {
+                        console.log("Quiz could not be loaded.");
+                    });
+            });
+    });
+}
+
 // Validate answer to question
 function questionAnswered(answer) {
     // Increase the amount of answered questions
-    qAnswerd++;
+    qAnswered++;
 
-    var dumpVar;
-
+    // Get the answer id
     answer = answer.getAttribute("data-question");
-    AnswerQuestion(quiz.id, questions[curQuestion].id, answer)
-        .then(function (response) {
-            dumpVar = response;
-        });
 
-    //while (typeof(dumpVar) == "undefined") {
-        
-    //}
+    // Get the answer data
+    $.getScript("/js/quizScript.js", function () {
+        AnswerQuestion(quiz.id, questions[curQuestion].id, answer)
+            .then(function (response) {
+                result.question.answers.forEach(function (qAnswer) {
+                    if (qAnswer.id == answer) {
+                        answer = qAnswer;
+                        return qAnswer;
+                    }
+                });
+            })
+            .then(function (qAnswer) {
+                // Check if answer is correct
+                if (result.correct) {
 
-    // Check if answer is correct
-    if (answer.correct) {
+                    // Increase points
+                    player1points++;
 
-        // Increase points
-        player1points++;
+                    // Update visuals
+                    update();
+                    move("Camelbar1", "img1");
 
-        // Update visuals
-        update();
-        move("Camelbar1", "img1");
+                    // Notify the user they answered correctly
+                    var x = document.getElementsByClassName('cquestion');
+                    var i;
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.backgroundColor = "green";
+                    }
 
-        // Notify the user they answered correctly
-        var x = document.getElementsByClassName('cquestion');
-        var i;
-        for (i = 0; i < x.length; i++) {
-            x[i].style.backgroundColor = "green";
-        }
+                    // Removes the correctly answered question from the answers that still need to be answered
+                    questions.splice(curQuestion, 1);
 
-        // Removes the correctly answered question from the answers that still need to be answered
-        questions.splice(curQuestion, 1);
-    }
-    else {
-        // Notify the user they answered incorrectly
-        var x = document.getElementsByClassName('cquestion');
-        var i;
-        for (i = 0; i < x.length; i++) {
-            x[i].style.backgroundColor = "red";
-        }
-    }
-
-    // Wait a second before fetching a new question
-    setTimeout(function () {
-        nextQuestion(curQuestion);
-    }, 800);
+                    if (questions.length <= 0)
+                        $.getScript("/js/quizScript.js", function () {
+                            StopQuiz();
+                        });
+                }
+                else {
+                    // Notify the user they answered incorrectly
+                    var x = document.getElementsByClassName('cquestion');
+                    var i;
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.backgroundColor = "red";
+                    }
+                }
+            })
+            .then(function () {
+                // Wait a second before fetching a new question
+                setTimeout(function () {
+                    nextQuestion(curQuestion);
+                }, 800);
+            })
+            .catch(function (data) {
+                console.log("Answer has not been correctly sent.");
+            });
+    });
 }
 
 // Increase a scorebar
@@ -137,7 +173,7 @@ function nextQuestion(lastquestion) {
     do {
         curQuestion = Math.floor((Math.random() * questions.length) + 0);
     }
-    while (curQuestion == lastquestion);
+    while (typeof(lastquestion) != "undefined" && curQuestion.id == lastquestion.id);
 
     // Shuffle the questions (randomise the location of the answers)
     var cqAnswers = shuffleArray(questions[curQuestion].answers);
