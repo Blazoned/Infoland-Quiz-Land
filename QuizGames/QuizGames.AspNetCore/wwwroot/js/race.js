@@ -53,6 +53,7 @@ function questionAsnsered(awnser) {
     }
 }
 
+
 function move(id1, id2) {
     var elem = document.getElementById(id1);
     var img = document.getElementById(id2);
