@@ -95,7 +95,7 @@ button{
 .gamewrapper {
     display: grid;
     grid-template-columns: 15% 1fr 15%;
-    grid-template-rows: 70px 350px min-content;
+    grid-template-rows: 70px 400px min-content;
     grid-template-areas: "navbar navbar navbar" ". cr ." ". qc .";
     grid-gap: 20px;
 }
@@ -113,7 +113,7 @@ button{
 
 .camelrace img{
     border-radius:50px;
-    max-height: 100%;
+    max-height: 50px;
     
 
 }
@@ -371,7 +371,7 @@ button{
     cursor:pointer;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1200px) {
     .homewrapper {
         grid-template-columns: 5% 1fr 1fr 5%;
         grid-template-rows: 70px repeat(3, minmax(400px, 1fr));
@@ -382,7 +382,7 @@ button{
     .gamewrapper {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 70px 350px min-content;
+        grid-template-rows: 70px 400px min-content;
         grid-template-areas: "navbar" "cr " "qc";
         grid-gap: 5px;
     }
@@ -392,8 +392,8 @@ button{
         grid-area: cr;
         border: solid 5px #0168b3;
         grid-template-rows: 1% 5% 1fr 1%;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-areas: ". . . . " "crp1 crp2 crp3 crp4" "bar1 bar2 bar3 bar4" ". . . .";
+        grid-template-columns: 1% repeat(4, 1fr) 1%;
+        grid-template-areas: ". . . . . ." ". crp1 crp2 crp3 crp4. " ". bar1 bar2 bar3 bar4. " ". . . . . .";
         grid-column-gap: 10px;
     }
     .camelracepoints {
@@ -419,6 +419,8 @@ button{
         bottom: 0px;
         width:100%;
         align-content:center;
+        vertical-align:top;
+        margin:auto;
     }
     #img1 {
         float: none;
