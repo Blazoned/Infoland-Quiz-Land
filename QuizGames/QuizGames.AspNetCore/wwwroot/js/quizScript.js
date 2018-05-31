@@ -42,7 +42,7 @@ function AnswerQuestion(quizId, questionId, answer)
                 contentType: "application/json",
                 data: JSON.stringify(
                     {
-                        "confirmed": "true",
+                        "confirmed": true,
                         "time": timer.milliSeconds,
                         "answer": [answer]
                     }

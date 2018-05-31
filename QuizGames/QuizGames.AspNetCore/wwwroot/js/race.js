@@ -3,16 +3,17 @@ $(document).ready(function () {
         
 });
 
-    var quiz;
-    var questions;
-    var qAnswered = 0;
-    var player1points = 0;
-    var player2points = 0;
-    var player3points = 0;
-    var player4points = 0;
-    var curQuestion;
-    var loop;
-    var loopstarted = false;
+var quiz;
+var questions;
+var qAnswered = 0;
+var player1points = 0;
+var player2points = 0;
+var player3points = 0;
+var player4points = 0;
+var curQuestion;
+var loop;
+var loopstarted = false;
+var questionResults = new Array();
 
 
 // Start game simulation
@@ -72,7 +73,13 @@ function questionAnswered(answer) {
     $.getScript("/js/quizScript.js", function () {
         AnswerQuestion(quiz.id, questions[curQuestion].id, answer)
             .then(function (response) {
-                result.question.answers.forEach(function (qAnswer) {
+                // Save the response of the question (for end game reference)
+                questionResults[questionResults.length] = response;
+                return response;
+            })
+            .then(function (response) {
+                // Get the answer data
+                response.question.answers.forEach(function (qAnswer) {
                     if (qAnswer.id == answer) {
                         answer = qAnswer;
                         return qAnswer;
