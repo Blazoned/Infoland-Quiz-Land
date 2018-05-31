@@ -1,14 +1,11 @@
-
-    var questions;
-    var qAnswerd = 0;
+var questions;
+var qAnswerd = 0;
 var points = [0, 0, 0, 0];
-    var currentquestion;
-    var loop;
+var currentquestion;
+var loop;
 var loopstarted = false;
 var qQ = 5;
 var finish = false;
-
-
 
 function start() {
     questions = DummyQuestions();
@@ -50,7 +47,6 @@ function questionAsnsered(awnser) {
 
     }
 }
-
 
 function updatebars(qQuestions) {
     var beginP = 6;
@@ -136,7 +132,6 @@ function nextQuestion(lastquestion) {
     document.getElementById('canswer4').innerHTML = questions[currentquestion].answers[3]; 
 }
 
-
 function toggleGameplay() {
     if (loopstarted == false) {
         loop = setInterval(random_points, 2000);
@@ -149,7 +144,6 @@ function toggleGameplay() {
         document.getElementById('gameplaybtn').innerHTML = "Start Gameplay";
     }
 }
-
 
 function DummyQuestions(){
     var q =
@@ -186,7 +180,6 @@ function DummyQuestions(){
         ]
     return q;
 }
-
 
 function random_points() {
     var i;
