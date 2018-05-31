@@ -1,14 +1,16 @@
 
     var questions;
     var qAnswerd = 0;
-    var player1points = 0;
-    var player2points = 0;
-    var player3points = 0;
-    var player4points = 0;
+    //var playerpoints1 = 0;
+    //var playerpoints2 = 0;
+    //var playerpoints3 = 0;
+    //var playerpoints4 = 0;
+var points = [0, 0, 0, 0];
     var currentquestion;
     var loop;
 var loopstarted = false;
 var qQ = 10;
+var finish = false;
 
 
 
@@ -23,7 +25,7 @@ function questionAsnsered(awnser) {
 
         //alert($(window).width());
         $(".answer").hide();
-        player1points++;
+        points[0]++;
         updateScore();
         updatebars(qQ);
         //move("Camelbar1", "img1");
@@ -59,102 +61,67 @@ function questionAsnsered(awnser) {
 function updatebars(qQuestions) {
     var beginP = 6;
     var pace = 94 / qQuestions;
-    var positionP1 = beginP + pace * player1points;
-    var positionP2 = beginP + pace * player2points;
-    var positionP3 = beginP + pace * player3points;
-    var positionP4 = beginP + pace * player4points;
+    var positionP1 = beginP + pace * points[0];
+    var positionP2 = beginP + pace * points[1];
+    var positionP3 = beginP + pace * points[2];
+    var positionP4 = beginP + pace * points[3];
 
+    var positions = [positionP1, positionP2, positionP3, positionP4];
 
-    if (player1points == qQ) {
-        alert("YOU WON!")
-        gameOver();
-    }
-    else if (player2points == qQ || player3points == qQ || player4points == qQ) {
-        alert("You Lost :(")
-        gameOver();
-    }
-        else {
+    
+        
         if ($(window).width() > 1200) {
-            document.getElementById("Camelbar1").style.width = positionP1 + '%';
-            document.getElementById("Camelbar2").style.width = positionP2 + '%';
-            document.getElementById("Camelbar3").style.width = positionP3 + '%';
-            document.getElementById("Camelbar4").style.width = positionP4 + '%';
 
-            document.getElementById("Camelbar1").style.height = "50px";
-            document.getElementById("Camelbar2").style.height = "50px";
-            document.getElementById("Camelbar3").style.height = "50px";
-            document.getElementById("Camelbar4").style.height = "50px";
-
-            document.getElementById("img1").style.display = "block";
-            document.getElementById("img2").style.display = "block";
-            document.getElementById("img3").style.display = "block";
-            document.getElementById("img4").style.display = "block";
+            positions.forEach(function (value, entry) {
+                var i = entry+1;
+                document.getElementById("Camelbar" + i).style.width = positions[entry] + "%";
+                document.getElementById("Camelbar" + i).style.height = "50px";
+                document.getElementById("img" + i).style.display = "block";
+            });
         }
         else {
-            document.getElementById("Camelbar1").style.height = positionP1 + '%';
-            document.getElementById("Camelbar2").style.height = positionP2 + '%';
-            document.getElementById("Camelbar3").style.height = positionP3 + '%';
-            document.getElementById("Camelbar4").style.height = positionP4 + '%';
 
-            document.getElementById("Camelbar1").style.width = '100%';
-            document.getElementById("Camelbar2").style.width = '100%';
-            document.getElementById("Camelbar3").style.width = '100%';
-            document.getElementById("Camelbar4").style.width = '100%';
+            positions.forEach(function (value, entry) {
+                var i = entry + 1;
+                document.getElementById("Camelbar" + i).style.height = positions[entry] + "%";
+                document.getElementById("Camelbar" + i).style.width = "100%";
+                document.getElementById("img" + i).style.display = "none";
+            });
+    }
 
-            document.getElementById("img1").style.display = "none";
-            document.getElementById("img2").style.display = "none";
-            document.getElementById("img3").style.display = "none";
-            document.getElementById("img4").style.display = "none";
+    if (points[0] == qQ) {
+        alert("YOU WON!")
+        if (finish == false) {
+            gameOver();
+        }
+
+        
+    }
+    else if (points[1] == qQ || points[2] == qQ || points[3] == qQ) {
+        alert("you lose")
+        if (finish == false) {
+            gameOver();
         }
     }
     
 }
-
-function move(id1, id2) {
-    var elem = document.getElementById(id1);
-    var img = document.getElementById(id2);
-    var width = Number(elem.style.width.replace(/[^\d\.\-]/g, ''));
-    //var width = elem.offsetWidth;
-    //var totalwidth = width / 7 * 100;
-    
-    if (width < 90) {
-        width += 10;
-        elem.style.width = width + '%';
-        img.style.left = width + '%';
-    }
-    else {
-        loopstarted = true;
-        toggleGameplay();
-        Camelbar1.style.width = 6 + '%';
-        Camelbar2.style.width = 6 + '%';
-        Camelbar3.style.width = 6 + '%';
-        Camelbar4.style.width = 6 + '%';
-        img1.style.left = 6 + '%';
-        img2.style.left = 6 + '%';
-        img3.style.left = 6 + '%';
-        img4.style.left = 6 + '%';
-        player1points = 0;
-        player3points = 0;
-        player2points = 0;
-        player4points = 0;
-        alert("Game over!");
-        loopstarted = false;
-        updateScore();
-    }
-}
-
 
 function gameOver() {
 
     loopstarted = true;
     toggleGameplay();
     loopstarted = false;
-    player1points = 0;
-    player3points = 0;
-    player2points = 0;
-    player4points = 0;
+    points.forEach(function (value, entry) {
+        points[entry] = 0;
+    }
+    );
+    finish = true;
+    //playerpoints1 = 0;
+    //playerpoints3 = 0;
+    //playerpoints2 = 0;
+    //playerpoints4 = 0;
     //alert("Game over!");
-    updatebars(qQ)
+    updatebars(qQ);
     updateScore();
 }
 
@@ -230,10 +197,10 @@ function DummyQuestions(){
 }
 
 function updateScore() {
-    document.getElementById('crp1').innerHTML = player1points;
-    document.getElementById('crp2').innerHTML = player2points;
-    document.getElementById('crp3').innerHTML = player3points;
-    document.getElementById('crp4').innerHTML = player4points;
+    document.getElementById('crp1').innerHTML = points[0];
+    document.getElementById('crp2').innerHTML = points[1];
+    document.getElementById('crp3').innerHTML = points[2];
+    document.getElementById('crp4').innerHTML = points[3];
 }
 
 function random_points() {
@@ -242,19 +209,19 @@ function random_points() {
         var random = Math.floor((Math.random() * 2) + 0);
         if (random == 0) {
             if (i == 0) {
-                player2points++;
+                points[1]++;
                 updateScore();
                 updatebars(qQ);
                 
             }
             else if (i == 1) {
-                player3points++;
+                points[2]++;
                 updateScore();
                 updatebars(qQ);
                 
             }
             else if (i == 2) {
-                player4points++;
+                points[3]++;
                 updateScore();
                 updatebars(qQ);
                 
