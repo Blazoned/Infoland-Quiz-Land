@@ -1,15 +1,11 @@
 
     var questions;
     var qAnswerd = 0;
-    //var playerpoints1 = 0;
-    //var playerpoints2 = 0;
-    //var playerpoints3 = 0;
-    //var playerpoints4 = 0;
 var points = [0, 0, 0, 0];
     var currentquestion;
     var loop;
 var loopstarted = false;
-var qQ = 10;
+var qQ = 5;
 var finish = false;
 
 
@@ -23,12 +19,10 @@ function start() {
 function questionAsnsered(awnser) {
     if (awnser == questions[currentquestion].correctAnswer) {
 
-        //alert($(window).width());
         $(".answer").hide();
         points[0]++;
         updateScore();
         updatebars(qQ);
-        //move("Camelbar1", "img1");
         qAnswerd++;
         var x = document.getElementsByClassName('cquestion');
         var i;
@@ -77,6 +71,7 @@ function updatebars(qQuestions) {
                 document.getElementById("Camelbar" + i).style.width = positions[entry] + "%";
                 document.getElementById("Camelbar" + i).style.height = "50px";
                 document.getElementById("img" + i).style.display = "block";
+                document.getElementById('crp' + 1).innerHTML = points[entry];
             });
         }
         else {
@@ -86,6 +81,8 @@ function updatebars(qQuestions) {
                 document.getElementById("Camelbar" + i).style.height = positions[entry] + "%";
                 document.getElementById("Camelbar" + i).style.width = "100%";
                 document.getElementById("img" + i).style.display = "none";
+                document.getElementById('crp' + i).innerHTML = points[entry];
+                
             });
     }
 
@@ -116,13 +113,7 @@ function gameOver() {
     }
     );
     finish = true;
-    //playerpoints1 = 0;
-    //playerpoints3 = 0;
-    //playerpoints2 = 0;
-    //playerpoints4 = 0;
-    //alert("Game over!");
     updatebars(qQ);
-    updateScore();
 }
 
 function nextQuestion(lastquestion) {
@@ -196,12 +187,6 @@ function DummyQuestions(){
     return q;
 }
 
-function updateScore() {
-    document.getElementById('crp1').innerHTML = points[0];
-    document.getElementById('crp2').innerHTML = points[1];
-    document.getElementById('crp3').innerHTML = points[2];
-    document.getElementById('crp4').innerHTML = points[3];
-}
 
 function random_points() {
     var i;
@@ -210,19 +195,16 @@ function random_points() {
         if (random == 0) {
             if (i == 0) {
                 points[1]++;
-                updateScore();
                 updatebars(qQ);
                 
             }
             else if (i == 1) {
                 points[2]++;
-                updateScore();
                 updatebars(qQ);
                 
             }
             else if (i == 2) {
                 points[3]++;
-                updateScore();
                 updatebars(qQ);
                 
             }
