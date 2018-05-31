@@ -83,18 +83,19 @@ function updatebars(qQuestions) {
     }
 
     if (points[0] == qQ) {
-        alert("YOU WON!")
+        
         if (finish == false) {
             gameOver();
         }
-
+        alert("YOU WON!")
         
     }
     else if (points[1] == qQ || points[2] == qQ || points[3] == qQ) {
-        alert("you lose")
+        
         if (finish == false) {
             gameOver();
         }
+        alert("you lose")
     }
     
 }
