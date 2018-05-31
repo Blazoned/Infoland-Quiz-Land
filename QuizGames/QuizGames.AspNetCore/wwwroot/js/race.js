@@ -58,17 +58,54 @@ function updatebars(qQuestions) {
 
     var positions = [positionP1, positionP2, positionP3, positionP4];
 
-    
-        
-        if ($(window).width() > 1200) {
+    if (player1points == qQ) {
+        // Get the modal
+        var modal = document.getElementById('myModal');
 
-            positions.forEach(function (value, entry) {
-                var i = entry+1;
-                document.getElementById("Camelbar" + i).style.width = positions[entry] + "%";
-                document.getElementById("Camelbar" + i).style.height = "50px";
-                document.getElementById("img" + i).style.display = "block";
-                document.getElementById('crp' + 1).innerHTML = points[entry];
-            });
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        gameOver();
+    }
+    else if (player2points == qQ || player3points == qQ || player4points == qQ) {
+        alert("You Lost :(")
+        gameOver();
+    }
+        else {
+        if ($(window).width() > 1200) {
+            document.getElementById("Camelbar1").style.width = positionP1 + '%';
+            document.getElementById("Camelbar2").style.width = positionP2 + '%';
+            document.getElementById("Camelbar3").style.width = positionP3 + '%';
+            document.getElementById("Camelbar4").style.width = positionP4 + '%';
+
+            document.getElementById("Camelbar1").style.height = "50px";
+            document.getElementById("Camelbar2").style.height = "50px";
+            document.getElementById("Camelbar3").style.height = "50px";
+            document.getElementById("Camelbar4").style.height = "50px";
+
+            document.getElementById("img1").style.display = "block";
+            document.getElementById("img2").style.display = "block";
+            document.getElementById("img3").style.display = "block";
+            document.getElementById("img4").style.display = "block";
         }
         else {
 
@@ -180,6 +217,13 @@ function DummyQuestions(){
             }
         ]
     return q;
+}
+
+function updateScore() {
+    document.getElementById('crp1').innerHTML = player1points;
+    document.getElementById('crp2').innerHTML = player2points;
+    document.getElementById('crp3').innerHTML = player3points;
+    document.getElementById('crp4').innerHTML = player4points;
 }
 
 function random_points() {
