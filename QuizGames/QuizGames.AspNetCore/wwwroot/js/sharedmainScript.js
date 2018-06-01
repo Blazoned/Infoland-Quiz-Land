@@ -1,4 +1,20 @@
-﻿// Sets an existing cookie or creates a new one
+﻿// Get object using a string
+Object.byString = function (o, s) {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i < n; ++i) {
+        var k = a[i];
+        if (k in o) {
+            o = o[k];
+        } else {
+            return;
+        }
+    }
+    return o;
+}
+
+// Sets an existing cookie or creates a new one
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -41,4 +57,13 @@ function shuffleArray(array) {
     }
 
     return array;
+}
+
+// Get object item location
+function getArrayItemByValue(objectList, objectKey, keyValue)
+{
+    return objectList.filter(
+        function (data) {
+            return Object.byString(data, objectKey) == keyValue;
+        });
 }

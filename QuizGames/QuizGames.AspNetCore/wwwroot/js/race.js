@@ -5,7 +5,6 @@ $(document).ready(function () {
 
 var quiz;
 var questions;
-var qAnswered = 0;
 var player1points = 0;
 var player2points = 0;
 var player3points = 0;
@@ -13,7 +12,7 @@ var player4points = 0;
 var curQuestion;
 var loop;
 var loopstarted = false;
-var questionResults = new Array();
+var questionResults = Array();
 
 
 // Start game simulation
@@ -33,39 +32,36 @@ function start() {
     $.getScript("/js/quizScript.js", function () {
         GetQuizes()
             .then(function (data) {
-                GetQuizMaterials(data.courses.courses[0].learnmaterial[0].id)
-                    .then(function (quizData) {
-                        quiz = quizData;
-                        questions = quizData.pages;
-                        console.log(quiz);
-                        console.log(questions);
+                var id = data.courses.courses[0].learnmaterial[0].id;
 
-                        return quizData;
-                    })
+                StartQuiz(id)
                     .then(function (quizData) {
-                        StopQuiz(quizData.id)
-                            .catch("Quiz could not be closed.");
-                        return quizData;
+                        GetQuizMaterials(id)
+                            .then(function (quizData) {
+                                quiz = quizData;
+                                questions = quizData.pages;
+                            })
+                            .then(function () {
+                                nextQuestion();
+                            })
+                            .then(function () {
+                                console.log(quiz);
+                                console.log(questions);
+                                console.log(quiz.pages.filter(function (data) {
+                                    return !$.isEmptyObject(getArrayItemByValue(data.answers, "id", "ce83cc4e-8516-4fe3-ac0e-22add2ebe10d"));
+                                }));
+                            })
+                            .catch(function (data) {
+                                console.log("Quiz could not be loaded.");
+                            });
                     })
-                    .then(function (quizData) {
-                        StartQuiz(quizData.id)
-                            .catch("Retake unsuccesfully executed.");
-                    })
-                    .then(function () {
-                        nextQuestion();
-                    })
-                    .catch(function (data) {
-                        console.log("Quiz could not be loaded.");
-                    });
+                    .catch("Retake unsuccesfully executed.");
             });
     });
 }
 
 // Validate answer to question
 function questionAnswered(answer) {
-    // Increase the amount of answered questions
-    qAnswered++;
-
     // Get the answer id
     answer = answer.getAttribute("data-question");
 
@@ -73,8 +69,10 @@ function questionAnswered(answer) {
     $.getScript("/js/quizScript.js", function () {
         AnswerQuestion(quiz.id, questions[curQuestion].id, answer)
             .then(function (response) {
-                // Save the response of the question (for end game reference)
-                questionResults[questionResults.length] = response;
+                // Save the response of the question in the quiz (for future reference)
+                var pageIndex = quiz.pages.findIndex(page => page.id == response.question.id);
+                quiz.pages[pageIndex] = response.question;
+                questionResults[questionResults.length] = response.question;
                 return response;
             })
             .then(function (response) {
@@ -82,53 +80,22 @@ function questionAnswered(answer) {
                 response.question.answers.forEach(function (qAnswer) {
                     if (qAnswer.id == answer) {
                         answer = qAnswer;
-                        return qAnswer;
                     }
                 });
+
+                return answer;
             })
-            .then(function (qAnswer) {
-                // Check if answer is correct
-                if (result.correct) {
+            .then(checkAnswer)
+            .catch(function (xhr) {
+                if (xhr.status == 403) {
+                    // Save answer
+                    questionResults[questionResults.length] = quiz.pages[curQuestion];
+                    var userdata = getArrayItemByValue(quiz.pages[curQuestion].answers, "id", answer);
+                    questionResults[questionResults.length - 1].userdata = userdata[0];
 
-                    // Increase points
-                    player1points++;
-
-                    // Update visuals
-                    update();
-                    move("Camelbar1", "img1");
-
-                    // Notify the user they answered correctly
-                    var x = document.getElementsByClassName('cquestion');
-                    var i;
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.backgroundColor = "green";
-                    }
-
-                    // Removes the correctly answered question from the answers that still need to be answered
-                    questions.splice(curQuestion, 1);
-
-                    if (questions.length <= 0)
-                        $.getScript("/js/quizScript.js", function () {
-                            StopQuiz();
-                        });
+                    // Check answer
+                    checkAnswer(userdata[0]);
                 }
-                else {
-                    // Notify the user they answered incorrectly
-                    var x = document.getElementsByClassName('cquestion');
-                    var i;
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.backgroundColor = "red";
-                    }
-                }
-            })
-            .then(function () {
-                // Wait a second before fetching a new question
-                setTimeout(function () {
-                    nextQuestion(curQuestion);
-                }, 800);
-            })
-            .catch(function (data) {
-                console.log("Answer has not been correctly sent.");
             });
     });
 }
@@ -179,8 +146,11 @@ function nextQuestion(lastquestion) {
     // Get a new question at random until a new question has been selected
     do {
         curQuestion = Math.floor((Math.random() * questions.length) + 0);
+
+        // Escape the loop if last question is undefined
+        if (typeof (lastquestion) == "undefined") break;
     }
-    while (typeof(lastquestion) != "undefined" && curQuestion.id == lastquestion.id);
+    while (questions[curQuestion].id == questions[lastquestion].id);
 
     // Shuffle the questions (randomise the location of the answers)
     var cqAnswers = shuffleArray(questions[curQuestion].answers);
@@ -286,4 +256,44 @@ function random_points() {
             }
         }
     }  
+}
+
+function checkAnswer(qAnswer) {
+    // Check if answer is correct
+    if (qAnswer.correct) {
+
+        // Increase points
+        player1points++;
+
+        // Update visuals
+        update();
+        move("Camelbar1", "img1");
+
+        // Notify the user they answered correctly
+        var x = document.getElementsByClassName('cquestion');
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.backgroundColor = "green";
+        }
+
+        // Removes the correctly answered question from the answers that still need to be answered
+        questions.splice(curQuestion, 1);
+
+        // TODO: ADD WIN CONDITION!
+        // if (questions.length <= 0)
+
+        // Wait a second before fetching a new question
+        setTimeout(nextQuestion(), 800);
+    }
+    else {
+        // Notify the user they answered incorrectly
+        var x = document.getElementsByClassName('cquestion');
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.backgroundColor = "red";
+        }
+
+        // Wait a second before fetching a new question
+        setTimeout(nextQuestion(curQuestion), 800);
+    }
 }
