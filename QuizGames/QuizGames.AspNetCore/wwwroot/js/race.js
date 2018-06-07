@@ -1,17 +1,17 @@
 // When the document is loaded, loaded the first quiz in the system
 $(document).ready(function () {
-        
+    $('.questioncontainer').hide();
 });
 
 var quiz;
 var questions;
+var questionCount;
 var player1points = 0;
 var player2points = 0;
 var player3points = 0;
 var player4points = 0;
 var curQuestion;
 var loop;
-var loopstarted = false;
 var questionResults = Array();
 
 
@@ -40,6 +40,7 @@ function start() {
                             .then(function (quizData) {
                                 quiz = quizData;
                                 questions = quizData.pages;
+                                questionCount = questions.length;
                             })
                             .then(function () {
                                 nextQuestion();
@@ -60,8 +61,13 @@ function start() {
     });
 }
 
+// question answered global var
+var callResult;
+
 // Validate answer to question
 function questionAnswered(answer) {
+    callResult = null;
+    
     // Get the answer id
     answer = answer.getAttribute("data-question");
 
@@ -83,9 +89,8 @@ function questionAnswered(answer) {
                     }
                 });
 
-                return answer;
+                callResult = answer;
             })
-            .then(checkAnswer)
             .catch(function (xhr) {
                 if (xhr.status == 403) {
                     // Save answer
@@ -94,10 +99,21 @@ function questionAnswered(answer) {
                     questionResults[questionResults.length - 1].userdata = userdata[0];
 
                     // Check answer
-                    checkAnswer(userdata[0]);
+                    callResult = userdata[0];
                 }
             });
     });
+
+    checkAnswerTimeout();
+}
+
+function checkAnswerTimeout() {
+    if (callResult != null) {
+        checkAnswer(callResult);
+    }
+    else {
+        setTimeout(checkAnswerTimeout, 100);
+    }
 }
 
 // Increase a scorebar
@@ -107,31 +123,53 @@ function move(id1, id2) {
     var width = Number(elem.style.width.replace(/[^\d\.\-]/g, ''));
     //var width = elem.offsetWidth;
     //var totalwidth = width / 7 * 100;
-    
-    if (width < 90) {
-        width += 10;
-        elem.style.width = width + '%';
-        img.style.left = width + '%';
-    }
-    else {
-        loopstarted = true;
-        toggleGameplay();
-        Camelbar1.style.width = 6 + '%';
-        Camelbar2.style.width = 6 + '%';
-        Camelbar3.style.width = 6 + '%';
-        Camelbar4.style.width = 6 + '%';
-        img1.style.left = 6 + '%';
-        img2.style.left = 6 + '%';
-        img3.style.left = 6 + '%';
-        img4.style.left = 6 + '%';
-        player1points = 0;
-        player3points = 0;
-        player2points = 0;
-        player4points = 0;
-        alert("Game over!");
-        loopstarted = false;
+
+    width += 10;
+    elem.style.width = width + '%';
+    img.style.left = width + '%';
+}
+
+function checkEndGame() {
+    if (quiz.pages.length <= 0) {
+        resetGame();
+        alert("Jij hebt gewonnen!!!");
         update();
+        location.href = "/menu/menu";
     }
+    else if (player2points >= questionCount) {
+        resetGame()
+        alert("Speler 2 heeft gewonnen!");
+        update();
+        location.href = "/menu/menu";
+    }
+    else if (player3points >= questionCount) {
+        resetGame()
+        alert("Speler 3 heeft gewonnen!");
+        update();
+        location.href = "/menu/menu";
+    }
+    else if (player4points >= questionCount) {
+        resetGame()
+        alert("Speler 4 heeft gewonnen!");
+        update();
+        location.href = "/menu/menu";
+    }
+}
+
+function resetGame() {
+    stopGameplay();
+    Camelbar1.style.width = 6 + '%';
+    Camelbar2.style.width = 6 + '%';
+    Camelbar3.style.width = 6 + '%';
+    Camelbar4.style.width = 6 + '%';
+    img1.style.left = 6 + '%';
+    img2.style.left = 6 + '%';
+    img3.style.left = 6 + '%';
+    img4.style.left = 6 + '%';
+    player1points = 0;
+    player3points = 0;
+    player2points = 0;
+    player4points = 0;
 }
 
 // Get a new question and display its data
@@ -171,18 +209,21 @@ function nextQuestion(lastquestion) {
     $('#canswer4').attr("data-question", cqAnswers[3].id);
 }
 
-// Toggle gameplay simulation
-function toggleGameplay() {
-    if (loopstarted == false) {
-        loop = setInterval(random_points, 2000);
-        loopstarted = true;
-        document.getElementById('gameplaybtn').innerHTML = "Stop Gameplay";
-    }
-    else {
-        loop = clearInterval(loop);
-        loopstarted = false;
-        document.getElementById('gameplaybtn').innerHTML = "Start Gameplay";
-    }
+// Start gameplay simulation
+function startGameplay() {
+    $('.answer').prop('disabled', false);
+    loop = setInterval(random_points, 2000);
+
+    $('#gameplaybtn').hide();
+    $('.questioncontainer').show();
+}
+
+// Stop gameplay simulation
+function stopGameplay() {
+    $('.answer').prop('disabled', true);
+
+    loop = clearInterval(loop);
+    $('.questioncontainer').hide();
 }
 
 //// Get dummy questions
@@ -238,24 +279,23 @@ function random_points() {
         if (random == 0) {
             if (i == 0) {
                 player2points++;
-                update();
                 move("Camelbar2", "img2");
                 
             }
             else if (i == 1) {
                 player3points++;
-                update();
                 move("Camelbar3", "img3");
                 
             }
             else if (i == 2) {
                 player4points++;
-                update();
                 move("Camelbar4", "img4");
                 
             }
         }
-    }  
+        update();
+    }
+    setTimeout(checkEndGame, 50);
 }
 
 function checkAnswer(qAnswer) {
@@ -268,6 +308,7 @@ function checkAnswer(qAnswer) {
         // Update visuals
         update();
         move("Camelbar1", "img1");
+        checkEndGame();
 
         // Notify the user they answered correctly
         var x = document.getElementsByClassName('cquestion');
@@ -278,12 +319,6 @@ function checkAnswer(qAnswer) {
 
         // Removes the correctly answered question from the answers that still need to be answered
         questions.splice(curQuestion, 1);
-
-        // TODO: ADD WIN CONDITION!
-        // if (questions.length <= 0)
-
-        // Wait a second before fetching a new question
-        setTimeout(nextQuestion(), 800);
     }
     else {
         // Notify the user they answered incorrectly
@@ -292,8 +327,8 @@ function checkAnswer(qAnswer) {
         for (i = 0; i < x.length; i++) {
             x[i].style.backgroundColor = "red";
         }
-
-        // Wait a second before fetching a new question
-        setTimeout(nextQuestion(curQuestion), 800);
     }
+
+    // Wait a second before fetching a new question
+    setTimeout(nextQuestion, 800);
 }

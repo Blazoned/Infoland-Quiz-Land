@@ -3,9 +3,6 @@
 @{
     ViewData["Title"] = "Kamelen Race";
 }
-<head>
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-</head>
 <body onload="start()">
     <div class="gamewrapper">
         <div class="Navbar">
@@ -28,19 +25,20 @@
             <div class="camelracebar" id="Camelbar4"><img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
         </div>
 
-        <div class="questioncontainer">
+        <div class="questioncontainer" hidden="hidden">
             <div class="cquestion">
                 <h2 id="questionlbl">Vraag:</h2>
                 <p id="qlbl"></p>
                 <br />
             </div>
 
-            <button class="answer" id="canswer1" data-question="" onclick="questionAnswered(this)"></button>
-            <button class="answer" id="canswer2" data-question="" onclick="questionAnswered(this)"></button>
-            <button class="answer" id="canswer3" data-question="" onclick="questionAnswered(this)"></button>
-            <button class="answer" id="canswer4" data-question="" onclick="questionAnswered(this)"></button>
+            <button class="answer" id="canswer1" data-question="" onclick="questionAnswered(this)" disabled></button>
+            <button class="answer" id="canswer2" data-question="" onclick="questionAnswered(this)" disabled></button>
+            <button class="answer" id="canswer3" data-question="" onclick="questionAnswered(this)" disabled></button>
+            <button class="answer" id="canswer4" data-question="" onclick="questionAnswered(this)" disabled></button>
         </div>
         <div>
-            <button class="gpbutton" id="gameplaybtn" onclick="toggleGameplay()">Start Gameplay</button>
+            <button class="gpbutton" id="gameplaybtn" onclick="startGameplay()">Start Gameplay</button>
         </div>
+    </div>
 </body>
