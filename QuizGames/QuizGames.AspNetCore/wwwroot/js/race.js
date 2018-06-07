@@ -1,20 +1,23 @@
+$(document).ready(function () {
+    scoreUpdated.handlers.push(function (playerId, score) {
+        // Get player index
+        var index = players.findIndex((player) => { return player.playerId === playerId; });
+
+        // Update displayed player score
+        update(index);
+    });
+});
+
 
     var questions;
     var qAnswerd = 0;
-    var player1points = 0;
-    var player2points = 0;
-    var player3points = 0;
-    var player4points = 0;
     var currentquestion;
-    var loop;
-    var loopstarted = false;
 
 
 
 function start() {
     questions = DummyQuestions();
     nextQuestion();
-   
 }
 
 function questionAsnsered(awnser) {
@@ -22,15 +25,18 @@ function questionAsnsered(awnser) {
 
         //alert($(window).width());
         $(".answer").hide();
-        player1points++;
-        update();
-        move("Camelbar1", "img1");
+
+        // Increase score and broadcast
+        players[0].score++;
+        connection.invoke("SendScore", players[0].score);
+
         qAnswerd++;
-        var x = document.getElementsByClassName('cquestion');
-        var i;
-        for (i = 0; i < x.length; i++) {
+        update(0);
+        let x = document.getElementsByClassName('cquestion');
+        for (let i = 0; i < x.length; i++) {
             x[i].style.backgroundColor = "green";
         }
+
         setTimeout(function () {
             nextQuestion(currentquestion);
             $(".answer").show();
@@ -40,9 +46,8 @@ function questionAsnsered(awnser) {
     else {
         $(".answer").hide();
         qAnswerd++;
-        var x = document.getElementsByClassName('cquestion');
-        var i;
-        for (i = 0; i < x.length; i++) {
+        let x = document.getElementsByClassName('cquestion');
+        for (let i = 0; i < x.length; i++) {
             x[i].style.backgroundColor = "red";
         }
         setTimeout(function () {
@@ -53,41 +58,45 @@ function questionAsnsered(awnser) {
     }
 }
 
-function move(id1, id2) {
-    var elem = document.getElementById(id1);
-    var img = document.getElementById(id2);
-    var width = Number(elem.style.width.replace(/[^\d\.\-]/g, ''));
-    //var width = elem.offsetWidth;
-    //var totalwidth = width / 7 * 100;
-    
-    if (width < 90) {
-        width += 10;
-        elem.style.width = width + '%';
-        img.style.left = width + '%';
+function update(itemIndex) {
+    // Get elements
+    var elem = document.getElementById("Camelbar" + (itemIndex + 1));
+    var img = document.getElementById("img" + (itemIndex + 1));
+    var label = document.getElementById("crp" + (itemIndex + 1));
+
+    // Get new width
+    var width = players[itemIndex].score / questions.length * 100;
+    if (width < 6) width = 6;
+
+    // Assign new values
+    elem.style.width = width + '%';
+    img.style.left = width + '%';
+    label.innerHTML = players[itemIndex].score;
+
+    // Check for game winner
+    setTimeout(checkEndGame, 50);
+}
+
+function checkEndGame() {
+    var won = false;
+
+    for (let i = 0; i < players.length; i++) {
+        if (players[i].score === questions.length) {
+            won = true
+
+            // Show the winning player
+            let playerName = players[i].playerId.toLowerCase();
+            playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
+            alert(playerName + " heeft gewonnen!");
+        }
     }
-    else {
-        loopstarted = true;
-        toggleGameplay();
-        Camelbar1.style.width = 6 + '%';
-        Camelbar2.style.width = 6 + '%';
-        Camelbar3.style.width = 6 + '%';
-        Camelbar4.style.width = 6 + '%';
-        img1.style.left = 6 + '%';
-        img2.style.left = 6 + '%';
-        img3.style.left = 6 + '%';
-        img4.style.left = 6 + '%';
-        player1points = 0;
-        player3points = 0;
-        player2points = 0;
-        player4points = 0;
-        alert("Game over!");
-        loopstarted = false;
-        update();
-    }
+
+    if (won)
+        location.href = "/menu/menu";
 }
 
 function nextQuestion(lastquestion) {
-    currentquestion = Math.floor((Math.random() * 5) + 0);
+    currentquestion = Math.floor(Math.random() * 5 + 0);
     
     var x = document.getElementsByClassName('cquestion');
     var i;
@@ -95,8 +104,8 @@ function nextQuestion(lastquestion) {
         x[i].style.backgroundColor = "#0168b3";
     }
 
-    while (currentquestion == lastquestion) {
-        currentquestion = Math.floor((Math.random() * 5) + 0);
+    while (currentquestion === lastquestion) {
+        currentquestion = Math.floor(Math.random() * 5 + 0);
     }
 
     document.getElementById('qlbl').innerHTML = questions[currentquestion].question;
@@ -104,20 +113,6 @@ function nextQuestion(lastquestion) {
     document.getElementById('canswer2').innerHTML = questions[currentquestion].answers[1];
     document.getElementById('canswer3').innerHTML = questions[currentquestion].answers[2];
     document.getElementById('canswer4').innerHTML = questions[currentquestion].answers[3]; 
-}
-
-
-function toggleGameplay() {
-    if (loopstarted == false) {
-        loop = setInterval(random_points, 2000);
-        loopstarted = true;
-        document.getElementById('gameplaybtn').innerHTML = "Stop Gameplay";
-    }
-    else {
-        loop = clearInterval(loop);
-        loopstarted = false;
-        document.getElementById('gameplaybtn').innerHTML = "Start Gameplay";
-    }
 }
 
 
@@ -153,42 +148,6 @@ function DummyQuestions(){
                 answers: ["Donau", "Oeral", "Wolga", "Dnjepr"],
                 correctAnswer: "Wolga"
             }
-        ]
+        ];
     return q;
 }
-
-function update() {
-    document.getElementById('crp1').innerHTML = player1points;
-    document.getElementById('crp2').innerHTML = player2points;
-    document.getElementById('crp3').innerHTML = player3points;
-    document.getElementById('crp4').innerHTML = player4points;
-}
-
-function random_points() {
-    var i;
-    for (i = 0; i < 3; i++) {
-        var random = Math.floor((Math.random() * 2) + 0);
-        if (random == 0) {
-            if (i == 0) {
-                player2points++;
-                update();
-                move("Camelbar2", "img2");
-                
-            }
-            else if (i == 1) {
-                player3points++;
-                update();
-                move("Camelbar3", "img3");
-                
-            }
-            else if (i == 2) {
-                player4points++;
-                update();
-                move("Camelbar4", "img4");
-                
-            }
-        }
-    }  
-}
-
-

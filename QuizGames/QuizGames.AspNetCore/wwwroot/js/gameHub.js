@@ -1,10 +1,19 @@
 ﻿//
 // Variables
 
-// Contains the connected players & your player name
-var playerName; // TODO: Assign the username of a player to this variable
-var players = new Array(); // TODO: Use player names to keep track of the user
+// Custom event constant
+const scoreUpdated =
+    {
+        Dispatch: function (playerId, score) {
+            this.handlers.forEach((func) => {
+                func(playerId, score);
+            });
+        },
+        handlers: []
+    };
 
+// Contains the connected players & your player name
+var players = new Array();
 
 //
 // Create connection to game hub
@@ -37,10 +46,23 @@ connection.on("GameConnected", function (playerClients) {
         history.go(-1);
     }
     else {
+        // Get local username
+        let playerName = getCookie("playerName");
+
+        // Get local user and remaining users
+        let locPlayer = playerClients.find((player) => { return player.playerId === playerName; });
+        let remPlayers = Array();
+
         // Add previously connected clients to player list
         for (let i = 0; i < playerClients.length; i++) {
-            players[i] = playerClients[i];
+            // Add remaining players to player list
+            if (playerClients[i].playerId !== playerName)
+                remPlayers[i] = playerClients[i];
         }
+
+        // Set the player list
+        players = remPlayers;
+        players.unshift(locPlayer);
 
         // Notify console
         console.log("Connected!");
@@ -52,13 +74,8 @@ connection.on("PlayerConnected", function (player) {
     // Add player to the player list
     players[players.length] = player;
 
-    // Get personal score
-    let index = players.findIndex(function (item) {
-        return item.playerId === playerId;
-    });
-
     // Send the clients current score to the newly connected player
-    connection.invoke("SendScore", players[index].score);
+    connection.invoke("SendScore", players[0].score);
 });
 
 // A player disconnected from the game
@@ -81,13 +98,16 @@ connection.on("ReceiveScore", function (player, score) {
 
     // Assign new score
     players[index].score = score;
+
+    // Dispatch score update event
+    scoreUpdated.Dispatch(player.playerId, score);
 });
 
 //
 // Start connection and attempt to join the game
 connection.start()
     .then(function () {
-        connection.invoke("JoinGame", "User Alpha");
+        connection.invoke("JoinGame", getCookie("playerName"));
     })
     .catch(function (error) {
         console.error(error.toString());
