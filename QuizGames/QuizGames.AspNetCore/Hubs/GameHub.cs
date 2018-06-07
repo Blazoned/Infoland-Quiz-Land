@@ -18,7 +18,7 @@ namespace QuizGames.AspNetCore.Hubs
             if (players == null || players.Count < 4)
             {
                 // Check if the player is already in game
-                if (players != null || players.Count((item) => { return item.PlayerId == playerId; }) >= 1)
+                if (players != null && players.Count((item) => { return item.PlayerId == playerId; }) >= 1)
                 {
                     await Clients.Caller.SendAsync("GameConnected", -2);
                     return;
@@ -27,15 +27,13 @@ namespace QuizGames.AspNetCore.Hubs
                 // Create player
                 GameViewModel player = new GameViewModel(Context.ConnectionId, playerId);
 
-                // Retrieve currently connected players
-                await Clients.Caller.SendAsync("GameConnected", players);
-
                 // Create a player list (if null) add the new connection
                 players = players ?? new List<GameViewModel>();
                 players.Add(player);
 
-                // Send the connection to the other players and confirm connection
+                // Send the connection to the other players and confirm connection and retrieve currently connected players
                 await Clients.Others.SendAsync("PlayerConnected", player);
+                await Clients.Caller.SendAsync("GameConnected", players);
             }
             else
             {
