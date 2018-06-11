@@ -1,7 +1,11 @@
 // When the document is loaded, loaded the first quiz in the system
 $(document).ready(function () {
     $('.questioncontainer').hide();
+    
+    
 });
+
+
 
 var quiz;
 var questions;
@@ -13,7 +17,6 @@ var player4points = 0;
 var curQuestion;
 var loop;
 var questionResults = Array();
-
 
 // Start game simulation
 function getFirstQuestion() {
@@ -131,28 +134,56 @@ function move(id1, id2) {
 
 function checkEndGame() {
     if (quiz.pages.length <= 0) {
+        var score = player1points;
         resetGame();
-        alert("Jij hebt gewonnen!!!");
+        showModal(false, "player 1", score);
+        //alert("Jij hebt gewonnen!!!");
         update();
-        location.href = "/menu/menu";
+        
     }
     else if (player2points >= questionCount) {
+        var score = player1points;
         resetGame()
-        alert("Speler 2 heeft gewonnen!");
+        showModal(false, "player 2", score);
+        //alert("Speler 2 heeft gewonnen!");
         update();
-        location.href = "/menu/menu";
+        
     }
     else if (player3points >= questionCount) {
-        resetGame()
-        alert("Speler 3 heeft gewonnen!");
+        var score = player1points;
+        resetGame();
+        showModal(false, "player 3", score);
+        //alert("Speler 3 heeft gewonnen!");
         update();
-        location.href = "/menu/menu";
+        
     }
     else if (player4points >= questionCount) {
+        var score = player1points;
         resetGame()
-        alert("Speler 4 heeft gewonnen!");
+        showModal(false, "player 4", score);
+        //alert("Speler 4 heeft gewonnen!");
         update();
-        location.href = "/menu/menu";
+    }
+}
+
+function showModal(win, winner, points) {
+    // show modal with some stats.
+    var score = player1points;
+    $("#endGameModal").css("display", "block");
+    $("#Mtext4").text(score);
+    $("#Mtext2").text(winner);
+    if (win != true) {
+        // if lost
+        $("#modalheader").css("background-color", "red");
+        $("#modalheader").html("YOU'VE LOST :(");
+        $("#modalfooter").css("background-color", "red");
+        $("#modalexitbtn").css("color", "red");
+    }
+    else {
+        //if won
+        $("#modalheader").html("YOU'VE WON :)")
+
+
     }
 }
 
@@ -331,4 +362,7 @@ function checkAnswer(qAnswer) {
 
     // Wait a second before fetching a new question
     setTimeout(nextQuestion, 800);
+
+ 
+    
 }

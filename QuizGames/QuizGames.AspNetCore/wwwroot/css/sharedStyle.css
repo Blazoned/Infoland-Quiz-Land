@@ -19,6 +19,95 @@ button{
     text-shadow: 1px 1px 2px #000000
 }
 
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+    border-radius: 0px;
+}
+#modalcontent {
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
+    /*padding: 20px;*/
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    display: grid;
+    grid-template-rows: 20% 1fr 20%;
+    grid-template-areas: "Mheader" "Mbody" "Mfooter";
+}
+
+#modalheader {
+    background-color: limegreen;
+    text-align: center;
+    vertical-align: middle;
+    line-height: inherit;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 100px;
+    font-weight:700;
+}
+
+#modalbody {
+    background-color: white;
+    display:grid;
+    grid-template-rows: minmax(30px, auto) 1fr 5% 1fr minmax(30px, auto);
+    grid-template-columns: 5% 1fr 1fr 5%;
+    grid-template-areas: ". . . . " ". Mtext1 Mtext2 ." ". . . ." ". Mtext3 Mtext4 . " ". . . .";
+}
+
+
+
+#modalfooter {
+    background-color: limegreen;
+    
+    
+}
+
+.modaltext{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:50px;
+    font-weight:700;
+    color:black;
+    
+}
+#Mtext1{
+    grid-area: Mtext1;
+    text-align:end;
+}
+#Mtext2 {
+    grid-area: Mtext2;
+}
+#Mtext3 {
+    grid-area: Mtext3;
+    text-align:end;
+}
+#Mtext4 {
+    grid-area: Mtext4;
+}
+
+#modalexitbtn{
+    float:right;
+    height:100px;
+    width:100px;
+    max-height:100%;
+    max-width:20%;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight:700;
+    background-color: white;
+    color: limegreen;
+    margin: 5px;
+    border-radius: 20px;
+    
+}
+
 .loginwrapper {
     display: grid;
     grid-template-columns: 15% 1fr 15%;
@@ -440,5 +529,6 @@ button{
         height: 150px;
     }
 
+   
 
 }

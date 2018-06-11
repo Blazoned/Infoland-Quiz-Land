@@ -23,6 +23,15 @@ namespace QuizGames__Asp.Net_Core_.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult EndGame(GameModeViewModel model)
+        {
+            return View(model);
+        }
+
+        
+
+
         [HttpPost]
         public IActionResult Giveanswer(GameModeViewModel model)
         {

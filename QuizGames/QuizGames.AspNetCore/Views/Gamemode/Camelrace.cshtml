@@ -40,5 +40,20 @@
         <div>
             <button class="gpbutton" id="gameplaybtn" onclick="startGameplay()">Start Gameplay</button>
         </div>
+
+       
+
+        <div class="modal" id="endGameModal"> 
+            <div id="modalcontent">
+               <span id="modalheader">winner/loser</span>
+               <div id="modalbody">
+                   <span class="modaltext" id="Mtext1">WINNER: </span>
+                   <span class="modaltext" id="Mtext2">"" </span>
+                   <span class="modaltext" id="Mtext3">POINTS: </span>
+                   <span class="modaltext" id="Mtext4"> ""</span>
+               </div>
+               <div id="modalfooter"><button id="modalexitbtn" onclick="@("window.location.href='" +@Url.Action("Menu", "Menu") + "'");">Exit</button> </div>
+            </div>
+        </div>
     </div>
 </body>
