@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
+using QuizGames.AspNetCore.Hubs;
 
 namespace QuizGames.AspNetCore
 {
@@ -17,13 +19,14 @@ namespace QuizGames.AspNetCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             // Initiate a route map template base for MVC
-            List<RouteMapBase> routeMapBases = new List<RouteMapBase>
+            List<RouteMapBase> routeMapMvc = new List<RouteMapBase>
             {
                 new RouteMapBase("Default", "{controller=Home}/{action=Index}/{id?}")
             };
@@ -34,19 +37,28 @@ namespace QuizGames.AspNetCore
                 app.UseDeveloperExceptionPage();
 
                 // Add developer path to mvc route map
-                routeMapBases.Add(
+                routeMapMvc.Add(
                     new RouteMapBase("Developer", "dev/{controller=DevHome}/{action=Index}/{id?}")
                 );
             }
 
             // Configure static file usage
+            app.UseFileServer();
             app.UseStaticFiles();
 
-            // make a call for the MVC service
+            // Make a call for the SignalR service
+            app.UseSignalR(
+                (routes) =>
+                {
+                    routes.MapHub<GameHub>("/hub/game");
+                }
+            );
+
+            // Make a call for the MVC service
             app.UseMvc(
                 (routeMap) =>
                 {
-                    foreach (var routeMapBase in routeMapBases) routeMapBase.AddToRouteBuilder(ref routeMap);
+                    foreach (var routeMapBase in routeMapMvc) routeMapBase.AddToRouteBuilder(ref routeMap);
                 }
             );
 

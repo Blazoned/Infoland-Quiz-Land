@@ -1,6 +1,12 @@
 // When the document is loaded, loaded the first quiz in the system
 $(document).ready(function () {
+    // Hide question container
     $('.questioncontainer').hide();
+
+    // Add score handler
+    scoreUpdated.handlers.push(function (playerId, score) {
+        // Get player index
+        var index = players.findIndex((player) => { return player.playerId === playerId; }
 });
 
 var quiz;
@@ -13,6 +19,15 @@ var player4points = 0;
 var curQuestion;
 var loop;
 var questionResults = Array();
+        // Update displayed player score
+        update(index);
+    });
+});
+
+
+    var questions;
+    var qAnswerd = 0;
+    var currentquestion;
 
 
 // Start game simulation
@@ -116,64 +131,46 @@ function checkAnswerTimeout() {
     }
 }
 
-// Increase a scorebar
-function move(id1, id2) {
-    var elem = document.getElementById(id1);
-    var img = document.getElementById(id2);
-    var width = Number(elem.style.width.replace(/[^\d\.\-]/g, ''));
-    //var width = elem.offsetWidth;
-    //var totalwidth = width / 7 * 100;
+function update(itemIndex) {
+    // Get elements
+    var elem = document.getElementById("Camelbar" + (itemIndex + 1));
+    var img = document.getElementById("img" + (itemIndex + 1));
+    var label = document.getElementById("crp" + (itemIndex + 1));
 
-    width += 10;
+    // Get new width
+    var width = players[itemIndex].score / questions.length * 100;
+    if (width < 6) width = 6;
+
+    // Assign new values
     elem.style.width = width + '%';
     img.style.left = width + '%';
+    label.innerHTML = players[itemIndex].score;
+
+    // Check for game winner
+    setTimeout(checkEndGame, 50);
 }
 
 function checkEndGame() {
-    if (quiz.pages.length <= 0) {
-        resetGame();
-        alert("Jij hebt gewonnen!!!");
-        update();
-        location.href = "/menu/menu";
-    }
-    else if (player2points >= questionCount) {
-        resetGame()
-        alert("Speler 2 heeft gewonnen!");
-        update();
-        location.href = "/menu/menu";
-    }
-    else if (player3points >= questionCount) {
-        resetGame()
-        alert("Speler 3 heeft gewonnen!");
-        update();
-        location.href = "/menu/menu";
-    }
-    else if (player4points >= questionCount) {
-        resetGame()
-        alert("Speler 4 heeft gewonnen!");
-        update();
-        location.href = "/menu/menu";
-    }
-}
+    var won = false;
 
-function resetGame() {
-    stopGameplay();
-    Camelbar1.style.width = 6 + '%';
-    Camelbar2.style.width = 6 + '%';
-    Camelbar3.style.width = 6 + '%';
-    Camelbar4.style.width = 6 + '%';
-    img1.style.left = 6 + '%';
-    img2.style.left = 6 + '%';
-    img3.style.left = 6 + '%';
-    img4.style.left = 6 + '%';
-    player1points = 0;
-    player3points = 0;
-    player2points = 0;
-    player4points = 0;
+    for (let i = 0; i < players.length; i++) {
+        if (players[i].score === questions.length) {
+            won = true
+
+            // Show the winning player
+            let playerName = players[i].playerId.toLowerCase();
+            playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
+            alert(playerName + " heeft gewonnen!");
+        }
+    }
+
+    if (won)
+        location.href = "/menu/menu";
 }
 
 // Get a new question and display its data
 function nextQuestion(lastquestion) {
+    currentquestion = Math.floor((Math.random() * 5) + 0);
     
     var x = document.getElementsByClassName('cquestion');
     var i;
@@ -226,42 +223,6 @@ function stopGameplay() {
     $('.questioncontainer').hide();
 }
 
-//// Get dummy questions
-//function DummyQuestions(){
-//    var q =
-//        [
-//            {
-//                question: "Wat is de hooftstad van Duitsland?",
-//                answers: ["Amsterdam", "Köln", "Wenen", "Berlijn"],
-//                correctAnswer: "Berlijn"
-//            },
-
-//            {
-//                question: "In welke provicie ligt Eindhoven?",
-//                answers: ["Overijsel", "Drenthe", "Zeeland", "Noord-Brabant"],
-//                correctAnswer: "Noord-Brabant"
-//            },
-
-//            {
-//                question: "Wat is de hoofdstad van Noord-Holland",
-//                answers: ["Den Haag", "Amsterdam", "Haarlem", "Alkmaar"],
-//                correctAnswer: "Haarlem"
-//            },
-
-//            {
-//                question: "Wat is het hoogste punt in Nederland?",
-//                answers: ["Tankenberg", "Vaalserberg", "Signaal Imbosch", "Groot Valkenisse"],
-//                correctAnswer: "Vaalserberg"
-//            },
-
-//            {
-//                question: "Wat is de langste rivier van Europa?",
-//                answers: ["Donau", "Oeral", "Wolga", "Dnjepr"],
-//                correctAnswer: "Wolga"
-//            }
-//        ]
-//    return q;
-//}
 
 // Update player score visuals
 function update() {
