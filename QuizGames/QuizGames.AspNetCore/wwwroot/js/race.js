@@ -82,7 +82,7 @@ function checkEndGame() {
 
     for (let i = 0; i < players.length; i++) {
         if (players[i].score === questions.length) {
-            won = true
+            won = true;
 
             // Show the winning player
             let playerName = players[i].playerId.toLowerCase();
