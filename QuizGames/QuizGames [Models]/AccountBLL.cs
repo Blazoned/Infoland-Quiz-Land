@@ -11,8 +11,8 @@ namespace QuizGames.Models
     {
         #region Fields
         #region Variables
-        private int _id;
-        private string _avatar;
+        // private int _id;
+        // private string _avatar;
         private string _username;
         private string _email;
 
@@ -30,12 +30,12 @@ namespace QuizGames.Models
                 throw new NotImplementedException();
 
                 /// TODO: If the progress is null, make an api data retrieval call (or database call for the sandbox application) else return the current data
-                if (_progress == null)
-                {
-                    _progress = null;
-                }
+                //if (_progress == null)
+                //{
+                //    _progress = null;
+                //}
 
-                return _progress;
+                //return _progress;
             }
         }
         public StatisticsBLL Statistics
@@ -45,12 +45,12 @@ namespace QuizGames.Models
                 throw new NotImplementedException();
 
                 /// TODO: If the statistics are null, make an api data retrieval call (or database call for the sandbox application) else return the current data
-                if (_statistics == null)
-                {
-                    _progress = null;
-                }
+                //if (_statistics == null)
+                //{
+                //    _progress = null;
+                //}
 
-                return _statistics;
+                //return _statistics;
             }
         }
         #endregion

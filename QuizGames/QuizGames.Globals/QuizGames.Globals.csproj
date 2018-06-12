@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QuizGames.Globals</RootNamespace>
-    <AssemblyName>QuizGames [Globals]</AssemblyName>
+    <AssemblyName>QuizGames.Globals</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

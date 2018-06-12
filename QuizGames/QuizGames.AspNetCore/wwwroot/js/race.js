@@ -104,7 +104,7 @@ function questionAnswered(answer) {
         AnswerQuestion(quiz.id, questions[curQuestion].id, answer)
             .then(function (response) {
                 // Save the response of the question in the quiz (for future reference)
-                var pageIndex = quiz.pages.findIndex(page => page.id == response.question.id);
+                var pageIndex = quiz.pages.findIndex(page => page.id === response.question.id);
                 quiz.pages[pageIndex] = response.question;
                 questionResults[questionResults.length] = response.question;
                 return response;
@@ -112,7 +112,7 @@ function questionAnswered(answer) {
             .then(function (response) {
                 // Get the answer data
                 response.question.answers.forEach(function (qAnswer) {
-                    if (qAnswer.id == answer) {
+                    if (qAnswer.id === answer) {
                         answer = qAnswer;
                     }
                 });
@@ -120,7 +120,7 @@ function questionAnswered(answer) {
                 callResult = answer;
             })
             .catch(function (xhr) {
-                if (xhr.status == 403) {
+                if (xhr.status === 403) {
                     // Save answer
                     questionResults[questionResults.length] = quiz.pages[curQuestion];
                     var userdata = getArrayItemByValue(quiz.pages[curQuestion].answers, "id", answer);
@@ -137,7 +137,7 @@ function questionAnswered(answer) {
 
 // Wait until results have been found
 function checkAnswerTimeout() {
-    if (callResult != null) {
+    if (callResult !== null) {
         checkAnswer(callResult);
     }
     else {
@@ -249,9 +249,9 @@ function nextQuestion(lastquestion) {
         curQuestion = Math.floor(Math.random() * questions.length + 0);
 
         // Escape the loop if last question is undefined
-        if (typeof lastquestion == "undefined") break;
+        if (typeof lastquestion === "undefined") break;
     }
-    while (questions[curQuestion].id == questions[lastquestion].id);
+    while (questions[curQuestion].id === questions[lastquestion].id);
 
     // Shuffle the questions (randomise the location of the answers)
     var cqAnswers = shuffleArray(questions[curQuestion].answers);

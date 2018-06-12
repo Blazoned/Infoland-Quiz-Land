@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizGames [Asp.Net Core]", "QuizGames.AspNetCore\QuizGames [Asp.Net Core].csproj", "{A83DC938-DABB-4CC6-BBB6-4AA43344DF80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizGames.AspNetCore", "QuizGames.AspNetCore\QuizGames.AspNetCore.csproj", "{A83DC938-DABB-4CC6-BBB6-4AA43344DF80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGames [ViewModels]", "QuizGames.ViewModels\QuizGames [ViewModels].csproj", "{FD42F148-D65E-46F3-B681-D9A54AB659B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGames.ViewModels", "QuizGames.ViewModels\QuizGames.ViewModels.csproj", "{FD42F148-D65E-46F3-B681-D9A54AB659B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGames [Models]", "QuizGames [Models]\QuizGames [Models].csproj", "{DCC19B4F-18A8-4717-973D-C632532ABC09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGames.Models", "QuizGames [Models]\QuizGames.Models.csproj", "{DCC19B4F-18A8-4717-973D-C632532ABC09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGames [DAL]", "QuizGames.DAL\QuizGames [DAL].csproj", "{577B9A77-B00C-4814-A0E7-80C8EADFD938}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGames.DAL", "QuizGames.DAL\QuizGames.DAL.csproj", "{577B9A77-B00C-4814-A0E7-80C8EADFD938}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGames [Globals]", "QuizGames.Globals\QuizGames [Globals].csproj", "{40C190EC-E20D-482D-A894-3088FF236593}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGames.Globals", "QuizGames.Globals\QuizGames.Globals.csproj", "{40C190EC-E20D-482D-A894-3088FF236593}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
