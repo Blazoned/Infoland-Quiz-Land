@@ -11,10 +11,27 @@ namespace QuizGames.AspNetCore.Hubs
     {
         // Contains a global count of players (game management)
         public static List<GameViewModel> players;
+        public static bool gameState = false;
+
+        // A client starts the game
+        public async Task StartGame()
+        {
+            await Clients.All.SendAsync("GameStarted", players.Count == 4);
+
+            // Started game
+            gameState = true;
+        }
 
         // A client attempts to join the game
         public async Task JoinGame(string playerId)
         {
+            // Return if game started
+            if (gameState)
+            {
+                await Clients.Caller.SendAsync("GameConnected", -3);
+                return;
+            }
+
             if (players == null || players.Count < 4)
             {
                 // Check if the player is already in game
@@ -52,6 +69,9 @@ namespace QuizGames.AspNetCore.Hubs
 
                 // Remove the player from the list
                 players.Remove(player);
+
+                // Reset gamestate if all players have left
+                gameState = gameState && players.Count <= 0 ? false : gameState;
 
                 // Reset the player score
                 await Clients.Others.SendAsync("ReceiveScore", player, 0);

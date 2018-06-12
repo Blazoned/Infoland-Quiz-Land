@@ -1,15 +1,37 @@
 // When the document is loaded, loaded the first quiz in the system
 $(document).ready(function () {
+    // Hide the question container and disable start button
     $('.questioncontainer').hide();
+    $('#gameplaybtn').prop('disabled', true);
+    LoadQuiz();
+
+    // Add a handler to the score updates
+    scoreUpdated.handlers.push(function (playerId, score) {
+        // Get player index
+        var index = players.findIndex((player) => { return player.playerId === playerId; });
+
+        // Update displayed player score
+        update(index);
+    });
+
+    clientConnected.handlers.push(checkJoinState);
+
+    // Add a handler to the player joins
+    playerJoined.handlers.push(checkJoinState);
+
+    // Add a handler to global game start
+    gameStarted.handlers.push(function ()
+    {
+        $('#gameplaybtn').prop('disabled', true);
+        $('#gameplaybtn').hide();
+        startGameplay();
+    });
 });
 
+const playerCountRequired = 4;
 var quiz;
 var questions;
 var questionCount;
-var player1points = 0;
-var player2points = 0;
-var player3points = 0;
-var player4points = 0;
 var curQuestion;
 var loop;
 var questionResults = Array();
@@ -27,7 +49,7 @@ function getFirstQuestion() {
     }
 }
 
-function start() {
+function LoadQuiz() {
     // Load the first quiz in the system
     $.getScript("/js/quizScript.js", function () {
         GetQuizes()
@@ -44,6 +66,8 @@ function start() {
                             })
                             .then(function () {
                                 nextQuestion();
+                                for (let i = 0; i < players.length; i++)
+                                    update(i);
                             })
                             .then(function () {
                                 console.log(quiz);
@@ -66,7 +90,11 @@ var callResult;
 
 // Validate answer to question
 function questionAnswered(answer) {
+    // Reset the result variable
     callResult = null;
+
+    // Hide the answer buttons
+    $(".answer").hide();
     
     // Get the answer id
     answer = answer.getAttribute("data-question");
@@ -107,6 +135,7 @@ function questionAnswered(answer) {
     checkAnswerTimeout();
 }
 
+// Wait until results have been found
 function checkAnswerTimeout() {
     if (callResult != null) {
         checkAnswer(callResult);
@@ -116,46 +145,82 @@ function checkAnswerTimeout() {
     }
 }
 
-// Increase a scorebar
-function move(id1, id2) {
-    var elem = document.getElementById(id1);
-    var img = document.getElementById(id2);
-    var width = Number(elem.style.width.replace(/[^\d\.\-]/g, ''));
-    //var width = elem.offsetWidth;
-    //var totalwidth = width / 7 * 100;
+// Check if the answer is correct
+function checkAnswer(qAnswer) {
+    // Check if answer is correct
+    if (qAnswer.correct) {
 
-    width += 10;
+        // Increase points and broadcast them
+        players[0].score++;
+        connection.invoke("SendScore", players[0].score);
+
+        // Update visuals
+        update(0);
+
+        // Notify the user they answered correctly
+        let x = document.getElementsByClassName('cquestion');
+        for (let i = 0; i < x.length; i++) {
+            x[i].style.backgroundColor = "green";
+        }
+
+        // Removes the correctly answered question from the answers that still need to be answered
+        questions.splice(curQuestion, 1);
+    }
+    else {
+        // Notify the user they answered incorrectly
+        let x = document.getElementsByClassName('cquestion');
+        for (let i = 0; i < x.length; i++) {
+            x[i].style.backgroundColor = "red";
+        }
+    }
+
+    // Wait a second before fetching a new question
+    setTimeout(nextQuestion, 800);
+}
+
+// Update visuals and check endgame
+function update(itemIndex) {
+    // Get elements
+    var elem = document.getElementById("Camelbar" + (itemIndex + 1));
+    var img = document.getElementById("img" + (itemIndex + 1));
+    var label = document.getElementById("crp" + (itemIndex + 1));
+
+    // Get new width
+    var width = players[itemIndex].score / questionCount * 100;
+    if (width < 6) width = 6;
+
+    // Assign new values
     elem.style.width = width + '%';
     img.style.left = width + '%';
+    label.innerHTML = players[itemIndex].score;
+
+    // Check for game winner
+    setTimeout(checkEndGame, 50);
 }
 
+// Check if a player has won
 function checkEndGame() {
-    if (quiz.pages.length <= 0) {
-        resetGame();
-        alert("Jij hebt gewonnen!!!");
-        update();
-        location.href = "/menu/menu";
+    var playerWon = false;
+
+    // Loop through players and check each of them
+    for (let i = 0; i < players.length; i++) {
+        if (players[i].score === questionCount) {
+            playerWon = true;
+
+            // Show the winning player
+            let playerName = players[i].playerId.toLowerCase();
+            playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
+            stopGameplay();
+            alert(playerName + " heeft gewonnen!");
+        }
     }
-    else if (player2points >= questionCount) {
-        resetGame()
-        alert("Speler 2 heeft gewonnen!");
-        update();
+
+    // Redirect to the main menu after the game is over
+    if (playerWon)
         location.href = "/menu/menu";
-    }
-    else if (player3points >= questionCount) {
-        resetGame()
-        alert("Speler 3 heeft gewonnen!");
-        update();
-        location.href = "/menu/menu";
-    }
-    else if (player4points >= questionCount) {
-        resetGame()
-        alert("Speler 4 heeft gewonnen!");
-        update();
-        location.href = "/menu/menu";
-    }
 }
 
+// Reset the game visuals
 function resetGame() {
     stopGameplay();
     Camelbar1.style.width = 6 + '%';
@@ -166,27 +231,25 @@ function resetGame() {
     img2.style.left = 6 + '%';
     img3.style.left = 6 + '%';
     img4.style.left = 6 + '%';
-    player1points = 0;
-    player3points = 0;
-    player2points = 0;
-    player4points = 0;
+    players.forEach(function (player) {
+        player.score = 0;
+    });
 }
 
 // Get a new question and display its data
 function nextQuestion(lastquestion) {
-    
-    var x = document.getElementsByClassName('cquestion');
-    var i;
-    for (i = 0; i < x.length; i++) {
+
+    let x = document.getElementsByClassName('cquestion');
+    for (let i = 0; i < x.length; i++) {
         x[i].style.backgroundColor = "#0168b3";
     }
 
     // Get a new question at random until a new question has been selected
     do {
-        curQuestion = Math.floor((Math.random() * questions.length) + 0);
+        curQuestion = Math.floor(Math.random() * questions.length + 0);
 
         // Escape the loop if last question is undefined
-        if (typeof (lastquestion) == "undefined") break;
+        if (typeof lastquestion == "undefined") break;
     }
     while (questions[curQuestion].id == questions[lastquestion].id);
 
@@ -207,12 +270,14 @@ function nextQuestion(lastquestion) {
 
     document.getElementById('canswer4').innerHTML = cqAnswers[3].text;
     $('#canswer4').attr("data-question", cqAnswers[3].id);
+
+    // Show the answer buttons
+    $(".answer").show();
 }
 
 // Start gameplay simulation
 function startGameplay() {
     $('.answer').prop('disabled', false);
-    loop = setInterval(random_points, 2000);
 
     $('#gameplaybtn').hide();
     $('.questioncontainer').show();
@@ -221,114 +286,24 @@ function startGameplay() {
 // Stop gameplay simulation
 function stopGameplay() {
     $('.answer').prop('disabled', true);
-
-    loop = clearInterval(loop);
+    
     $('.questioncontainer').hide();
+    $('#gameplaybtn').show();
 }
 
-//// Get dummy questions
-//function DummyQuestions(){
-//    var q =
-//        [
-//            {
-//                question: "Wat is de hooftstad van Duitsland?",
-//                answers: ["Amsterdam", "Köln", "Wenen", "Berlijn"],
-//                correctAnswer: "Berlijn"
-//            },
-
-//            {
-//                question: "In welke provicie ligt Eindhoven?",
-//                answers: ["Overijsel", "Drenthe", "Zeeland", "Noord-Brabant"],
-//                correctAnswer: "Noord-Brabant"
-//            },
-
-//            {
-//                question: "Wat is de hoofdstad van Noord-Holland",
-//                answers: ["Den Haag", "Amsterdam", "Haarlem", "Alkmaar"],
-//                correctAnswer: "Haarlem"
-//            },
-
-//            {
-//                question: "Wat is het hoogste punt in Nederland?",
-//                answers: ["Tankenberg", "Vaalserberg", "Signaal Imbosch", "Groot Valkenisse"],
-//                correctAnswer: "Vaalserberg"
-//            },
-
-//            {
-//                question: "Wat is de langste rivier van Europa?",
-//                answers: ["Donau", "Oeral", "Wolga", "Dnjepr"],
-//                correctAnswer: "Wolga"
-//            }
-//        ]
-//    return q;
-//}
-
-// Update player score visuals
-function update() {
-    document.getElementById('crp1').innerHTML = player1points;
-    document.getElementById('crp2').innerHTML = player2points;
-    document.getElementById('crp3').innerHTML = player3points;
-    document.getElementById('crp4').innerHTML = player4points;
+// Attempt to start the game
+function startGame() {
+    connection.invoke("StartGame");
 }
 
-// Increase player points at random (window interval)
-function random_points() {
-    var i;
-    for (i = 0; i < 3; i++) {
-        var random = Math.floor((Math.random() * 2) + 0);
-        if (random == 0) {
-            if (i == 0) {
-                player2points++;
-                move("Camelbar2", "img2");
-                
-            }
-            else if (i == 1) {
-                player3points++;
-                move("Camelbar3", "img3");
-                
-            }
-            else if (i == 2) {
-                player4points++;
-                move("Camelbar4", "img4");
-                
-            }
-        }
-        update();
-    }
-    setTimeout(checkEndGame, 50);
-}
-
-function checkAnswer(qAnswer) {
-    // Check if answer is correct
-    if (qAnswer.correct) {
-
-        // Increase points
-        player1points++;
-
-        // Update visuals
-        update();
-        move("Camelbar1", "img1");
-        checkEndGame();
-
-        // Notify the user they answered correctly
-        var x = document.getElementsByClassName('cquestion');
-        var i;
-        for (i = 0; i < x.length; i++) {
-            x[i].style.backgroundColor = "green";
-        }
-
-        // Removes the correctly answered question from the answers that still need to be answered
-        questions.splice(curQuestion, 1);
+function checkJoinState(player) {
+    // Check if the game can start
+    if (players.length === playerCountRequired) {
+        $('#gameplaybtn').prop('disabled', false);
+        document.getElementById('gameplaybtn').innerHTML = "Start spel! (" + players.length + "/" + playerCountRequired + " players)";
     }
     else {
-        // Notify the user they answered incorrectly
-        var x = document.getElementsByClassName('cquestion');
-        var i;
-        for (i = 0; i < x.length; i++) {
-            x[i].style.backgroundColor = "red";
-        }
+        $('#gameplaybtn').prop('disabled', true);
+        document.getElementById('gameplaybtn').innerHTML = "Wachten op spelers... (" + players.length + "/" + playerCountRequired + " players)";
     }
-
-    // Wait a second before fetching a new question
-    setTimeout(nextQuestion, 800);
 }

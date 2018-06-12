@@ -3,7 +3,10 @@
 @{
     ViewData["Title"] = "Kamelen Race";
 }
-<body onload="start()">
+<head>
+    <script src="~/js/gameHub.js"></script>
+</head>
+<body>
     <div class="gamewrapper">
         <div class="Navbar">
             <a href="@Url.Action("Menu", "Menu")" class="homebutton">
@@ -14,15 +17,14 @@
         </div>
         
         <div class="camelrace">
-            <div class="camelracepoints" id="crp1">0</div>
-            
-            <div class="camelracebar" id="Camelbar1"><img id="img1" src=https://www.w3schools.com/howto/img_avatar.png alt="Avatar"></div>
-            <div class="camelracepoints" id="crp2">0</div>
-            <div class="camelracebar" id="Camelbar2"><img id="img2" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
-            <div class="camelracepoints" id="crp3">0</div>
-            <div class="camelracebar" id="Camelbar3"><img id="img3" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
-            <div class="camelracepoints" id="crp4">0</div>
-            <div class="camelracebar" id="Camelbar4"><img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
+            <div class="camelracepoints player1" id="crp1">0</div>
+            <div class="camelracebar player1" id="Camelbar1"><img id="img1" src=https://www.w3schools.com/howto/img_avatar.png alt="Avatar"></div>
+            <div class="camelracepoints player2" id="crp2">0</div>
+            <div class="camelracebar player2" id="Camelbar2"><img id="img2" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
+            <div class="camelracepoints player3" id="crp3">0</div>
+            <div class="camelracebar player3" id="Camelbar3"><img id="img3" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
+            <div class="camelracepoints player4" id="crp4">0</div>
+            <div class="camelracebar player4" id="Camelbar4"><img id="img4" src=https://www.w3schools.com/howto/img_avatar2.png alt="Avatar"></div>
         </div>
 
         <div class="questioncontainer" hidden="hidden">
@@ -31,14 +33,13 @@
                 <p id="qlbl"></p>
                 <br />
             </div>
-
-            <button class="answer" id="canswer1" data-question="" onclick="questionAnswered(this)" disabled></button>
-            <button class="answer" id="canswer2" data-question="" onclick="questionAnswered(this)" disabled></button>
-            <button class="answer" id="canswer3" data-question="" onclick="questionAnswered(this)" disabled></button>
-            <button class="answer" id="canswer4" data-question="" onclick="questionAnswered(this)" disabled></button>
+                <button class="answer" id="canswer1" data-question="" onclick="questionAnswered(this)" disabled></button>
+                <button class="answer" id="canswer2" data-question="" onclick="questionAnswered(this)" disabled></button>
+                <button class="answer" id="canswer3" data-question="" onclick="questionAnswered(this)" disabled></button>
+                <button class="answer" id="canswer4" data-question="" onclick="questionAnswered(this)" disabled></button>
         </div>
         <div>
-            <button class="gpbutton" id="gameplaybtn" onclick="startGameplay()">Start Gameplay</button>
+            <button class="gpbutton" id="gameplaybtn" onclick="startGame()">Start Gameplay</button>
         </div>
     </div>
 </body>

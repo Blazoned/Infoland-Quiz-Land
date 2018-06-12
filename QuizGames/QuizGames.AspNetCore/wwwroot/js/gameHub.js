@@ -12,6 +12,36 @@ const scoreUpdated =
         handlers: []
     };
 
+const playerJoined =
+    {
+        Dispatch: function (users) {
+            this.handlers.forEach((func) => {
+                func(users);
+            });
+        },
+        handlers: []
+    };
+
+const gameStarted =
+    {
+        Dispatch: function () {
+            this.handlers.forEach((func) => {
+                func();
+            });
+        },
+        handlers: []
+    };
+
+const clientConnected =
+    {
+        Dispatch: function () {
+            this.handlers.forEach((func) => {
+                func();
+            });
+        },
+        handlers: []
+    };
+
 // Contains the connected players & your player name
 var players = new Array();
 
@@ -32,6 +62,12 @@ window.onbeforeunload = function () {
 //
 // Add connection handlers
 
+// Client attempted to start the game
+connection.on("GameStarted", function (isStartable) {
+    if (isStartable)
+        gameStarted.Dispatch();
+});
+
 // Client attempted to connect to the game
 connection.on("GameConnected", function (playerClients) {
     if (playerClients === -1) {
@@ -43,6 +79,11 @@ connection.on("GameConnected", function (playerClients) {
     {
         // Alert and redirect to previous page
         alert("You're already in the game!");
+        history.go(-1);
+    }
+    else if (playerClients === -3) {
+        // Alert and redirect to previous page
+        alert("The game has already started!");
         history.go(-1);
     }
     else {
@@ -66,6 +107,7 @@ connection.on("GameConnected", function (playerClients) {
 
         // Notify console
         console.log("Connected!");
+        clientConnected.Dispatch();
     }
 });
 
@@ -73,6 +115,7 @@ connection.on("GameConnected", function (playerClients) {
 connection.on("PlayerConnected", function (player) {
     // Add player to the player list
     players[players.length] = player;
+    playerJoined.Dispatch(players);
 
     // Send the clients current score to the newly connected player
     connection.invoke("SendScore", players[0].score);
