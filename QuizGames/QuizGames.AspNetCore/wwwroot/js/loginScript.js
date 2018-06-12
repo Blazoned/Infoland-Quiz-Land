@@ -11,14 +11,14 @@
                 }
             ),
             success: function (result, xhr) {
-                $("#authenticationSection").html(result);
+                setCookie("playerName", $("#tbUname").val().toLowerCase(), 1);
 
                 var form = '<input type="hidden" name="key" value="' + result + '">';
 
                 $('<form action="' + window.location.origin + "/authorise" + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
             },
             error: function () {
-                alert("Wrong credentials, please try again.")
+                alert("Wrong credentials, please try again.");
                 $("#tbUname,#tbPsw").animate(
                     {
                         "border-style": "solid",

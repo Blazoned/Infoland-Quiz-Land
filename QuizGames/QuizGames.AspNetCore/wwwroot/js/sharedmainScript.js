@@ -12,12 +12,12 @@ Object.byString = function (o, s) {
         }
     }
     return o;
-}
+};
 
 // Sets an existing cookie or creates a new one
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
@@ -60,8 +60,7 @@ function shuffleArray(array) {
 }
 
 // Get object item location
-function getArrayItemByValue(objectList, objectKey, keyValue)
-{
+function getArrayItemByValue(objectList, objectKey, keyValue) {
     return objectList.filter(
         function (data) {
             return Object.byString(data, objectKey) == keyValue;
