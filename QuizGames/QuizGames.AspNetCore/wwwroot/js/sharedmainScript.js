@@ -1,4 +1,35 @@
-﻿// Get object using a string
+﻿var urlLocation;
+
+// Redirect to login if not logged in, else redirect to menu if on login page and not logged in.
+$(document).ready(function () {
+    var sessionId = getCookie("AuthKey");
+    var username = getCookie("playerName");
+
+    urlLocation = location.href.split("/").slice(-1)[0];
+    var loggedIn = !(sessionId === "" || typeof sessionId === "undefined") || !(username === "" || typeof username === "undefined")
+
+    if (urlLocation === "") {
+        if (loggedIn) {
+            location.href = "/menu/menu";
+        }
+    }
+    else {
+        if (!loggedIn) {
+            location.href = "/";
+        }
+    }
+});
+
+function SignOff() {
+    if (confirm("Wil je uitloggen?")) {
+        setCookie("playerName", "", -1);
+        setCookie("AuthKey", "", -1);
+
+        location.href = "/";
+    }
+}
+
+// Get object using a string
 Object.byString = function (o, s) {
     s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     s = s.replace(/^\./, '');           // strip a leading dot
