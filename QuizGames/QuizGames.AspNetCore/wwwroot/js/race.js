@@ -23,7 +23,7 @@ $(document).ready(function () {
     gameStarted.handlers.push(function ()
     {
         $('#gameplaybtn').prop('disabled', true);
-        $('#gameplaybtn').hide();
+        $('#gameplaybtn').text(players[0].playerId);
         startGameplay();
     });
 });
@@ -208,10 +208,8 @@ function checkEndGame() {
             playerWon = true;
 
             // Show the winning player
-            let playerName = players[i].playerId.toLowerCase();
-            playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
             stopGameplay();
-            alert(playerName + " heeft gewonnen!");
+            alert(players[i].playerId + " heeft gewonnen!");
         }
     }
 
@@ -279,7 +277,6 @@ function nextQuestion(lastquestion) {
 function startGameplay() {
     $('.answer').prop('disabled', false);
 
-    $('#gameplaybtn').hide();
     $('.questioncontainer').show();
 }
 

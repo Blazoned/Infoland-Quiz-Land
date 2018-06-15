@@ -11,7 +11,10 @@
                 }
             ),
             success: function (result, xhr) {
-                setCookie("playerName", $("#tbUname").val().toLowerCase(), 1);
+                let playerName = $("#tbUname").val().toLowerCase().toLowerCase();
+                playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
+
+                setCookie("playerName", playerName, 1);
 
                 var form = '<input type="hidden" name="key" value="' + result + '">';
 

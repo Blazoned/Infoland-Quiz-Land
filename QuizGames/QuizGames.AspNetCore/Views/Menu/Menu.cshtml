@@ -5,7 +5,7 @@
 <body>
     <div class="homewrapper">
         <div class="Navbar">
-            <a href="/" onclick="SignOff()" class="homebutton">
+            <a href="" onclick="SignOff()" class="homebutton">
                 <img src="~/images/homebutton.png" alt="homebutton" class="homebutton">
             </a>
             <img src="~/images/infolandLoGo.png" alt="infoland logo" class="infologo">
@@ -15,7 +15,9 @@
 
         <div class="Playdiv">
             <input type="button" class="Playbutton" onclick="@("window.location.href='" +@Url.Action("camelrace", "gamemode") + "'");"/>
+            <a href="@Url.Action("camelrace", "gamemode")">
                 <p class="buttontext">Play</p>
+            </a>
         </div>
 
 
